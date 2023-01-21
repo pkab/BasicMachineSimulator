@@ -22,8 +22,14 @@ public class Memory
          * max unsigned value that can be stored in a largest 16bit number.
          * Value resets to 0
         **/
+        for(int i=0;i<KB4;i++){
+            Data[i] = 0;
+        }
     }
-    public void Initialize(){
+    /**
+     * Reset the Memory
+     */
+    public void Reset(){
         for(int i=0;i<KB4;i++){
             Data[i] = 0;
         }
