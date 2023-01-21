@@ -22,6 +22,7 @@ public class CPU
     /**
      * Define OpCode Inst
      */
+    static short HLT = 0x00; /** Stops the Machine **/
     static short LDR = 0x01; 
     /** Load Register From Memory **/
     /** RX <- Value(Effective Address) **/
