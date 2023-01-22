@@ -5,24 +5,24 @@
  * @author Abhinava Phukan
  * @version 0.1
  */
-public class Memory
+public class Memory extends Converter
 {
     public int Data[];
     /**
-     * 4KB Memory - 1024 * 4 (Memory of 2048 Words)
-     * 8KB Memory - 1024 * 8 (Memory of 4096 Words)
+     * 2KB Memory - 1024 * 2 (Memory of 2048 Words)
+     * 4KB Memory - 1024 * 4 (Memory of 4096 Words)
     **/
+    static int KB2 = 1024 * 2;
     static int KB4 = 1024 * 4;
-    static int KB8 = 1024 * 8;
     public Memory(){
         
-        Data = new int[KB4]; 
+        Data = new int[KB2]; 
         /** ^ - Java Does not support unsigned primitive type
          * so we are expanding with int to cover 
          * max unsigned value that can be stored in a largest 16bit number.
          * Value resets to 0
         **/
-        for(int i=0;i<KB4;i++){
+        for(int i=0;i<KB2;i++){
             Data[i] = 0;
         }
     }
@@ -30,7 +30,7 @@ public class Memory
      * Reset the Memory
      */
     public void Reset(){
-        for(int i=0;i<KB4;i++){
+        for(int i=0;i<KB2;i++){
             Data[i] = 0;
         }
     }

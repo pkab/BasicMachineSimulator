@@ -11,7 +11,7 @@ public class Converter
     }
 
     /**
-     * 
+     * Convert Binary to a decimal number and returns it
      */
     public short BinaryToDecimal(char Bin[],int length){
         short result=0;
@@ -23,6 +23,9 @@ public class Converter
         }
         return result;
     }
+    /**
+     * Convert Decimal to a Binary Number
+     */
     public void DecimalToBinary(int dec, char[] Bin,int length){
         int c=0;
         while(dec>0){

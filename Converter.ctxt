@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=Converter
+comment0.text=\r\n\ Converter\ Class\ -\ Numerical\ Conversions\r\n\r\n\ @author\ (Abhinava\ Phukan)\r\n\ @version\ (0.1)\r\n
+comment1.params=
+comment1.target=Converter()
+comment2.params=Bin\ length
+comment2.target=short\ BinaryToDecimal(char[],\ int)
+comment2.text=\r\n\ Convert\ Binary\ to\ a\ decimal\ number\ and\ returns\ it\r\n
+comment3.params=dec\ Bin\ length
+comment3.target=void\ DecimalToBinary(int,\ char[],\ int)
+comment3.text=\r\n\ Convert\ Decimal\ to\ a\ Binary\ Number\r\n
+numComments=4
