@@ -1,9 +1,0 @@
-#BlueJ class context
-comment0.target=Memory
-comment0.text=\r\n\ Memory\ Class\ -\ Defining\ the\ memory\ block\ here\r\n\r\n\ @author\ Abhinava\ Phukan\r\n\ @version\ 0.1\r\n
-comment1.params=
-comment1.target=Memory()
-comment2.params=
-comment2.target=void\ Reset()
-comment2.text=\r\n\ Reset\ the\ Memory\r\n
-numComments=3
