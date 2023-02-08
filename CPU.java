@@ -70,6 +70,10 @@ public class CPU extends Converter
             R0[i] = R1[i] = R2[i] = R3[i] = 0;
         }
     }
+    public void CopyArr(char src[],char des[],int len){
+        for(int i=0;i<len;i++)
+            des[i] = src[i];
+    }
     /**
      * Internal Function that fetches the Effective address effectively
      */
@@ -83,10 +87,10 @@ public class CPU extends Converter
                 EA += BinaryToDecimal(X1,16);
                 break;
             case 2:
-                EA += BinaryToDecimal(X1,16);
+                EA += BinaryToDecimal(X2,16);
                 break;
             case 3:
-                EA += BinaryToDecimal(X1,16);
+                EA += BinaryToDecimal(X3,16);
                 break;
             default:
                 break;
@@ -99,18 +103,20 @@ public class CPU extends Converter
      */
     private void StoreRegister(char rx[],short EA,Memory m){
         byte RVal= (byte)BinaryToDecimal(rx,2);
+        DecimalToBinary(EA,MAR,12);
+        DecimalToBinary(m.Data[EA],MBR,16);
         switch(RVal){
             case 0:
-                DecimalToBinary(m.Data[EA],R0,16);
+                CopyArr(MBR, R0, 16);
                 break;
             case 1:
-                DecimalToBinary(m.Data[EA],R1,16);
+                CopyArr(MBR, R1, 16);
                 break;
             case 2:
-                DecimalToBinary(m.Data[EA],R2,16);
+                CopyArr(MBR, R2, 16);
                 break;
             case 3:
-                DecimalToBinary(m.Data[EA],R3,16);
+                CopyArr(MBR, R3, 16);
                 break;
         }
     }
@@ -121,39 +127,46 @@ public class CPU extends Converter
      */
     private void MemStore(char rx[],short EA,Memory m){
         byte RVal = (byte)BinaryToDecimal(rx,2);
+        DecimalToBinary(EA,MAR,12);
         switch(RVal){
             case 0:
-                m.Data[EA] = BinaryToDecimal(R0,16);
+                CopyArr(R0, MBR, 16);
                 break;
             case 1:
-                m.Data[EA] = BinaryToDecimal(R1,16);
+                CopyArr(R1, MBR, 16);
                 break;
             case 2:
-                m.Data[EA] = BinaryToDecimal(R2,16);
+                CopyArr(R2, MBR, 16);
                 break;
             case 3:
-                m.Data[EA] = BinaryToDecimal(R3,16);
+                CopyArr(R3, MBR, 16);
                 break;
         }
+        m.Data[EA] = BinaryToDecimal(MBR,16);
     }
     /** End of MemStore **/
+    public void ReverseCopyArr(char src[],char des[],int length,int srclen){
+        for(int i=0;i<srclen;i++)
+            des[length-i-1] = src[srclen-i-1];
+    }
     /**
      * Internal Function That Loads the Effective address value in to the specified register
      */
     private void StoreRegisterEA(char rx[],short EA){
         byte RVal= (byte)BinaryToDecimal(rx,2);
+        DecimalToBinary(EA,MAR,12);
         switch(RVal){
             case 0:
-                DecimalToBinary(EA,R0,16);
+                ReverseCopyArr(MAR, R0, 16, 12);
                 break;
             case 1:
-                DecimalToBinary(EA,R1,16);
+                ReverseCopyArr(MAR, R1, 16, 12);
                 break;
             case 2:
-                DecimalToBinary(EA,R2,16);
+                ReverseCopyArr(MAR, R2, 16, 12);
                 break;
             case 3:
-                DecimalToBinary(EA,R3,16);
+                ReverseCopyArr(MAR, R3, 16, 12);
                 break;
         }
     }
@@ -225,6 +238,18 @@ public class CPU extends Converter
         System.out.printf("R0: ");
         for(int i=0;i<16;i++)
             System.out.printf("%d ",(int)this.R0[i]);
+        System.out.println();
+    }
+    public void getMAR(){
+        System.out.printf("MAR: ");
+        for(int i=0;i<12;i++)
+            System.out.printf("%d ",(int)this.MAR[i]);
+        System.out.println();
+    }
+    public void getMBR(){
+        System.out.printf("MBR: ");
+        for(int i=0;i<16;i++)
+            System.out.printf("%d ",(int)this.MBR[i]);
         System.out.println();
     }
     public void getR1(){
