@@ -123,7 +123,77 @@ public class GUI
             MainWindow.add(marlab[i]);
         }
     }
+    public void switches(){
+        JButton fft = new JButton("15");
+        fft.setBounds(350,450,80,25);
+        MainWindow.add(fft);
+    
+    }
     public void LoadGui(){
+        JButton fft = new JButton("15");
+        fft.setBounds(30,485,48,60);
+        MainWindow.add(fft);
+        
+        JButton frt = new JButton("14");
+        frt.setBounds(80,485,48,60);
+        MainWindow.add(frt);
+        
+        JButton trt = new JButton("13");
+        trt.setBounds(130,485,48,60);
+        MainWindow.add(trt);
+        
+        JButton twv = new JButton("12");
+        twv.setBounds(180,485,48,60);
+        MainWindow.add(twv);
+        
+        JButton elv = new JButton("11");
+        elv.setBounds(230,485,48,60);
+        MainWindow.add(elv);
+        
+        JButton ten = new JButton("10");
+        ten.setBounds(280,485,48,60);
+        MainWindow.add(ten);
+        
+        JButton nine = new JButton("9");
+        nine.setBounds(340,485,48,60);
+        MainWindow.add(nine);
+        
+        JButton egt = new JButton("8");
+        egt.setBounds(390,485,48,60);
+        MainWindow.add(egt);
+        
+        JButton sev = new JButton("7");
+        sev.setBounds(450,485,48,60);
+        MainWindow.add(sev);
+        
+        JButton six = new JButton("6");
+        six.setBounds(500,485,48,60);
+        MainWindow.add(six);
+        
+        JButton five = new JButton("5");
+        five.setBounds(560,485,48,60);
+        MainWindow.add(five);
+        
+        JButton four = new JButton("4");
+        four.setBounds(620,485,48,60);
+        MainWindow.add(four);
+        
+        JButton thr = new JButton("3");
+        thr.setBounds(670,485,48,60);
+        MainWindow.add(thr);
+        
+        JButton two = new JButton("2");
+        two.setBounds(720,485,48,60);
+        MainWindow.add(two);
+        
+        JButton one = new JButton("1");
+        one.setBounds(770,485,48,60);
+        MainWindow.add(one);
+        
+        JButton zero = new JButton("0");
+        zero.setBounds(820,485,48,60);
+        MainWindow.add(zero);
+        
         JButton store = new JButton("Store");
         store.setBounds(750,450,80,25);
         MainWindow.add(store);
