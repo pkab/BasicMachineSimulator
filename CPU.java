@@ -10,15 +10,15 @@ public class CPU extends Converter
     /**
      * Define the Structure of the CPU
      */
-    char PC[]; /** Program Counter **/
-    char CC[]; /** Condition Code**/
-    char IR[]; /** Instruction Register **/
-    char MAR[]; /** Memory Address Register **/
-    char MBR[]; /** Memory Buffer Register **/
-    char MFR[]; /** Machine Fault Register **/
-    char R0[],R1[],R2[],R3[]; /** General Purpose Register **/
-    char X[][];
-    char X1[],X2[],X3[]; /** Index Registers **/
+    public char PC[]; /** Program Counter **/
+    public char CC[]; /** Condition Code**/
+    public char IR[]; /** Instruction Register **/
+    public char MAR[]; /** Memory Address Register **/
+    public char MBR[]; /** Memory Buffer Register **/
+    public char MFR[]; /** Machine Fault Register **/
+    public char R0[],R1[],R2[],R3[]; /** General Purpose Register **/
+    public char X[][];
+    public char X1[],X2[],X3[]; /** Index Registers **/
     /** ------------------- End of Structure Definition -------------------**/
     /**
      * Define OpCode Inst
@@ -213,7 +213,7 @@ public class CPU extends Converter
         short EA=FetchEA(IX,Address,m,I);
         switch(OpCode){
             case HLT:
-                Reset(m);
+                //Reset(m);
                 break;
             case LDR:
                 StoreRegister(RX,EA,m);
@@ -230,35 +230,40 @@ public class CPU extends Converter
     public char[] getIR() {
         return IR;
     }
-    
+    public char[] getMAR(){
+        return MAR;
+    }
+    public char[] getR0(){
+        return R0;
+    }
+    public char[] getR1() {
+        return R1;
+    }
+    public char[] getR2(){
+        return R2;
+    }
+    public char[] getR3() {
+        return R3;
+    }
     public void setIR(char IR[]){
         for(int i=0;i<16;i++)
             this.IR[i] = IR[i];
     }
-    
-    public short getR1() {
-        return R1;
+    public void setR0(short value){
+        DecimalToBinary((int)value,R0,16);
     }
-    
     public void setR1(short value){
         DecimalToBinary((int)value,R1,16);
     }
-    
-    public void getR0(){
-        return R0;
+    public void setR2(short value){
+        DecimalToBinary((int)value,R2,16);
     }
+    public void setR3(short value){
+        DecimalToBinary((int)value,R3,16);
+    }
+    
     
     public void setR0(){ //changed getR0 to setR0
-        /*
-          System.out.printf("R0: ");
-        for(int i=0;i<16;i++)
-            System.out.printf("%d ",(int)this.R0[i]);
-        System.out.println();
-    }
-    */
-   
-    public void getMAR(){
-        return MAR;
     }
         
     public void setMAR(){ //changed getMAR to setMAR
@@ -267,10 +272,9 @@ public class CPU extends Converter
         for(int i=0;i<12;i++)
             System.out.printf("%d ",(int)this.MAR[i]);
         System.out.println();
-        
+        */    
     }
-    */
-    public void getMBR(){
+    public char[] getMBR(){
         return MBR;
     }
     public void setMBR(){ //changed getMBR to setMBR
@@ -279,17 +283,6 @@ public class CPU extends Converter
         for(int i=0;i<16;i++)
             System.out.printf("%d ",(int)this.MBR[i]);
         System.out.println();
+        */
     }
-    */
-    public void getR1(){
-        return R1;
-    }
-    public void setR1(){ //changed getR1 to setR1
-       /* 
-        System.out.printf("R1: ");
-        for(int i=0;i<16;i++)
-            System.out.printf("%d ",(int)this.R1[i]);
-            System.out.println();
-    }
-    */
 }

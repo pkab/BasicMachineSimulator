@@ -13,6 +13,8 @@ public class Main extends Converter
     public static void main(String args[]){
         CPU cpu = new CPU();
         Memory mem = new Memory();
+        GUI gui = new GUI();
+        gui.LoadGui();
         
     }
 }
