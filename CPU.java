@@ -227,35 +227,69 @@ public class CPU extends Converter
         }
     }
     /** Getter and Setter Functions for Debugging and future development only **/
+    public char[] getIR() {
+        return IR;
+    }
+    
     public void setIR(char IR[]){
         for(int i=0;i<16;i++)
             this.IR[i] = IR[i];
     }
+    
+    public short getR1() {
+        return R1;
+    }
+    
     public void setR1(short value){
         DecimalToBinary((int)value,R1,16);
     }
+    
     public void getR0(){
-        System.out.printf("R0: ");
+        return R0;
+    }
+    
+    public void setR0(){ //changed getR0 to setR0
+        /*
+          System.out.printf("R0: ");
         for(int i=0;i<16;i++)
             System.out.printf("%d ",(int)this.R0[i]);
         System.out.println();
     }
+    */
+   
     public void getMAR(){
+        return MAR;
+    }
+        
+    public void setMAR(){ //changed getMAR to setMAR
+        /*
         System.out.printf("MAR: ");
         for(int i=0;i<12;i++)
             System.out.printf("%d ",(int)this.MAR[i]);
         System.out.println();
+        
     }
+    */
     public void getMBR(){
+        return MBR;
+    }
+    public void setMBR(){ //changed getMBR to setMBR
+        /*
         System.out.printf("MBR: ");
         for(int i=0;i<16;i++)
             System.out.printf("%d ",(int)this.MBR[i]);
         System.out.println();
     }
+    */
     public void getR1(){
+        return R1;
+    }
+    public void setR1(){ //changed getR1 to setR1
+       /* 
         System.out.printf("R1: ");
         for(int i=0;i<16;i++)
             System.out.printf("%d ",(int)this.R1[i]);
-        System.out.println();
+            System.out.println();
     }
+    */
 }
