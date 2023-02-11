@@ -7,7 +7,7 @@
  */
 public class Memory extends Converter
 {
-    public int Data[];
+    public short Data[];
     /**
      * 2KB Memory - 1024 * 2 (Memory of 2048 Words)
      * 4KB Memory - 1024 * 4 (Memory of 4096 Words)
@@ -16,7 +16,7 @@ public class Memory extends Converter
     static int KB4 = 1024 * 4;
     public Memory(){
         
-        Data = new int[KB2]; 
+        Data = new short[KB2]; 
         /** ^ - Java Does not support unsigned primitive type
          * so we are expanding with int to cover 
          * max unsigned value that can be stored in a largest 16bit number.

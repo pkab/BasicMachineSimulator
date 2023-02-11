@@ -10,10 +10,13 @@ public class Main extends Converter
     public Main(){
         
     }
-
     public static void main(String args[]){
         CPU cpu = new CPU();
         Memory mem = new Memory();
+        
+    }
+}
+/**
         mem.Data[63]=20;
         char IR[] = {0,0,0,0,0,1,0,0,1,0,0,1,1,1,1,1};
         cpu.X2[10]=1;
@@ -41,5 +44,4 @@ public class Main extends Converter
         cpu.getMAR();
         cpu.getMBR();
         System.out.println("STR Opcode Result Memory Location:" + mem.Data[63]);
-    }
-}
+        **/
