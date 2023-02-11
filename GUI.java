@@ -211,58 +211,61 @@ public class GUI extends JFrame
         this.setJMenuBar(menuBar);
     }
     private void RefreshLeds(int buttonpress){
-        for(int i=0;i<16;i++){
-            switch(buttonpress){
-                case 0:
-                    if(cpu.R0[i] == 1)
-                        gpr0_arr[i].setBackground(Color.green);
-                    else gpr0_arr[i].setBackground(Color.black);
-                break;
-                case 1:
-                    if(cpu.R1[i] == 1)
-                        gpr1_arr[i].setBackground(Color.green);
-                    else gpr1_arr[i].setBackground(Color.black);
-                break;
-                case 2:
-                    if(cpu.R2[i] == 1)
-                        gpr2_arr[i].setBackground(Color.green);
-                    else gpr2_arr[i].setBackground(Color.black);
-                break;
-                case 3:
-                    if(cpu.R3[i] == 1)
-                        gpr3_arr[i].setBackground(Color.green);
-                    else gpr3_arr[i].setBackground(Color.black);
-                break;
-                case 4:
-                    if(cpu.X1[i] == 1)
-                        XLabel[0][i].setBackground(Color.green);
-                    else XLabel[0][i].setBackground(Color.black);
-                break;
-                case 5:
-                    if(cpu.X2[i] == 1)
-                        XLabel[1][i].setBackground(Color.green);
-                    else XLabel[1][i].setBackground(Color.black);
-                break;
-                case 6:
-                    if(cpu.X3[i] == 1)
-                        XLabel[2][i].setBackground(Color.green);
-                    else XLabel[2][i].setBackground(Color.black);
-                break;
-                case 9:
-                    if(cpu.MBR[i] == 1)
-                        mbrlab[i].setBackground(Color.blue);
-                    else mbrlab[i].setBackground(Color.black);
-                break;
-                default: break;
+        if( buttonpress != 7 && buttonpress != 8)
+            for(int i=0;i<16;i++){
+                switch(buttonpress){
+                    case 0:
+                        if(cpu.R0[i] == 1)
+                            gpr0_arr[i].setBackground(Color.green);
+                        else gpr0_arr[i].setBackground(Color.black);
+                    break;
+                    case 1:
+                        if(cpu.R1[i] == 1)
+                            gpr1_arr[i].setBackground(Color.green);
+                        else gpr1_arr[i].setBackground(Color.black);
+                    break;
+                    case 2:
+                        if(cpu.R2[i] == 1)
+                            gpr2_arr[i].setBackground(Color.green);
+                        else gpr2_arr[i].setBackground(Color.black);
+                    break;
+                    case 3:
+                        if(cpu.R3[i] == 1)
+                            gpr3_arr[i].setBackground(Color.green);
+                        else gpr3_arr[i].setBackground(Color.black);
+                    break;
+                    case 4:
+                        if(cpu.X1[i] == 1)
+                            XLabel[0][i].setBackground(Color.green);
+                        else XLabel[0][i].setBackground(Color.black);
+                    break;
+                    case 5:
+                        if(cpu.X2[i] == 1)
+                            XLabel[1][i].setBackground(Color.green);
+                        else XLabel[1][i].setBackground(Color.black);
+                    break;
+                    case 6:
+                        if(cpu.X3[i] == 1)
+                            XLabel[2][i].setBackground(Color.green);
+                        else XLabel[2][i].setBackground(Color.black);
+                    break;
+                    case 9:
+                        if(cpu.MBR[i] == 1)
+                            mbrlab[i].setBackground(Color.blue);
+                        else mbrlab[i].setBackground(Color.black);
+                    break;
+                    default: break;
+                }
             }
-        }
-        if(buttonpress == 7 || buttonpress == 8)
+        else
             for(int i=0;i<12;i++){
-                if(buttonpress == 7)
+                if(buttonpress == 7){
                     if(cpu.PC[i]==1) pclab[i].setBackground(Color.yellow);
                     else pclab[i].setBackground(Color.black);
-                else if(cpu.MAR[i]==1) marlab[i].setBackground(Color.orange);
+                }
+                else{ if(cpu.MAR[i]==1) marlab[i].setBackground(Color.orange);
                     else marlab[i].setBackground(Color.black);
+                }
             }
     }
     private void LoadButtonAction(ActionEvent e){
@@ -323,9 +326,29 @@ public class GUI extends JFrame
         //System.out.println((int)swarr[click]);
     }
     private void Store(ActionEvent e){
+        System.out.println("Store Invoked");
         short EA = cpu.BinaryToDecimal(cpu.MAR, 12);
         short value = cpu.BinaryToDecimal(cpu.MBR,16);
-        mem.Data[EA-1] = value;
+        mem.Data[EA] = value;
+    }
+    private void StorePlus(ActionEvent e){
+        System.out.println("Store+ Invoked");
+        short EA = cpu.BinaryToDecimal(cpu.MAR, 12);
+        short value = cpu.BinaryToDecimal(cpu.MBR,16);
+        mem.Data[EA] = value;
+        EA++;
+        cpu.DecimalToBinary(EA, cpu.MAR, 12);
+        RefreshLeds(8);
+    }
+    private void LoadValue(ActionEvent e){
+        System.out.println("Load Invoked");
+        try{
+            short EA = cpu.BinaryToDecimal(cpu.MAR, 12);
+            cpu.DecimalToBinary(mem.Data[EA], cpu.MBR, 16);
+            RefreshLeds(9);
+        }catch(IndexOutOfBoundsException i){
+            JOptionPane.showMessageDialog(this, "Illegal Operation with memory Access","Error",JOptionPane.ERROR_MESSAGE);
+        }
     }
     private void runMainLoop(){
 
@@ -343,10 +366,12 @@ public class GUI extends JFrame
         this.add(store);
         
         st_plus = new JButton("St+");
+        st_plus.addActionListener(e -> StorePlus(e));
         st_plus.setBounds(950,430,70,25);
         this.add(st_plus);
         
         load = new JButton("Load");
+        load.addActionListener(e -> LoadValue(e));
         load.setBounds(1025,430,70,25);
         this.add(load);
         
