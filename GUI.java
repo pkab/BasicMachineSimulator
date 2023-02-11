@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
+import java.awt.event.ActionEvent;
+
 public class GUI extends JFrame
 {
     private CPU cpu;
