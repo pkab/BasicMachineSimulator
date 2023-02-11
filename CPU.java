@@ -233,8 +233,10 @@ public class CPU extends Converter
     public char[] getMAR(){
         return MAR;
     }
-    public char[] getR0(){
-        return R0;
+    public void getR0(){
+        for(int i=0;i<16;i++)
+            System.out.printf("%d ",(int)R0[i]);
+        System.out.println();
     }
     public char[] getR1() {
         return R1;
@@ -250,39 +252,37 @@ public class CPU extends Converter
             this.IR[i] = IR[i];
     }
     public void setR0(short value){
-        DecimalToBinary((int)value,R0,16);
+        DecimalToBinary(value, R0, 16);
     }
-    public void setR1(short value){
-        DecimalToBinary((int)value,R1,16);
+    public void setR1(char arr[],int len){
+        CopyArr(arr,R1,16);
     }
-    public void setR2(short value){
-        DecimalToBinary((int)value,R2,16);
+    public void setR2(char arr[],int len){
+        CopyArr(arr,R2,16);
     }
-    public void setR3(short value){
-        DecimalToBinary((int)value,R3,16);
+    public void setR3(char arr[],int len){
+        CopyArr(arr,R3,16);
     }
-    
-    
-    public void setR0(){ //changed getR0 to setR0
+    public void setX1(char arr[],int len){
+        CopyArr(arr,X1,16);
     }
-        
-    public void setMAR(){ //changed getMAR to setMAR
-        /*
-        System.out.printf("MAR: ");
-        for(int i=0;i<12;i++)
-            System.out.printf("%d ",(int)this.MAR[i]);
-        System.out.println();
-        */    
+    public void setX2(char arr[],int len){
+        CopyArr(arr,X2,16);
+    }
+    public void setX3(char arr[],int len){
+        CopyArr(arr,X3,16);
+    }
+    public void setPC(short value){ 
+        DecimalToBinary(value, PC, 12);
+    }
+    public void setMAR(short value){ 
+        DecimalToBinary(value, MAR, 12);
+    }
+    public void setMBR(char arr[],int len){ 
+        CopyArr(arr,MBR,16);
     }
     public char[] getMBR(){
         return MBR;
     }
-    public void setMBR(){ //changed getMBR to setMBR
-        /*
-        System.out.printf("MBR: ");
-        for(int i=0;i<16;i++)
-            System.out.printf("%d ",(int)this.MBR[i]);
-        System.out.println();
-        */
-    }
+    
 }

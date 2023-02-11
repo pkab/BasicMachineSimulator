@@ -16,8 +16,8 @@ public class Converter
     public short BinaryToDecimal(char Bin[],int length){
         short result=0;
         short base=1;
-        for(int i=length - 1; i >=0 ; i--){
-            if(Bin[i]==1)
+        for(int i=0; i <length ; i++){
+            if(Bin[length-1-i]==1)
                 result += base;
             base *= 2;
         }
@@ -26,16 +26,27 @@ public class Converter
     /**
      * Convert Decimal to a Binary Number
      */
-    public void DecimalToBinary(int dec, char[] Bin,int length){
+    public void DecimalToBinary(short dec, char[] Bin,int length){
         int c=0;
-        while(dec>0){
-            if((dec & 1) == 1)
-                Bin[length - c -1] = 1;
+        int d=dec;
+        System.out.println(d);
+        if(d<0){
+            Bin[0]=1;
+            d+=Short.MAX_VALUE+1;
+        }
+        while(d>=0){
+            if((d & 1) == 1)
+                Bin[length -1 -c] = 1;
             else
-                Bin[length - c -1] = 0;
-            dec >>=1;
+                Bin[length -1 -c] = 0;
+            d >>=1;
             c++;
+            if(dec <0) Bin[0]=1;
             if(c==length) break;
         }
+        
+        
+        // Handling the Sign Bit Condition
+        
     }
 }

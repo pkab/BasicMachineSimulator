@@ -1,14 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
-import java.awt.event.*;
-
-public class GUI extends JFrame
+public class GUI
 {
     private CPU cpu;
     private Memory mem;
-    private JMenuBar menuBar;
-    private JMenu fileMenu,editMenu,aboutMenu;
+    private JFrame MainWindow;
     private JLabel GPR[],X[],PC,MAR,MBR,IR,MFR,Priv;
     private Label gpr0_arr[],gpr1_arr[],gpr2_arr[],gpr3_arr[]; // Important Ones that will be Kept Modifying
     private Label XLabel[][],pclab[],marlab[],mbrlab[],mfrlab[], // Important Ones
@@ -16,22 +13,16 @@ public class GUI extends JFrame
     private JButton LDarr[],store,st_plus,load,init,ss,run; // Load Button Array and other Imp Buttons
     private ArrayList<JButton> switches;
     private JPanel Pan[];
-    char swarr[]; // Array for the switches pressed
     public GUI()throws NullPointerException{
-        super();
-        cpu = new CPU();
-        mem = new Memory();
-        //this = new JFrame("Machine Simulator");
+        MainWindow = new JFrame("Machine Simulator");
         hlt = new Label();
         hlt.setBounds(1150,460,20,20);
         hlt.setBackground(Color.BLACK);
-        this.add(hlt);
+        MainWindow.add(hlt);
         Run = new Label();
         Run.setBounds(1150,490,20,20);
         Run.setBackground(Color.BLACK);
-        this.add(Run);
-        swarr = new char[16];
-        for(int i=0;i<16;i++) swarr[i] = 0;
+        MainWindow.add(Run);
         Pan = new JPanel[5];
         GPR = new JLabel[4];
         X = new JLabel[3];
@@ -47,12 +38,12 @@ public class GUI extends JFrame
         MFR.setBounds(930, 200, 40, 20);
         Priv = new JLabel("Privilege");
         Priv.setBounds(980, 230, 60, 20);
-        this.add(PC);
-        this.add(MAR);
-        this.add(MBR);
-        this.add(IR);
-        this.add(MFR);
-        this.add(Priv);
+        MainWindow.add(PC);
+        MainWindow.add(MAR);
+        MainWindow.add(MBR);
+        MainWindow.add(IR);
+        MainWindow.add(MFR);
+        MainWindow.add(Priv);
         LDarr = new JButton[10];
         switches = new ArrayList<JButton>();
         gpr0_arr = new Label[16];
@@ -68,15 +59,17 @@ public class GUI extends JFrame
         privlab = new Label();
         privlab.setBounds(1055, 230, 20, 20);
         privlab.setBackground(Color.black);
-        this.add(privlab);
-        for(int i=0;i<3;i++) XLabel[i] = new Label[16];
+        MainWindow.add(privlab);
+        for(int i=0;i<3;i++){
+            XLabel[i] = new Label[16];
+        }
         /* Setting The Layout for Different Panels */
         for(int i=0;i<5;i++){
             Pan[i] = new JPanel();
             Pan[i].setLayout(new FlowLayout(FlowLayout.CENTER,1,5));
             //new BoxLayout(Pan[i],BoxLayout.X_AXIS)
             Pan[i].setBackground(Color.CYAN);
-            this.add(Pan[i]);
+            MainWindow.add(Pan[i]);
         }
         Pan[0].setBounds(10,465,310,70);
         JLabel OpCode = new JLabel("OpCode");
@@ -90,15 +83,15 @@ public class GUI extends JFrame
         Pan[3].setBounds(550,465,50,70);
         JLabel indLabel = new JLabel("I");
         indLabel.setBounds(575,535,40,20);
-        Pan[4].setBounds(610,465,270,70);
+        Pan[4].setBounds(610,465,220,70);
         JLabel addLabel = new JLabel("Address");
         addLabel.setBounds(695,535,100,20);
-        this.add(OpCode);
-        this.add(gprLabel);
-        this.add(ixrLabel);
-        this.add(indLabel);
-        this.add(addLabel);
-        //this.add(Pan[0]);
+        MainWindow.add(OpCode);
+        MainWindow.add(gprLabel);
+        MainWindow.add(ixrLabel);
+        MainWindow.add(indLabel);
+        MainWindow.add(addLabel);
+        //MainWindow.add(Pan[0]);
         
         for(int i=0;i<10;i++){
             LDarr[i] = new JButton("LD");
@@ -108,8 +101,7 @@ public class GUI extends JFrame
                 LDarr[i].setBounds(480, 220+((i-4)*30), 50, 20);
             else
                 LDarr[i].setBounds(1080,80+((i-7)*30), 50, 20);
-            LDarr[i].addActionListener(e -> LoadButtonAction(e));
-            this.add(LDarr[i]);
+            MainWindow.add(LDarr[i]);
         }
         for(int i=0;i<4;i++){
             GPR[i]= new JLabel("R"+i);
@@ -117,13 +109,13 @@ public class GUI extends JFrame
             mfrlab[i]=new Label();
             mfrlab[i].setBounds(980 + (i*25), 200, 20, 20);
             mfrlab[i].setBackground(Color.black);
-            this.add(GPR[i]);
-            this.add(mfrlab[i]);
+            MainWindow.add(GPR[i]);
+            MainWindow.add(mfrlab[i]);
         }
         for(int i=1;i<4;i++){
             X[i-1]=new JLabel("X"+i);
             X[i-1].setBounds(50, 220+((i-1)*30), 20, 20);
-            this.add(X[i-1]);
+            MainWindow.add(X[i-1]);
         }
         for(int i=0;i<16;i++){
             gpr0_arr[i] = new Label();
@@ -155,7 +147,6 @@ public class GUI extends JFrame
             irlab[i].setBackground(Color.black);
             switches.add(new JButton());
             switches.get(i).setText(""+(15-i));
-            switches.get(i).addActionListener(e -> switchAction(e));
             switches.get(i).setPreferredSize(new Dimension(48,60));
             switches.get(i).setFont(new Font("Arial",Font.PLAIN,11));
             if(i<6){
@@ -174,15 +165,15 @@ public class GUI extends JFrame
                 Pan[4].add(switches.get(i));
             }
             //switches.get(i).setBounds(30+(i*50),485,46,55);
-            this.add(gpr0_arr[i]);
-            this.add(gpr1_arr[i]);
-            this.add(gpr2_arr[i]);
-            this.add(gpr3_arr[i]);
-            this.add(XLabel[0][i]);
-            this.add(XLabel[1][i]);
-            this.add(XLabel[2][i]);
-            this.add(mbrlab[i]);
-            this.add(irlab[i]);
+            MainWindow.add(gpr0_arr[i]);
+            MainWindow.add(gpr1_arr[i]);
+            MainWindow.add(gpr2_arr[i]);
+            MainWindow.add(gpr3_arr[i]);
+            MainWindow.add(XLabel[0][i]);
+            MainWindow.add(XLabel[1][i]);
+            MainWindow.add(XLabel[2][i]);
+            MainWindow.add(mbrlab[i]);
+            MainWindow.add(irlab[i]);
         }
         for(int i=0;i<12;i++){
             pclab[i]=new Label();
@@ -191,178 +182,135 @@ public class GUI extends JFrame
             marlab[i]=new Label();
             marlab[i].setBounds(780+(i*25),110,20,20);
             marlab[i].setBackground(Color.black);
-            this.add(pclab[i]);
-            this.add(marlab[i]);
+            MainWindow.add(pclab[i]);
+            MainWindow.add(marlab[i]);
         }
-        // Halt and Run Indicator
         JLabel lhlt =new JLabel("Halt");
         JLabel lrun =new JLabel("Run");
         lhlt.setBounds(1110,460,40,20);
         lrun.setBounds(1110,490,40,20);
-        this.add(lhlt);
-        this.add(lrun);
-        menuBar = new JMenuBar();
-        fileMenu = new JMenu("File");
-        editMenu = new JMenu("Edit");
-        aboutMenu = new JMenu("Help");
-        menuBar.add(fileMenu);
-        menuBar.add(editMenu);
-        menuBar.add(aboutMenu);
-        this.setJMenuBar(menuBar);
+        MainWindow.add(lhlt);
+        MainWindow.add(lrun);
     }
-    private void RefreshLeds(int buttonpress){
-        for(int i=0;i<16;i++){
-            switch(buttonpress){
-                case 0:
-                    if(cpu.R0[i] == 1)
-                        gpr0_arr[i].setBackground(Color.green);
-                    else gpr0_arr[i].setBackground(Color.black);
-                break;
-                case 1:
-                    if(cpu.R1[i] == 1)
-                        gpr1_arr[i].setBackground(Color.green);
-                    else gpr1_arr[i].setBackground(Color.black);
-                break;
-                case 2:
-                    if(cpu.R2[i] == 1)
-                        gpr2_arr[i].setBackground(Color.green);
-                    else gpr2_arr[i].setBackground(Color.black);
-                break;
-                case 3:
-                    if(cpu.R3[i] == 1)
-                        gpr3_arr[i].setBackground(Color.green);
-                    else gpr3_arr[i].setBackground(Color.black);
-                break;
-                case 4:
-                    if(cpu.X1[i] == 1)
-                        XLabel[0][i].setBackground(Color.green);
-                    else XLabel[0][i].setBackground(Color.black);
-                break;
-                case 5:
-                    if(cpu.X2[i] == 1)
-                        XLabel[1][i].setBackground(Color.green);
-                    else XLabel[1][i].setBackground(Color.black);
-                break;
-                case 6:
-                    if(cpu.X3[i] == 1)
-                        XLabel[2][i].setBackground(Color.green);
-                    else XLabel[2][i].setBackground(Color.black);
-                break;
-                case 9:
-                    if(cpu.MBR[i] == 1)
-                        mbrlab[i].setBackground(Color.blue);
-                    else mbrlab[i].setBackground(Color.black);
-                break;
-                default: break;
-            }
-        }
-        if(buttonpress == 7 || buttonpress == 8)
-            for(int i=0;i<12;i++){
-                if(buttonpress == 7)
-                    if(cpu.PC[i]==1) pclab[i].setBackground(Color.yellow);
-                    else pclab[i].setBackground(Color.black);
-                else if(cpu.MAR[i]==1) marlab[i].setBackground(Color.orange);
-                    else marlab[i].setBackground(Color.black);
-            }
-    }
-    private void LoadButtonAction(ActionEvent e){
-        JButton j = (JButton)e.getSource();
-        int buttonpress = 0;
-        for(int i=0;i<10;i++)
-            if(j==LDarr[i]) buttonpress = i;
-        switch(buttonpress){
-            case 0:
-                cpu.setR0(cpu.BinaryToDecimal(swarr,16));
-                break;
-            case 1:
-                cpu.setR1(swarr,16);
-                break;
-            case 2:
-                cpu.setR2(swarr,16);
-                break;
-            case 3:
-                cpu.setR3(swarr,16);
-                break;
-            case 4:
-                cpu.setX1(swarr,16);
-                break;
-            case 5:
-                cpu.setX2(swarr,16);
-                break;
-            case 6:
-                cpu.setX3(swarr,16);
-                break;
-            case 7:
-                cpu.setPC(cpu.BinaryToDecimal(swarr, 16));
-                break;
-            case 8:
-                cpu.setMAR(cpu.BinaryToDecimal(swarr, 16));
-                break;
-            case 9:
-                cpu.setMBR(swarr,16);
-                break;
-            default:
-                break;
-        }
-        RefreshLeds(buttonpress);
-    }
-    private void switchAction(ActionEvent e){
-        JButton j = (JButton)e.getSource();
-        int click = 15-Integer.parseInt(j.getLabel());
-        //System.out.println(click);
-        if(swarr[click]==0){
-            swarr[click] = 1;
-            j.setBackground(Color.getHSBColor((float)0.0, (float)1.0, (float)1.0));
-            j.setForeground(Color.getHSBColor((float)0.5,(float)0.5,(float)0.8));
-        }
-        else{
-            swarr[click] = 0;
-            j.setBackground(new JButton().getBackground());
-            j.setForeground(Color.black);
-        }
-        //System.out.println((int)swarr[click]);
-    }
-    private void Store(ActionEvent e){
-        short EA = cpu.BinaryToDecimal(cpu.MAR, 12);
-        short value = cpu.BinaryToDecimal(cpu.MBR,16);
-        mem.Data[EA-1] = value;
-    }
+<<<<<<< HEAD
     private void runMainLoop(){
-
-        this.setSize(1200, 620);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.getContentPane().setBackground(Color.getHSBColor((float)0.533, (float)0.8, (float)0.75));
-        this.setLayout(null);
-        this.setVisible(true);
+=======
+    public void LoadGui(){
+        JButton fft = new JButton("15");
+        fft.setBounds(30,485,48,60);
+        MainWindow.add(fft);
+        
+        JButton frt = new JButton("14");
+        frt.setBounds(80,485,48,60);
+        MainWindow.add(frt);
+        
+        JButton trt = new JButton("13");
+        trt.setBounds(130,485,48,60);
+        MainWindow.add(trt);
+        
+        JButton twv = new JButton("12");
+        twv.setBounds(180,485,48,60);
+        MainWindow.add(twv);
+        
+        JButton elv = new JButton("11");
+        elv.setBounds(230,485,48,60);
+        MainWindow.add(elv);
+        
+        JButton ten = new JButton("10");
+        ten.setBounds(280,485,48,60);
+        MainWindow.add(ten);
+        
+        JButton nine = new JButton("9");
+        nine.setBounds(340,485,48,60);
+        MainWindow.add(nine);
+        
+        JButton egt = new JButton("8");
+        egt.setBounds(390,485,48,60);
+        MainWindow.add(egt);
+        
+        JButton sev = new JButton("7");
+        sev.setBounds(450,485,48,60);
+        MainWindow.add(sev);
+        
+        JButton six = new JButton("6");
+        six.setBounds(500,485,48,60);
+        MainWindow.add(six);
+        
+        JButton five = new JButton("5");
+        five.setBounds(560,485,48,60);
+        MainWindow.add(five);
+        
+        JButton four = new JButton("4");
+        four.setBounds(620,485,48,60);
+        MainWindow.add(four);
+        
+        JButton thr = new JButton("3");
+        thr.setBounds(670,485,48,60);
+        MainWindow.add(thr);
+        
+        JButton two = new JButton("2");
+        two.setBounds(720,485,48,60);
+        MainWindow.add(two);
+        
+        JButton one = new JButton("1");
+        one.setBounds(770,485,48,60);
+        MainWindow.add(one);
+        
+        JButton zero = new JButton("0");
+        zero.setBounds(820,485,48,60);
+        MainWindow.add(zero);
+        
+        JButton store = new JButton("Store");
+        store.setBounds(750,450,80,25);
+        MainWindow.add(store);
+        
+        JButton st_plus = new JButton("St+");
+        st_plus.setBounds(850,450,80,25);
+        MainWindow.add(st_plus);
+        
+        JButton load = new JButton("Load");
+        load.setBounds(950,450,80,25);
+        MainWindow.add(load);
+        
+        JButton init = new JButton("Init");
+        init.setBounds(1050,450,80,25);
+        init.setBackground(Color.RED);
+        MainWindow.add(init);
+        
+        //a.add(p);
+>>>>>>> 3da789c10e0dc91ee9d2f3734a75823a1279a68c
+        MainWindow.setSize(1200, 600);
+        MainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        MainWindow.getContentPane().setBackground(Color.getHSBColor((float)0.533, (float)0.8, (float)0.75));
+        MainWindow.setLayout(null);
+        MainWindow.setVisible(true);
     }
-    
     public void LoadGui(){
         store = new JButton("Store");
-        store.addActionListener(e -> Store(e));
         store.setBounds(875,430,70,25);
-        this.add(store);
+        MainWindow.add(store);
         
         st_plus = new JButton("St+");
         st_plus.setBounds(950,430,70,25);
-        this.add(st_plus);
+        MainWindow.add(st_plus);
         
         load = new JButton("Load");
         load.setBounds(1025,430,70,25);
-        this.add(load);
+        MainWindow.add(load);
         
         init = new JButton("Init");
         init.setBounds(1100,430,70,25);
         init.setBackground(Color.RED);
         init.setForeground(Color.white);
-        this.add(init);
+        MainWindow.add(init);
         
         ss = new JButton("SS");
         ss.setBounds(940,460,55,80);
         run = new JButton("Run");
         run.setBounds(1027,460,65,80);
         run.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
-        this.add(ss);
-        this.add(run);
+        MainWindow.add(ss);
+        MainWindow.add(run);
         
         runMainLoop();
     }
