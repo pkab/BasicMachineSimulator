@@ -123,12 +123,6 @@ public class GUI
             MainWindow.add(marlab[i]);
         }
     }
-    public void switches(){
-        JButton fft = new JButton("15");
-        fft.setBounds(350,450,80,25);
-        MainWindow.add(fft);
-    
-    }
     public void LoadGui(){
         JButton fft = new JButton("15");
         fft.setBounds(30,485,48,60);
