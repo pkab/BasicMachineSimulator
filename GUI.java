@@ -2,6 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.awt.event.ActionEvent;
+/**
+ * GUI Class - All the Gui Events Occur Here
+ *
+ * @author Abhinava Phukan, Dev Shah, Natalie Jordan, Halawani AlHassan
+ * @version (1.0)
+ */
 
 public class GUI extends JFrame
 {

@@ -2,8 +2,8 @@
  * CPU - Section for Simulation
  * Designing the CPU structure here
  * All registers and required variables are defined here.
- * @author (Abhinava Phukan)
- * @version (0.1)
+ * @author Abhinava Phukan, Halawani AlHassan
+ * @version 1.0
  */
 public class CPU extends Converter
 {
@@ -11,13 +11,12 @@ public class CPU extends Converter
      * Define the Structure of the CPU
      */
     public char PC[]; /** Program Counter **/
-    public char CC[]; /** Condition Code**/
+    public char CC[]; /** Condition Code **/
     public char IR[]; /** Instruction Register **/
     public char MAR[]; /** Memory Address Register **/
     public char MBR[]; /** Memory Buffer Register **/
     public char MFR[]; /** Machine Fault Register **/
     public char R0[],R1[],R2[],R3[]; /** General Purpose Register **/
-    public char X[][];
     public char X1[],X2[],X3[]; /** Index Registers **/
     /** ------------------- End of Structure Definition -------------------**/
     /**
@@ -226,6 +225,7 @@ public class CPU extends Converter
                 break;
         }
     }
+    
     /** Getter and Setter Functions for Debugging and future development only **/
     public char[] getIR() {
         return IR;

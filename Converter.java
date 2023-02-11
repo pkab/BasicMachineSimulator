@@ -1,9 +1,8 @@
-
 /**
  * Converter Class - Numerical Conversions
  *
- * @author (Abhinava Phukan)
- * @version (0.1)
+ * @author Abhinava Phukan
+ * @version 1.0
  */
 public class Converter
 {
@@ -24,7 +23,7 @@ public class Converter
         return result;
     }
     /**
-     * Convert Decimal to a Binary Number
+     * Convert Decimal to a Binary Number in an Array
      */
     public void DecimalToBinary(short dec, char[] Bin,int length){
         int c=0;

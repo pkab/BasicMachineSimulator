@@ -1,13 +1,12 @@
-
 /**
  * Memory Class - Defining the memory block here
  *
  * @author Abhinava Phukan
- * @version 0.1
+ * @version 1.0
  */
-public class Memory extends Converter
+public class Memory
 {
-    public short Data[];
+    public short Data[]; // Data is Storing an array of words
     /**
      * 2KB Memory - 1024 * 2 (Memory of 2048 Words)
      * 4KB Memory - 1024 * 4 (Memory of 4096 Words)
