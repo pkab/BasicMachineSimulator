@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 
 public class GUI extends JFrame
 {
+    /**This class pre-defines all the classes and variables to be used later*/
     private CPU cpu;
     private Memory mem;
     private File file;
@@ -30,9 +31,12 @@ public class GUI extends JFrame
     char swarr[]; // Array for the switches pressed
     public GUI()throws NullPointerException{
         super();
+        /**This sets the location and creates the "PC", "MAR", "MBR", "IR", "MFR", 
+         * and "Priviledge" labels to the left of the panels, set the label color to black
+         **/
         cpu = new CPU(); mem = new Memory();
         Code = new ArrayList<StringStruct>();
-        //this = new JFrame("Machine Simulator");
+        this.setTitle("Basic Machine Simulator");
         hlt = new Label();
         hlt.setBounds(1150,460,20,20);
         hlt.setBackground(Color.BLACK);
@@ -68,11 +72,13 @@ public class GUI extends JFrame
         for(int i=0;i<3;i++) XLabel[i] = new Label[16];
         /* Setting The Layout for Different Panels */
         for(int i=0;i<5;i++){
+            /**Creating the cyan boxes around the switches at the bottom of the screen*/
             Pan[i] = new JPanel();
             Pan[i].setLayout(new FlowLayout(FlowLayout.CENTER,1,5));
             Pan[i].setBackground(Color.CYAN);
             this.add(Pan[i]);
         }
+        /**Creating the labels below the switches at the bottom of the GUI*/
         Pan[0].setBounds(10,465,310,70);
         JLabel OpCode = new JLabel("OpCode");
         OpCode.setBounds(145,535,100,20);
@@ -91,6 +97,7 @@ public class GUI extends JFrame
         this.add(OpCode); this.add(gprLabel); this.add(ixrLabel);
         this.add(indLabel); this.add(addLabel);
         for(int i=0;i<10;i++){
+            /**A loop to create the LD button next to each panel*/
             LDarr[i] = new JButton("LD");
             if(i>=0 && i<4)
                 LDarr[i].setBounds(480, 80+(i*30), 50, 20);
@@ -102,6 +109,7 @@ public class GUI extends JFrame
             this.add(LDarr[i]);
         }
         for(int i=0;i<4;i++){
+            /**A loop to create the "R" labels next to the 4 top left panels*/
             GPR[i]= new JLabel("R"+i);
             GPR[i].setBounds(50, 80+(i*30), 20, 20);
             mfrlab[i]=new Label();
@@ -110,11 +118,13 @@ public class GUI extends JFrame
             this.add(GPR[i]); this.add(mfrlab[i]);
         }
         for(int i=1;i<4;i++){
+            /**A loop to create the "X" labels next to the 3 left panels*/
             X[i-1]=new JLabel("X"+i);
             X[i-1].setBounds(50, 220+((i-1)*30), 20, 20);
             this.add(X[i-1]);
         }
         for(int i=0;i<16;i++){
+            /**Creating the 16 switch buttons at the bottom of the GUI, setting the location, and color to black*/
             gpr0_arr[i] = new Label();
             gpr0_arr[i].setBounds(80+(i*25),80,20,20);
             gpr0_arr[i].setBackground(Color.black);
@@ -169,6 +179,7 @@ public class GUI extends JFrame
             this.add(mbrlab[i]); this.add(irlab[i]);
         }
         for(int i=0;i<12;i++){
+            /**This sets location and color of the PC and MAR LED indicator at the top two panels*/
             pclab[i]=new Label();
             pclab[i].setBounds(780 +(i*25),80,20,20);
             pclab[i].setBackground(Color.black);
@@ -266,6 +277,8 @@ public class GUI extends JFrame
             }
         else
             for(int i=0;i<12;i++){
+                /**If the corresponding buttons are pressed, the light on the panel will turn yellow or orange. 
+                 * If not, the light will stay black*/
                 if(buttonpress == 7){
                     if(cpu.PC[i]==1) pclab[i].setBackground(Color.yellow);
                     else pclab[i].setBackground(Color.black);
@@ -278,6 +291,7 @@ public class GUI extends JFrame
     private void LoadButtonAction(ActionEvent e){
         JButton j = (JButton)e.getSource();
         int buttonpress = 0;
+        /**This loops uses a switch case to be activated once the LD button is pressed for the corresponding panel*/
         for(int i=0;i<10;i++)
             if(j==LDarr[i]) buttonpress = i;
         switch(buttonpress){
@@ -317,6 +331,7 @@ public class GUI extends JFrame
         RefreshLeds(buttonpress);
     }
     private void switchAction(ActionEvent e){
+        /**This will change the color of the switches at the botton of the screen once one of them are pressed*/
         JButton j = (JButton)e.getSource();
         int click = 15-Integer.parseInt(j.getLabel());
         //System.out.println(click);
@@ -333,12 +348,15 @@ public class GUI extends JFrame
         //System.out.println((int)swarr[click]);
     }
     private void Store(ActionEvent e){
+        /**This will store the memory and print to the screen that the store was successful*/
         System.out.println("Store Invoked");
         short EA = cpu.BinaryToDecimal(cpu.MAR, 12);
         short value = cpu.BinaryToDecimal(cpu.MBR,16);
         mem.Data[EA] = value;
     }
     private void StorePlus(ActionEvent e){
+        /**This will store the memory and print to the screen that the store was successful*/
+        //MAR is incremented here after storing
         System.out.println("Store+ Invoked");
         short EA = cpu.BinaryToDecimal(cpu.MAR, 12);
         short value = cpu.BinaryToDecimal(cpu.MBR,16);
@@ -348,6 +366,8 @@ public class GUI extends JFrame
         RefreshLeds(8);
     }
     private void LoadValue(ActionEvent e){
+        /**This will load the memory and print to the screen for the user that the load was successful in the MBR.
+         * It the memory was out of bounds, it will print an error message dialog to the screen*/
         System.out.println("Load Invoked");
         try{
             short EA = cpu.BinaryToDecimal(cpu.MAR, 12);
@@ -358,6 +378,7 @@ public class GUI extends JFrame
         }
     }
     private void loadFile(ActionEvent e){
+        /**This will prompt the user to search for and load a file into the simulator*/
         JFileChooser fCh = new JFileChooser();
         fCh.setCurrentDirectory(new File(System.getProperty("user.home")));
         int res = fCh.showOpenDialog(this);
@@ -376,6 +397,7 @@ public class GUI extends JFrame
         }
     }
     private void ProcessFile() throws FileNotFoundException{
+        /**To scan wether a file has been selected to load into the simulator, if not, it will throw out an error*/
         Scanner s = new Scanner(file);
         while(s.hasNext()){
             String loc = s.next();
@@ -414,7 +436,7 @@ public class GUI extends JFrame
         hlt.setBackground(Color.red);
     }
     private void runMainLoop(){
-
+        /**This will set create and set the size for the main background of the GUI*/
         this.setSize(1200, 620);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setBackground(Color.getHSBColor((float)0.533, (float)0.8, (float)0.75));
@@ -423,31 +445,33 @@ public class GUI extends JFrame
     }
     
     public void LoadGui(){
+        /**This creates the "Store" button on the GUI*/
         store = new JButton("Store");
         store.addActionListener(e -> Store(e));
         store.setBounds(875,430,70,25);
         this.add(store);
-        
+        /**This creates the "St+" on the GUI*/
         st_plus = new JButton("St+");
         st_plus.addActionListener(e -> StorePlus(e));
         st_plus.setBounds(950,430,70,25);
         this.add(st_plus);
-        
+        /**This creates the "Load" on the GUI*/
         load = new JButton("Load");
         load.addActionListener(e -> LoadValue(e));
         load.setBounds(1025,430,70,25);
         this.add(load);
-        
+        /**This creates the "Init" button to the GUI*/
         init = new JButton("Init");
         init.setBounds(1100,430,70,25);
         init.setBackground(Color.RED);
         init.setForeground(Color.white);
         init.addActionListener(e -> loadFile(e));
         this.add(init);
-        
+        /**This creates the "SS" button to the GUI*/
         ss = new JButton("SS");
         ss.setBounds(940,460,55,80);
         ss.addActionListener(e->execCode(e));
+        /**This creates the "Run" button to the GUI*/
         run = new JButton("Run");
         run.setBounds(1027,460,65,80);
         run.addActionListener(e->RunProg(e));
