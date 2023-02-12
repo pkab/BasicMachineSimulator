@@ -201,6 +201,7 @@ public class GUI extends JFrame
             this.add(marlab[i]);
         }
         // Halt and Run Indicator
+        /*
         JLabel lhlt =new JLabel("Halt");
         JLabel lrun =new JLabel("Run");
         lhlt.setBounds(1110,460,40,20);
@@ -215,6 +216,7 @@ public class GUI extends JFrame
         menuBar.add(editMenu);
         menuBar.add(aboutMenu);
         this.setJMenuBar(menuBar);
+        */
     }
     private void RefreshLeds(int buttonpress){
         if( buttonpress != 7 && buttonpress != 8)
@@ -350,7 +352,7 @@ public class GUI extends JFrame
         System.out.println("Load Invoked");
         try{
             short EA = cpu.BinaryToDecimal(cpu.MAR, 12);
-            cpu.DecimalToBinary(mem.Data[EA], cpu.MBR, 16);
+            cpu.DecimalToBinary((short)mem.Data[EA], cpu.MBR, 16);
             RefreshLeds(9);
         }catch(IndexOutOfBoundsException i){
             JOptionPane.showMessageDialog(this, "Illegal Operation with memory Access","Error",JOptionPane.ERROR_MESSAGE);

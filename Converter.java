@@ -28,7 +28,6 @@ public class Converter
     public void DecimalToBinary(short dec, char[] Bin,int length){
         int c=0;
         int d=dec;
-        System.out.println(d);
         if(d<0){
             Bin[0]=1;
             d+=Short.MAX_VALUE+1;
@@ -43,9 +42,9 @@ public class Converter
             if(dec <0) Bin[0]=1;
             if(c==length) break;
         }
-        
-        
-        // Handling the Sign Bit Condition
-        
+    }
+    public short[] HexToDecimal(String loc,String Value){
+        /** To be implemented by Dev **/
+        return null;
     }
 }

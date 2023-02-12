@@ -8,8 +8,8 @@ public class Memory
 {
     public short Data[]; // Data is Storing an array of words
     /**
-     * 2KB Memory - 1024 * 2 (Memory of 2048 Words)
-     * 4KB Memory - 1024 * 4 (Memory of 4096 Words)
+     * 4KB Memory - 1024 * 2 (Memory of 2048 Words)
+     * 8KB Memory - 1024 * 4 (Memory of 4096 Words)
     **/
     static int KB2 = 1024 * 2;
     static int KB4 = 1024 * 4;
