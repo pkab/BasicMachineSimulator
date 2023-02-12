@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+
 /**
  * GUI Class - All the Gui Events Occur Here
  *
@@ -13,6 +16,8 @@ public class GUI extends JFrame
 {
     private CPU cpu;
     private Memory mem;
+    private File file;
+    private ArrayList<StringStruct> Code;
     private JMenuBar menuBar;
     private JMenu fileMenu,editMenu,aboutMenu;
     private JLabel GPR[],X[],PC,MAR,MBR,IR,MFR,Priv;
@@ -25,8 +30,8 @@ public class GUI extends JFrame
     char swarr[]; // Array for the switches pressed
     public GUI()throws NullPointerException{
         super();
-        cpu = new CPU();
-        mem = new Memory();
+        cpu = new CPU(); mem = new Memory();
+        Code = new ArrayList<StringStruct>();
         //this = new JFrame("Machine Simulator");
         hlt = new Label();
         hlt.setBounds(1150,460,20,20);
@@ -38,39 +43,24 @@ public class GUI extends JFrame
         this.add(Run);
         swarr = new char[16];
         for(int i=0;i<16;i++) swarr[i] = 0;
-        Pan = new JPanel[5];
-        GPR = new JLabel[4];
-        X = new JLabel[3];
-        PC = new JLabel("PC");
-        PC.setBounds(730, 80, 40, 20);
-        MAR = new JLabel("MAR");
-        MAR.setBounds(730, 110, 40, 20);
-        MBR = new JLabel("MBR");
-        MBR.setBounds(630, 140, 40, 20);
-        IR = new JLabel("IR");
-        IR.setBounds(630, 170, 40, 20);
+        Pan = new JPanel[5]; GPR = new JLabel[4]; X = new JLabel[3];
+        PC = new JLabel("PC"); MAR = new JLabel("MAR");
+        MBR = new JLabel("MBR"); IR = new JLabel("IR");
         MFR = new JLabel("MFR");
+        PC.setBounds(730, 80, 40, 20);
+        MAR.setBounds(730, 110, 40, 20);
+        MBR.setBounds(630, 140, 40, 20);
+        IR.setBounds(630, 170, 40, 20);
         MFR.setBounds(930, 200, 40, 20);
         Priv = new JLabel("Privilege");
         Priv.setBounds(980, 230, 60, 20);
-        this.add(PC);
-        this.add(MAR);
-        this.add(MBR);
-        this.add(IR);
-        this.add(MFR);
-        this.add(Priv);
-        LDarr = new JButton[10];
-        switches = new ArrayList<JButton>();
-        gpr0_arr = new Label[16];
-        gpr1_arr = new Label[16];
-        gpr2_arr = new Label[16];
-        gpr3_arr = new Label[16];
-        mbrlab = new Label[16];
-        irlab = new Label[16];
-        XLabel = new Label[3][];
-        pclab = new Label[12];
-        marlab = new Label[12];
-        mfrlab = new Label[4];
+        this.add(PC); this.add(MAR); this.add(MBR);
+        this.add(IR); this.add(MFR); this.add(Priv);
+        LDarr = new JButton[10]; switches = new ArrayList<JButton>();
+        gpr0_arr = new Label[16]; gpr1_arr = new Label[16]; 
+        gpr2_arr = new Label[16]; gpr3_arr = new Label[16];
+        mbrlab = new Label[16]; irlab = new Label[16]; XLabel = new Label[3][];
+        pclab = new Label[12]; marlab = new Label[12]; mfrlab = new Label[4];
         privlab = new Label();
         privlab.setBounds(1055, 230, 20, 20);
         privlab.setBackground(Color.black);
@@ -80,7 +70,6 @@ public class GUI extends JFrame
         for(int i=0;i<5;i++){
             Pan[i] = new JPanel();
             Pan[i].setLayout(new FlowLayout(FlowLayout.CENTER,1,5));
-            //new BoxLayout(Pan[i],BoxLayout.X_AXIS)
             Pan[i].setBackground(Color.CYAN);
             this.add(Pan[i]);
         }
@@ -99,13 +88,8 @@ public class GUI extends JFrame
         Pan[4].setBounds(610,465,270,70);
         JLabel addLabel = new JLabel("Address");
         addLabel.setBounds(695,535,100,20);
-        this.add(OpCode);
-        this.add(gprLabel);
-        this.add(ixrLabel);
-        this.add(indLabel);
-        this.add(addLabel);
-        //this.add(Pan[0]);
-        
+        this.add(OpCode); this.add(gprLabel); this.add(ixrLabel);
+        this.add(indLabel); this.add(addLabel);
         for(int i=0;i<10;i++){
             LDarr[i] = new JButton("LD");
             if(i>=0 && i<4)
@@ -123,8 +107,7 @@ public class GUI extends JFrame
             mfrlab[i]=new Label();
             mfrlab[i].setBounds(980 + (i*25), 200, 20, 20);
             mfrlab[i].setBackground(Color.black);
-            this.add(GPR[i]);
-            this.add(mfrlab[i]);
+            this.add(GPR[i]); this.add(mfrlab[i]);
         }
         for(int i=1;i<4;i++){
             X[i-1]=new JLabel("X"+i);
@@ -180,15 +163,10 @@ public class GUI extends JFrame
                 Pan[4].add(switches.get(i));
             }
             //switches.get(i).setBounds(30+(i*50),485,46,55);
-            this.add(gpr0_arr[i]);
-            this.add(gpr1_arr[i]);
-            this.add(gpr2_arr[i]);
+            this.add(gpr0_arr[i]); this.add(gpr1_arr[i]); this.add(gpr2_arr[i]);
             this.add(gpr3_arr[i]);
-            this.add(XLabel[0][i]);
-            this.add(XLabel[1][i]);
-            this.add(XLabel[2][i]);
-            this.add(mbrlab[i]);
-            this.add(irlab[i]);
+            this.add(XLabel[0][i]); this.add(XLabel[1][i]); this.add(XLabel[2][i]);
+            this.add(mbrlab[i]); this.add(irlab[i]);
         }
         for(int i=0;i<12;i++){
             pclab[i]=new Label();
@@ -197,8 +175,7 @@ public class GUI extends JFrame
             marlab[i]=new Label();
             marlab[i].setBounds(780+(i*25),110,20,20);
             marlab[i].setBackground(Color.black);
-            this.add(pclab[i]);
-            this.add(marlab[i]);
+            this.add(pclab[i]); this.add(marlab[i]);
         }
         // Halt and Run Indicator
         /*
@@ -358,6 +335,34 @@ public class GUI extends JFrame
             JOptionPane.showMessageDialog(this, "Illegal Operation with memory Access","Error",JOptionPane.ERROR_MESSAGE);
         }
     }
+    private void loadFile(ActionEvent e){
+        JFileChooser fCh = new JFileChooser();
+        fCh.setCurrentDirectory(new File(System.getProperty("user.home")));
+        int res = fCh.showOpenDialog(this);
+        if(res == JFileChooser.APPROVE_OPTION){
+            file = new File(fCh.getSelectedFile().getAbsolutePath());
+            String filename = file.getAbsolutePath();
+            JOptionPane.showMessageDialog(this, filename,"File Load Successful",JOptionPane.PLAIN_MESSAGE);
+            try
+            {
+                ProcessFile();
+            }
+            catch (FileNotFoundException fnfe)
+            {
+                fnfe.printStackTrace();
+            }
+        }
+    }
+    private void ProcessFile() throws FileNotFoundException{
+        Scanner s = new Scanner(file);
+        while(s.hasNext()){
+            String loc = s.next();
+            String val = s.next();
+            Code.add(new StringStruct(loc,val));
+            System.out.println(loc+ " " + val);
+        }
+        s.close();
+    }
     private void runMainLoop(){
 
         this.setSize(1200, 620);
@@ -387,6 +392,7 @@ public class GUI extends JFrame
         init.setBounds(1100,430,70,25);
         init.setBackground(Color.RED);
         init.setForeground(Color.white);
+        init.addActionListener(e -> loadFile(e));
         this.add(init);
         
         ss = new JButton("SS");
