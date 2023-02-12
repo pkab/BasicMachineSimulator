@@ -2,8 +2,8 @@
 /**
  * String Structure - 
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Abhinava Phukan
+ * @version Update
  */
 public class StringStruct
 {
