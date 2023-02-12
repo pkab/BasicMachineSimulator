@@ -19,7 +19,7 @@ public class GUI extends JFrame
     private File file;
     private ArrayList<StringStruct> Code;
     private JMenuBar menuBar;
-    private JMenu fileMenu,editMenu,aboutMenu;
+    private JMenu fileMenu,editMenu,aboutMenu,optMenu;
     private JLabel GPR[],X[],PC,MAR,MBR,IR,MFR,Priv;
     private Label gpr0_arr[],gpr1_arr[],gpr2_arr[],gpr3_arr[]; // Important Ones that will be Kept Modifying
     private Label XLabel[][],pclab[],marlab[],mbrlab[],mfrlab[], // Important Ones
@@ -178,7 +178,7 @@ public class GUI extends JFrame
             this.add(pclab[i]); this.add(marlab[i]);
         }
         // Halt and Run Indicator
-        /*
+       
         JLabel lhlt =new JLabel("Halt");
         JLabel lrun =new JLabel("Run");
         lhlt.setBounds(1110,460,40,20);
@@ -186,7 +186,17 @@ public class GUI extends JFrame
         this.add(lhlt);
         this.add(lrun);
         menuBar = new JMenuBar();
-        fileMenu = new JMenu("File");
+        optMenu = new JMenu("Options");
+        JMenuItem resethlt = new JMenuItem("Reset Halt");
+        JMenuItem resetall = new JMenuItem("Reset All");
+        resethlt.addActionListener(e->resetHalt(e));
+        resetall.addActionListener(e->resetAll(e));
+        optMenu.add(resethlt);
+        optMenu.add(resetall);
+        menuBar.add(optMenu);
+        this.setJMenuBar(menuBar);
+        /*
+        
         editMenu = new JMenu("Edit");
         aboutMenu = new JMenu("Help");
         menuBar.add(fileMenu);
@@ -194,6 +204,14 @@ public class GUI extends JFrame
         menuBar.add(aboutMenu);
         this.setJMenuBar(menuBar);
         */
+    }
+    private void resetHalt(ActionEvent e){
+        hlt.setBackground(Color.black);
+    }
+    private void resetAll(ActionEvent e){
+        cpu.Reset(mem);
+        for(int i=0;i<11;i++)
+            RefreshLeds(i);
     }
     private void RefreshLeds(int buttonpress){
         if( buttonpress != 7 && buttonpress != 8)
@@ -238,6 +256,10 @@ public class GUI extends JFrame
                         if(cpu.MBR[i] == 1)
                             mbrlab[i].setBackground(Color.blue);
                         else mbrlab[i].setBackground(Color.black);
+                    case 10: // Case only for extra situtations for Instruction Register
+                        if(cpu.IR[i] == 1)
+                            irlab[i].setBackground(Color.green);
+                        else irlab[i].setBackground(Color.black);
                     break;
                     default: break;
                 }
@@ -363,6 +385,34 @@ public class GUI extends JFrame
         }
         s.close();
     }
+    private void execCode(ActionEvent e){
+        short EA = cpu.BinaryToDecimal(cpu.PC, 12);
+        cpu.DecimalToBinary(mem.Data[EA], cpu.IR, 16);
+        for(int i=0;i<11;i++)
+            RefreshLeds(i);
+        cpu.Execute(mem);
+        for(int i=0;i<11;i++)
+            RefreshLeds(i);
+        EA++;
+        cpu.DecimalToBinary(EA, cpu.PC, 12);
+        RefreshLeds(7);
+    }
+    private void RunProg(ActionEvent e){
+        if(hlt.getBackground() == Color.red && Run.getBackground() == Color.black){
+            JOptionPane.showMessageDialog(this, "System halted. Go to options to reset halt status",
+            "Error: System Halt",JOptionPane.ERROR_MESSAGE);
+            return ;   
+        }
+        short OpCode;
+        do{
+            execCode(e);
+            hlt.setBackground(Color.black);
+            Run.setBackground(Color.green);
+            OpCode = cpu.BinaryToDecimal(cpu.IR, 6);
+        }while(OpCode != cpu.HLT);
+        Run.setBackground(Color.black);
+        hlt.setBackground(Color.red);
+    }
     private void runMainLoop(){
 
         this.setSize(1200, 620);
@@ -397,8 +447,10 @@ public class GUI extends JFrame
         
         ss = new JButton("SS");
         ss.setBounds(940,460,55,80);
+        ss.addActionListener(e->execCode(e));
         run = new JButton("Run");
         run.setBounds(1027,460,65,80);
+        run.addActionListener(e->RunProg(e));
         run.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
         this.add(ss);
         this.add(run);

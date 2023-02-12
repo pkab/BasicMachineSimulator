@@ -94,6 +94,7 @@ public class CPU extends Converter
             default:
                 break;
         }
+        if(I==1) return m.Data[EA];
         return EA;
     }
     /** End Of FetchEA **/
@@ -187,6 +188,8 @@ public class CPU extends Converter
             X1[i] = X2[i] = X3[i] = 0;
             R0[i] = R1[i] = R2[i] = R3[i] = 0;
         }
+        for(int i=0;i<m.Data.length;i++)
+            m.Data[i]=0;
     }
     /**
      * Execute the Instructions According in the Memory
