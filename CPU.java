@@ -271,6 +271,8 @@ public class CPU extends Converter
         switch(OpCode){
             case HLT:
                 //Reset(m);
+                //for(int i=0;i<16;i++)
+                    //IR[i]=0;//When halting execute nothing for program end
                 break;
             case LDR:
                 StoreRegister(RX,EA,m);

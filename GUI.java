@@ -403,7 +403,10 @@ public class GUI extends JFrame
             String loc = s.next();
             String val = s.next();
             Code.add(new StringStruct(loc,val));
-            System.out.println(loc+ " " + val);
+            short hexloc = cpu.HexToDecimal(loc);
+            short hexval = cpu.HexToDecimal(val);
+            mem.Data[hexloc] = hexval;
+            System.out.println(hexloc+ " " + hexval);
         }
         s.close();
     }
@@ -419,7 +422,7 @@ public class GUI extends JFrame
         cpu.DecimalToBinary(EA, cpu.PC, 12);
         RefreshLeds(7);
     }
-    private void RunProg(ActionEvent e){
+    private void RunProg(ActionEvent e) throws InterruptedException {
         if(hlt.getBackground() == Color.red && Run.getBackground() == Color.black){
             JOptionPane.showMessageDialog(this, "System halted. Go to options to reset halt status",
             "Error: System Halt",JOptionPane.ERROR_MESSAGE);
@@ -427,6 +430,7 @@ public class GUI extends JFrame
         }
         short OpCode;
         do{
+            Thread.sleep(500);
             execCode(e);
             hlt.setBackground(Color.black);
             Run.setBackground(Color.green);
@@ -474,7 +478,17 @@ public class GUI extends JFrame
         /**This creates the "Run" button to the GUI*/
         run = new JButton("Run");
         run.setBounds(1027,460,65,80);
-        run.addActionListener(e->RunProg(e));
+        run.addActionListener(e->
+        {
+            try
+            {
+                RunProg(e);
+            }
+            catch (InterruptedException ie)
+            {
+                ie.printStackTrace();
+            }
+        });
         run.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
         this.add(ss);
         this.add(run);

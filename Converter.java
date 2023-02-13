@@ -43,36 +43,17 @@ public class Converter
             if(c==length) break;
         }
     }
-    public short[] HexToDecimal(String hex_loc,String hex_val){
+    public short HexToDecimal(String s){
         /** To be implemented by Dev **/
         
-        int len = hex_loc.length();  //Length should be 4 for both loc & val
-        int base = 1;
-        int dec_loc = 0;
-        int dec_val = 0;
-        short[] instr = new short[2];
-        for (int i = len - 1; i >= 0; i--) {
-            if (hex_loc.charAt(i) >= '0' && hex_loc.charAt(i) <= '9') {
-                dec_loc += (hex_loc.charAt(i) - 48) * base;
-                base = base * 16;
-            }
-            else if (hex_loc.charAt(i) >= 'A' && hex_loc.charAt(i) <= 'F') {
-                dec_loc += (hex_loc.charAt(i) - 55) * base;
-                base = base * 16;
-            }
+        String digits = "0123456789ABCDEF";
+        s = s.toUpperCase();
+        short val = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            short d = (short)digits.indexOf(c);
+            val = (short)(16*val + d);
         }
-        for (int i = len - 1; i >= 0; i--) {
-            if (hex_val.charAt(i) >= '0' && hex_val.charAt(i) <= '9') {
-                dec_val += (hex_val.charAt(i) - 48) * base;
-                base = base * 16;
-            }
-            else if (hex_val.charAt(i) >= 'A' && hex_val.charAt(i) <= 'F') {
-                dec_val += (hex_val.charAt(i) - 55) * base;
-                base = base * 16;
-            }
-        }
-        instr[0] = dec_loc;
-        instr[1] = dec_val;
-        return instr;
+        return val;
     }
 }
