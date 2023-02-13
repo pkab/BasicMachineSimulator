@@ -10,7 +10,11 @@ PROJECT TITLE: Basic Machine Simulator
 PURPOSE OF PROJECT: Understanding Computer Architecture 
 VERSION: 1.0
 HOW TO START THIS PROJECT: Start the main Function
-AUTHORS: Abhinava Phukan, Natalie Jordan, Dev Shah
+AUTHORS: Abhinava Phukan, Natalie Jordan, Dev Shah, Halawani AlHassan
 USER INSTRUCTIONS:
-- The jar file packaged requires java version 17 and above
-- Run the jar file accordingly to load the interface.
+- Click init button
+- Opens file explorer
+- Click ipl.txt file
+- Select address location 7 in the instruction selecter buttons
+- Click SS which runs single step instructions
+- The program ends at address 10
