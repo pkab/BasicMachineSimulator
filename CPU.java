@@ -23,18 +23,26 @@ public class CPU extends Converter
      * Define OpCode Inst
      */
     static final short HLT = 0x00; /** Stops the Machine **/
-    static final short LDR = 0x01; 
     /** Load Register From Memory **/
     /** RX <- Value(Effective Address) **/
-    static final short STR = 0x02; 
+    static final short LDR = 0x01; 
     /** Store Register to Memory Location 
       * Value of Effective Address is assigned
       * as value stored in the register
       */
-    static final short LDA = 0x03; 
+    static final short STR = 0x02; 
     /** Load Register with Address
       * Insert the Effective Address Value inside the Register RX.
       */
+    static final short LDA = 0x03; 
+    /** Load Index Register with Address
+      * Insert the Effective Address Value inside the Index Register XI.
+      */
+    static final short LDX = 0x21;
+    /** Store Index Register to Memory Address
+      * Insert the Effective Address Value inside the Index Register XI.
+      */
+    static final short STX = 0x22;
     /** -------------------End of OpCode Definition --------------------**/
     /**
      * Constructor to Initialize the CPU
@@ -122,6 +130,30 @@ public class CPU extends Converter
     }
     /** End of StoreRegister **/
     /**
+     * Internal Function That Loads the value from memory 
+     * into the specified index register
+     */
+    private void StoreIndexRegister(char ix[],short EA,Memory m){
+        byte RVal= (byte)BinaryToDecimal(ix,2);
+        DecimalToBinary(EA,MAR,12);
+        DecimalToBinary(m.Data[EA],MBR,16);
+        switch(RVal){
+            case 0:
+                break;
+            case 1:
+                CopyArr(MBR, X1, 16);
+                break;
+            case 2:
+                CopyArr(MBR, X2, 16);
+                break;
+            case 3:
+                CopyArr(MBR, X3, 16);
+                break;
+            default: break;
+        }
+    }
+    /** End of StoreIndexRegister **/
+    /**
      * Store memory from register
      * Data[EA] = Value(RXVal)
      */
@@ -145,10 +177,29 @@ public class CPU extends Converter
         m.Data[EA] = BinaryToDecimal(MBR,16);
     }
     /** End of MemStore **/
-    public void ReverseCopyArr(char src[],char des[],int length,int srclen){
-        for(int i=0;i<srclen;i++)
-            des[length-i-1] = src[srclen-i-1];
+    /**
+     * Store memory from index register
+     * Data[EA] = Value(IXVal)
+     */
+    private void MemStoreFromIndex(char ix[],short EA,Memory m){
+        byte RVal = (byte)BinaryToDecimal(ix,2);
+        DecimalToBinary(EA,MAR,12);
+        switch(RVal){
+            case 0:
+                break;
+            case 1:
+                CopyArr(X1, MBR, 16);
+                break;
+            case 2:
+                CopyArr(X2, MBR, 16);
+                break;
+            case 3:
+                CopyArr(X3, MBR, 16);
+                break;
+        }
+        m.Data[EA] = BinaryToDecimal(MBR,16);
     }
+    /** End of MemStoreToIndex **/
     /**
      * Internal Function That Loads the Effective address value in to the specified register
      */
@@ -171,6 +222,10 @@ public class CPU extends Converter
         }
     }
     /** End of StoreRegisterEA **/
+    public void ReverseCopyArr(char src[],char des[],int length,int srclen){
+        for(int i=0;i<srclen;i++)
+            des[length-i-1] = src[srclen-i-1];
+    }
     /**
      * Reset The Machine state (Useful in Halting)
      */
@@ -226,6 +281,13 @@ public class CPU extends Converter
             case LDA:
                 StoreRegisterEA(RX,EA);
                 break;
+            case LDX:
+                StoreIndexRegister(IX, EA, m);
+                break;
+            case STX:
+                MemStoreFromIndex(IX, EA, m);
+                break;
+            default: break;
         }
     }
     
