@@ -224,6 +224,10 @@ public class GUI extends JFrame
         for(int i=0;i<11;i++)
             RefreshLeds(i);
     }
+    /**
+     * Every time internal of the registers are updated,
+     * The LEDs will be updated as well.
+     */
     private void RefreshLeds(int buttonpress){
         if( buttonpress != 7 && buttonpress != 8)
             for(int i=0;i<16;i++){

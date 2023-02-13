@@ -1,7 +1,7 @@
 /**
  * Converter Class - Numerical Conversions
  *
- * @author Abhinava Phukan
+ * @author Abhinava Phukan, Dev Shah
  * @version 1.0
  */
 public class Converter
@@ -43,9 +43,14 @@ public class Converter
             if(c==length) break;
         }
     }
+    /**
+     * To be used in the conversion from Hex to Decimal.
+     * The Decimal code is later stored in memory for program counter to access
+     * and run the program single or multi step.
+     */
     public short HexToDecimal(String s){
         /** To be implemented by Dev **/
-        
+        // Reference: https://stackoverflow.com/questions/20110533/converting-some-hexadecimal-string-to-a-decimal-integer
         String digits = "0123456789ABCDEF";
         s = s.toUpperCase();
         short val = 0;

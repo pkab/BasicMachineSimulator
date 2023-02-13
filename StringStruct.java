@@ -3,7 +3,7 @@
  * String Structure - 
  *
  * @author Abhinava Phukan
- * @version Update
+ * @version 0.1
  */
 public class StringStruct
 {
