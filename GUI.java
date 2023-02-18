@@ -337,7 +337,7 @@ public class GUI extends JFrame
     private void switchAction(ActionEvent e){
         /**This will change the color of the switches at the botton of the screen once one of them are pressed*/
         JButton j = (JButton)e.getSource();
-        int click = 15-Integer.parseInt(j.getLabel());
+        int click = 15-Integer.parseInt(j.getText());
         //System.out.println(click);
         if(swarr[click]==0){
             swarr[click] = 1;

@@ -22,7 +22,7 @@ public class CPU extends Converter
     /**
      * Define OpCode Inst
      */
-    static final short HLT = 0x00; /** Stops the Machine **/
+    final short HLT = 0x00; /** Stops the Machine **/
     /** Load Register From Memory **/
     /** RX <- Value(Effective Address) **/
     static final short LDR = 0x01; 
