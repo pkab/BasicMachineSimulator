@@ -20,7 +20,7 @@ public class GUI extends JFrame
     private File file;
     private ArrayList<StringStruct> Code;
     private JMenuBar menuBar;
-    private JMenu fileMenu,editMenu,aboutMenu,optMenu;
+    private JMenu optMenu;
     private JLabel GPR[],X[],PC,MAR,MBR,IR,MFR,Priv;
     private Label gpr0_arr[],gpr1_arr[],gpr2_arr[],gpr3_arr[]; // Important Ones that will be Kept Modifying
     private Label XLabel[][],pclab[],marlab[],mbrlab[],mfrlab[], // Important Ones
