@@ -48,10 +48,10 @@ public class CPU extends Converter
      */
     static final short MLT = 0x10; // Multiplication Instruction
     static final short DVD = 0x11; // Division Instruction
-    static final short TRR = 0x11; // Register Equality Instruction Test
-    static final short AND = 0x11; // BitWise AND Operator
-    static final short ORR = 0x11; // BitWise OR Operator
-    static final short NOT = 0x11; // BitWise NOT Operator
+    static final short TRR = 0x12; // Register Equality Instruction Test
+    static final short AND = 0x13; // BitWise AND Operator
+    static final short ORR = 0x14; // BitWise OR Operator
+    static final short NOT = 0x15; // BitWise NOT Operator
     /** -------------------End of OpCode Definition --------------------**/
     /**
      * Constructor to Initialize the CPU
