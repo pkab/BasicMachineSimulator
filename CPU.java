@@ -10,14 +10,22 @@ public class CPU extends Converter
     /**
      * Define the Structure of the CPU
      */
-    public char PC[]; /** Program Counter **/
-    public char CC[]; /** Condition Code **/
-    public char IR[]; /** Instruction Register **/
-    public char MAR[]; /** Memory Address Register **/
-    public char MBR[]; /** Memory Buffer Register **/
-    public char MFR[]; /** Machine Fault Register **/
-    public char R0[],R1[],R2[],R3[]; /** General Purpose Register **/
-    public char X1[],X2[],X3[]; /** Index Registers **/
+    /** Program Counter **/
+    public char PC[]; 
+    /** Condition Code **/
+    public char CC[]; 
+    /** Instruction Register **/
+    public char IR[]; 
+    /** Memory Address Register **/
+    public char MAR[]; 
+    /** Memory Buffer Register **/
+    public char MBR[]; 
+    /** Memory Fault Register **/
+    public char MFR[]; 
+    /** General Purpose Register **/
+    public char R0[],R1[],R2[],R3[]; 
+    /** Index Registers **/
+    public char X1[],X2[],X3[]; 
     /** ------------------- End of Structure Definition -------------------**/
     /**
      * Define OpCode Inst
@@ -336,7 +344,7 @@ public class CPU extends Converter
                 DecimalToBinary(rem, R1, 16);
                 DecimalToBinary(result, R0, 16);
             }catch(ArithmeticException E){
-                CC[3]=1;
+                CC[2]=1;
             }
         }else if(rx==2){
             short result=BinaryToDecimal(R2, 16);
@@ -353,21 +361,74 @@ public class CPU extends Converter
                 DecimalToBinary(rem, R2, 16);
                 DecimalToBinary(result, R3, 16);
             }catch(ArithmeticException E){
-                CC[3]=1;
+                CC[2]=1;
             }
         }
     }
     public void fTRR(short rx,short ry){
-
+        short R_x=0,R_y=0;
+        switch(rx){
+            case 0: R_x = BinaryToDecimal(R0, 16); break;
+            case 1: R_x = BinaryToDecimal(R1, 16); break;
+            case 2: R_x = BinaryToDecimal(R2, 16); break;
+            case 3: R_x = BinaryToDecimal(R3, 16); break;
+        }
+        switch(ry){
+            case 0: R_y = BinaryToDecimal(R0, 16); break;
+            case 1: R_y = BinaryToDecimal(R1, 16); break;
+            case 2: R_y = BinaryToDecimal(R2, 16); break;
+            case 3: R_y = BinaryToDecimal(R3, 16); break;
+        }
+        if(R_x == R_y) CC[2]=1;
     }
     public void fAND(short rx,short ry){
-
+        char[] R_x=null,R_y=null;
+        switch(rx){
+            case 0: R_x = R0; break;
+            case 1: R_x = R1; break;
+            case 2: R_x = R2; break;
+            case 3: R_x = R3; break;
+        }
+        switch(ry){
+            case 0: R_y = R0; break;
+            case 1: R_y = R1; break;
+            case 2: R_y = R2; break;
+            case 3: R_y = R3; break;
+        }
+        for(int i=0;i<16;i++){
+            R_x[i] = (char)(R_x[i] & R_y[i]);
+        }
     }
     public void fORR(short rx,short ry){
-
+        char[] R_x=null,R_y=null;
+        switch(rx){
+            case 0: R_x = R0; break;
+            case 1: R_x = R1; break;
+            case 2: R_x = R2; break;
+            case 3: R_x = R3; break;
+        }
+        switch(ry){
+            case 0: R_y = R0; break;
+            case 1: R_y = R1; break;
+            case 2: R_y = R2; break;
+            case 3: R_y = R3; break;
+        }
+        for(int i=0;i<16;i++){
+            R_x[i] = (char)(R_x[i] | R_y[i]);
+        }
     }
-    public void fNOT(short rx,short ry){
-
+    public void fNOT(short rx){
+        char[] R_x=null;
+        switch(rx){
+            case 0: R_x = R0; break;
+            case 1: R_x = R1; break;
+            case 2: R_x = R2; break;
+            case 3: R_x = R3; break;
+        }
+        for(int i=0;i<16;i++){
+            if(R_x[i] == 0) R_x[i] = 1;
+            else if(R_x[i] == 1) R_x[i] = 0;
+        }
     }
     /* END of Implmentation of Methods For Other OpCode - Abhinava Phukan */
     /** Getter and Setter Functions for Debugging and future development only **/
