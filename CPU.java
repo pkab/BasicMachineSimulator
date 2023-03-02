@@ -43,6 +43,15 @@ public class CPU extends Converter
       * Insert the Effective Address Value inside the Index Register XI.
       */
     static final short STX = 0x22;
+    /*
+     * OpCode Definition by Abhinava Phukan
+     */
+    static final short MLT = 0x10; // Multiplication Instruction
+    static final short DVD = 0x11; // Division Instruction
+    static final short TRR = 0x11; // Register Equality Instruction Test
+    static final short AND = 0x11; // BitWise AND Operator
+    static final short ORR = 0x11; // BitWise OR Operator
+    static final short NOT = 0x11; // BitWise NOT Operator
     /** -------------------End of OpCode Definition --------------------**/
     /**
      * Constructor to Initialize the CPU
