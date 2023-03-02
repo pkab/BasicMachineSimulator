@@ -295,10 +295,81 @@ public class CPU extends Converter
             case STX:
                 MemStoreFromIndex(IX, EA, m);
                 break;
+            case MLT:
+                fMLT(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2));
+                break;
+            case DVD:
+                fDVD(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2));
+                break;
             default: break;
         }
     }
-    
+    /* Implmentation of Methods For Other OpCode - Abhinava Phukan */
+    public void fMLT(short rx,short ry){
+        if( rx%2==1 || ry%2==1) return ;
+        if(rx==0){
+            short result=BinaryToDecimal(R0, 16);
+            if(ry==0) result *= BinaryToDecimal(R0, 16);
+            else result *= BinaryToDecimal(R2, 16);
+            DecimalToBinary(result, R1, 16);
+        }else if(rx==2){
+            short result = BinaryToDecimal(R2, 16);
+            if(ry==0) result *= BinaryToDecimal(R0, 16);
+            else result *= BinaryToDecimal(R2, 16);
+            DecimalToBinary(result, R3, 16);
+        }
+    }
+    public void fDVD(short rx,short ry){
+        if( rx%2==1 || ry%2==1) return ;
+        if(rx==0){
+            short result=BinaryToDecimal(R0, 16);
+            try{
+                short rem=0;
+                if(ry==0) {
+                    rem+= result % BinaryToDecimal(R0,16);
+                    result /= BinaryToDecimal(R0, 16);
+                }
+                else { 
+                    rem+= result % BinaryToDecimal(R2,16);
+                    result /= BinaryToDecimal(R2, 16); 
+                }
+                DecimalToBinary(rem, R1, 16);
+                DecimalToBinary(result, R0, 16);
+            }catch(ArithmeticException E){
+                CC[3]=1;
+            }
+        }else if(rx==2){
+            short result=BinaryToDecimal(R2, 16);
+            try{
+                short rem=0;
+                if(ry==0) {
+                    rem+= result % BinaryToDecimal(R0,16);
+                    result /= BinaryToDecimal(R0, 16);
+                }
+                else { 
+                    rem+= result % BinaryToDecimal(R2,16);
+                    result /= BinaryToDecimal(R2, 16); 
+                }
+                DecimalToBinary(rem, R1, 16);
+                DecimalToBinary(result, R0, 16);
+            }catch(ArithmeticException E){
+                CC[3]=1;
+            }
+        }
+    }
+    public void fTRR(short rx,short ry){
+
+    }
+    public void fAND(short rx,short ry){
+
+    }
+    public void fORR(short rx,short ry){
+
+    }
+    public void fNOT(short rx,short ry){
+
+    }
+    /* END of Implmentation of Methods For Other OpCode - Abhinava Phukan */
     /** Getter and Setter Functions for Debugging and future development only **/
     public char[] getIR() {
         return IR;
