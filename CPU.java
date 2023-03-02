@@ -350,8 +350,8 @@ public class CPU extends Converter
                     rem+= result % BinaryToDecimal(R2,16);
                     result /= BinaryToDecimal(R2, 16); 
                 }
-                DecimalToBinary(rem, R1, 16);
-                DecimalToBinary(result, R0, 16);
+                DecimalToBinary(rem, R2, 16);
+                DecimalToBinary(result, R3, 16);
             }catch(ArithmeticException E){
                 CC[3]=1;
             }
