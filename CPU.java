@@ -280,7 +280,7 @@ public class CPU extends Converter
         char Address[] = new char[5];
         for(int i=11;i<16;i++) Address[i-11] = IR[i];
         short OpCode = BinaryToDecimal(InstOp,6); // Fetch OpCode Value
-        
+        System.out.printf("OpCode: 0x%-2x\n",OpCode);
         /**
          * CPU Decision making for executing opcode here
          */
@@ -308,6 +308,18 @@ public class CPU extends Converter
                 break;
             case DVD:
                 fDVD(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2));
+                break;
+            case TRR:
+                fTRR(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2));
+                break;
+            case AND:
+                fAND(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2));
+                break;
+            case ORR:
+                fORR(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2)); 
+                break;
+            case NOT:
+                fNOT(BinaryToDecimal(RX, 2));
                 break;
             default: break;
         }
