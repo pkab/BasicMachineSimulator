@@ -1,0 +1,79 @@
+OP code 14-17
+---
+
+14 JSR x, address[,I] 
+
+Jump and Save Return Address:
+R3  PC+1;
+PC  EA
+R0 should contain pointer to arguments
+Argument list should end with –1 (all 1s) value
+
+15 RFS Immed
+
+Return From Subroutine w/ return code as Immed
+portion (optional) stored in the instruction’s
+address field.
+R0  Immed; PC  c(R3)
+IX, I fields are ignored.
+
+16 SOB r, x, address[,I]
+
+Subtract One and Branch. R = 0..3
+r  c(r) – 1
+If c(r) > 0, PC <- EA;
+Else PC <- PC + 1
+
+17 JGE r,x, address[,I] 
+
+Jump Greater Than or Equal To:
+If c(r) >= 0, then PC <- EA
+Else PC <- PC + 1
+
+-----------------------
+public void JSR() {
+		logger.info("JSR instruction start.");
+		getEA();
+		gpr3.setBinaryValue(getIntPC()+1);
+		pc.setCurrentValue(mar.getCurrentValue());
+		pc.setBinaryValue(mar.getCurrentValue());
+		logger.info(" JSR instruction end.");
+	}
+    
+	public void RFSImmed() {
+		logger.info("RFSImmed instruction start.");
+		getEA();
+		setGPR0(ir.getAddrValue());
+		setPC(getIntGPR3());
+		logger.info(" RFSImmed instruction end.");
+	}
+	
+	public void SOB() {
+		logger.info("SOB instruction start.");
+		getEA();
+		int GPRvalue = GPRList.get(ir.getGPRValue()).getCurrentValue();
+		GPRList.get(ir.getGPRValue()).setCurrentValue(GPRvalue-1);
+		GPRList.get(ir.getGPRValue()).setBinaryValue(GPRvalue-1);
+		if(GPRvalue-1 > 0) {
+			getEA();
+			pc.setCurrentValue(mar.getCurrentValue());
+			pc.setBinaryValue(mar.getCurrentValue());
+		}else {
+			pc.addOne();
+		}
+		logger.info("SOB instruction end.");
+	}
+	
+	public void JGE() {
+		logger.info("JGE instruction start.");
+		int GPRvalue = GPRList.get(ir.getGPRValue()).getCurrentValue();
+		if(GPRvalue >= 0) {
+			getEA();
+			pc.setCurrentValue(mar.getCurrentValue());
+			pc.setBinaryValue(mar.getCurrentValue());
+		}else {
+			pc.addOne();
+		}
+		
+		logger.info("JGE instruction end.");
+	}
