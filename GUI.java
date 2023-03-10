@@ -422,8 +422,12 @@ public class GUI extends JFrame
         cpu.Execute(mem);
         for(int i=0;i<11;i++)
             RefreshLeds(i);
-        EA++;
+        short val = cpu.BinaryToDecimal(cpu.IR, 6);
+        if(val < 0x08 || val> 0x0B){
+            EA++;
+        }
         cpu.DecimalToBinary(EA, cpu.PC, 12);
+        //else EA = cpu.BinaryToDecimal(cpu.PC, 12);
         RefreshLeds(7);
     }
     private void RunProg(ActionEvent e) throws InterruptedException {

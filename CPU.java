@@ -28,7 +28,7 @@ public class CPU extends Converter
     public char X1[],X2[],X3[]; 
     /** ------------------- End of Structure Definition -------------------**/
     /**
-     * Define OpCode Inst
+     * Define OpCode Inst (Abhinava Phukan)
      */
     final short HLT = 0x00; /** Stops the Machine **/
     /** Load Register From Memory **/
@@ -52,14 +52,80 @@ public class CPU extends Converter
       */
     static final short STX = 0x22;
     /*
+     * OpCode Definition by Natalie Jordan
+     */
+    /**
+     * Jump if zero
+     */
+    static final short JZ = 0x08;
+    
+    /**
+     * Jump if not equal
+     */
+    static final short JNE = 0x09;
+    
+    /**
+     * Jump if condition code
+     */
+    static final short JCC = 0x0A;
+    
+    /**
+     * Unconditional jump to address
+     */
+    static final short JMA = 0x0B;
+    /* End of Opcode Definition by Natalie Jordan */
+    // ---------------------------------------------
+    /* OpCode Definition by Alhassan Halawani */
+    /**
+     * Jump and Save return address
+     * 
+     */
+    static final short JSR = 0x0C;
+    /**
+     * Return From Subroutine w/ return code as Immed
+     * portion (optional) stored in the instruction’s
+     * address field.
+     * R0 <- Immed; PC <- c(R3)
+     * IX, I fields are ignored.
+     */
+    static final short RFS = 0x0D;
+    /**
+     * Subtract One and Branch Register
+     */
+    static final short SOB = 0x0E;
+    /**
+     * Jump Greater Than Equal
+     */
+    static final short JGE = 0x0F;
+    /* End of OpCode Definition by Alhassan Halawani */
+    /**
      * OpCode Definition by Abhinava Phukan
      */
-    static final short MLT = 0x10; // Multiplication Instruction
-    static final short DVD = 0x11; // Division Instruction
-    static final short TRR = 0x12; // Register Equality Instruction Test
-    static final short AND = 0x13; // BitWise AND Operator
-    static final short ORR = 0x14; // BitWise OR Operator
+    /**
+     *  Multiplication Instruction 
+     */
+    static final short MLT = 0x10; 
+    /**
+     *  Division Instruction 
+     */
+    static final short DVD = 0x11; 
+    /**
+     *  Register Equality Instruction 
+     */
+    static final short TRR = 0x12; 
+    /**
+     *  AND operator Instruction 
+     */
+    static final short AND = 0x13; 
+    /**
+     *  OR Operator Instruction 
+     */
+    static final short ORR = 0x14; 
+    /**
+     *  Not Operator Instruction 
+     */
     static final short NOT = 0x15; // BitWise NOT Operator
+    // End Of OpCode Definition By Abhinava Phukan
     /** -------------------End of OpCode Definition --------------------**/
     /**
      * Constructor to Initialize the CPU
@@ -303,6 +369,22 @@ public class CPU extends Converter
             case STX:
                 MemStoreFromIndex(IX, EA, m);
                 break;
+            case JZ:
+                JumpZero((BinaryToDecimal(RX, 2)),EA);
+                break;
+            case JNE:
+                JumpIfNotEqual((BinaryToDecimal(RX, 2)),EA);
+                break;    
+            case JCC:
+                JumpIfCond(BinaryToDecimal(RX, 2),EA);
+                break;
+            case JMA:
+                UncondJump(EA);
+                break;
+            case JSR: break;
+            case RFS: break;
+            case SOB: break;
+            case JGE: break;
             case MLT:
                 fMLT(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2));
                 break;
@@ -324,18 +406,100 @@ public class CPU extends Converter
             default: break;
         }
     }
+    /**
+     * OPCode Implementation Natatlie Jordan
+     */
+    /**
+     * Jump if zero
+     * @param rx
+     * @param EA
+     */
+    public void JumpZero(short rx,short EA){
+        short val,addr;
+        switch(rx){
+            case 0:
+                val = BinaryToDecimal(R0, 16);
+                break;
+            case 1:
+                val = BinaryToDecimal(R1, 16);
+                break;
+            case 2:
+                val = BinaryToDecimal(R2, 16);
+                break;
+            case 3:
+                val = BinaryToDecimal(R3, 16);
+                break;
+            default: val = -1; break;
+        }
+        if(val==0){
+            addr = EA;
+            DecimalToBinary(addr, PC, 12);
+        }else {
+            DecimalToBinary((short)
+            (BinaryToDecimal(PC, 12)+1), PC, 12);
+        }
+    }
+    /**
+     * Jump if not equal
+     */
+    public void JumpIfNotEqual(short rx,short EA){
+        short val,addr;
+        switch(rx){
+            case 0:
+                val = BinaryToDecimal(R0, 16);
+                break;
+            case 1:
+                val = BinaryToDecimal(R1, 16);
+                break;
+            case 2:
+                val = BinaryToDecimal(R2, 16);
+                break;
+            case 3:
+                val = BinaryToDecimal(R3, 16);
+                break;
+            default: val = -1; break;
+        }
+        if (val != 0){
+            addr = EA;
+            DecimalToBinary(addr, PC, 12);
+        } else {
+            DecimalToBinary((short)
+            (BinaryToDecimal(PC, 12)+1), PC, 12);
+        }
+    }
+    /**
+     * Jump if condition code
+     */
+    public void JumpIfCond(short cc,short EA){
+        if ( CC[cc] == 1){
+            DecimalToBinary(EA, PC, 12);
+        } else {
+            DecimalToBinary((short)
+            (BinaryToDecimal(PC, 12)+1), PC, 12);
+        }
+    }
+    /**
+     * Unconditional jump to address
+     */
+    public void UncondJump(short EA){
+        DecimalToBinary(EA, PC, 12);
+    }
+    /* End Implementation of OpCode Method - Natalie Jordan */
     /* Implmentation of Methods For Other OpCode - Abhinava Phukan */
     public void fMLT(short rx,short ry){
+        /*
+         * If 
+         */
         if( rx%2==1 || ry%2==1) return ;
         if(rx==0){
             short result=BinaryToDecimal(R0, 16);
-            if(ry==0) result *= BinaryToDecimal(R0, 16);
+            if(ry==0) result *= result;
             else result *= BinaryToDecimal(R2, 16);
             DecimalToBinary(result, R1, 16);
         }else if(rx==2){
             short result = BinaryToDecimal(R2, 16);
             if(ry==0) result *= BinaryToDecimal(R0, 16);
-            else result *= BinaryToDecimal(R2, 16);
+            else result *= result;
             DecimalToBinary(result, R3, 16);
         }
     }
