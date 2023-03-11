@@ -309,10 +309,10 @@ public class CPU extends Converter
                 MemStoreFromIndex(IX, EA, m);
                 break;            
             case AMR:
-                fAMR(BinaryToDecimal(RX, 2), EA);
+                fAMR(BinaryToDecimal(RX, 2), EA,m);
                 break;
             case SMR:
-                fSMR(BinaryToDecimal(RX, 2), EA);
+                fSMR(BinaryToDecimal(RX, 2), EA,m);
                 break;
             case AIR:
                 fAIR(BinaryToDecimal(RX, 2), BinaryToDecimal(Address, 5));
@@ -344,81 +344,85 @@ public class CPU extends Converter
     
     /* Implmentation of Methods For Other OpCode - Dev Shah */
     public void fAMR(short RVal,short EA, Memory m){
+        short result;
         switch (RVal) {
             case 0:
-                short result = BinaryToDecimal(R0, 16) + m.Data[EA];
+                result = (short)(BinaryToDecimal(R0, 16) + m.Data[EA]);
                 DecimalToBinary(result, R0, 16);
                 break;
             case 1:
-                short result = BinaryToDecimal(R1, 16) + m.Data[EA];
+                result = (short)(BinaryToDecimal(R1, 16) + m.Data[EA]);
                 DecimalToBinary(result, R1, 16);
                 break;
             case 2:
-                short result = BinaryToDecimal(R2, 16) + m.Data[EA];
+                result = (short)(BinaryToDecimal(R2, 16) + m.Data[EA]);
                 DecimalToBinary(result, R2, 16);
                 break;
             case 3:
-                short result = BinaryToDecimal(R3, 16) + m.Data[EA];
+                result = (short)(BinaryToDecimal(R3, 16) + m.Data[EA]);
                 DecimalToBinary(result, R3, 16);
                 break;
         }
     }
     public void fSMR(short RVal,short EA, Memory m){
+        short result;
         switch (RVal) {
             case 0:
-                short result = BinaryToDecimal(R0, 16) - m.Data[EA];
+                result = (short)(BinaryToDecimal(R0, 16) - m.Data[EA]);
                 DecimalToBinary(result, R0, 16);
                 break;
             case 1:
-                short result = BinaryToDecimal(R1, 16) - m.Data[EA];
+                result = (short)(BinaryToDecimal(R1, 16) - m.Data[EA]);
                 DecimalToBinary(result, R1, 16);
                 break;
             case 2:
-                short result = BinaryToDecimal(R2, 16) - m.Data[EA];
+                result = (short)(BinaryToDecimal(R2, 16) - m.Data[EA]);
                 DecimalToBinary(result, R2, 16);
                 break;
             case 3:
-                short result = BinaryToDecimal(R3, 16) - m.Data[EA];
+                result = (short)(BinaryToDecimal(R3, 16) - m.Data[EA]);
                 DecimalToBinary(result, R3, 16);
                 break;
         }
     }
     public void fAIR(short RVal,short Addr){
+        short result;
         switch (RVal) {
             case 0:
-                short result = BinaryToDecimal(R0, 16) + Addr;
+                result = (short)(BinaryToDecimal(R0, 16) + Addr);
                 DecimalToBinary(result, R0, 16);
                 break;
             case 1:
-                short result = BinaryToDecimal(R1, 16) + Addr;
+                result = (short)(BinaryToDecimal(R1, 16) + Addr);
                 DecimalToBinary(result, R1, 16);
                 break;
             case 2:
-                short result = BinaryToDecimal(R2, 16) + Addr;
+                result = (short)(BinaryToDecimal(R2, 16) + Addr);
                 DecimalToBinary(result, R2, 16);
                 break;
             case 3:
-                short result = BinaryToDecimal(R3, 16) + Addr;
+                result = (short)(BinaryToDecimal(R3, 16) + Addr);
                 DecimalToBinary(result, R3, 16);
                 break;
         }
     }
     public void fSIR(short RVal,short Addr){
+        short result;
         switch (RVal) {
             case 0:
-                short result = BinaryToDecimal(R0, 16) - Addr;
+                result = (short)(BinaryToDecimal(R0, 16) - Addr);
                 DecimalToBinary(result, R0, 16);
                 break;
             case 1:
-                short result = BinaryToDecimal(R1, 16) - Addr;
+                result = (short)(BinaryToDecimal(R1, 16) - Addr);
                 DecimalToBinary(result, R1, 16);
                 break;
             case 2:
-                short result = BinaryToDecimal(R2, 16) - Addr;
+                result = (short)(BinaryToDecimal(R2, 16) - Addr);
                 DecimalToBinary(result, R2, 16);
                 break;
             case 3:
-                short result = BinaryToDecimal(R3, 16) - Addr;
+                result = (short)(BinaryToDecimal(R3, 16) - Addr);
                 DecimalToBinary(result, R3, 16);
                 break;
         }
