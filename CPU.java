@@ -133,6 +133,14 @@ public class CPU extends Converter
      *  Not Operator Instruction 
      */
     static final short NOT = 0x15; // BitWise NOT Operator
+    /**
+     * Shift Register by Count
+     */
+    static final short SRC = 0x19; // Shift Register by Count
+    /**
+     * Rotate Register by Count
+     */
+    static final short RRC = 0x1A; // Rotate Register by Count
     // End Of OpCode Definition By Abhinava Phukan
     /** -------------------End of OpCode Definition --------------------**/
     /**
@@ -353,6 +361,8 @@ public class CPU extends Converter
         char I = IR[10];
         char Address[] = new char[5];
         for(int i=11;i<16;i++) Address[i-11] = IR[i];
+        char Count[] = new char[4];
+        for(int i=12;i<16;i++) Count[i-12] = IR[i];
         short OpCode = BinaryToDecimal(InstOp,6); // Fetch OpCode Value
         System.out.printf("OpCode: 0x%-2x\n",OpCode);
         /**
@@ -430,6 +440,14 @@ public class CPU extends Converter
                 break;
             case NOT:
                 fNOT(BinaryToDecimal(RX, 2));
+                break;
+            case SRC:
+                fSRC(BinaryToDecimal(RX, 2),BinaryToDecimal(Count, 4),
+                    (byte)IR[9],(byte)IR[8]);
+                break;
+            case RRC:
+                fRRC(BinaryToDecimal(RX, 2),BinaryToDecimal(Count, 4),
+                    (byte)IR[9],(byte)IR[8]);
                 break;
             default: break;
         }
@@ -953,6 +971,15 @@ public class CPU extends Converter
     }
     public char[] getMBR(){
         return MBR;
+    }
+    public char[] getRegister(short rx){
+        switch(rx){
+            case 0: return R0; 
+            case 1: return R1; 
+            case 2: return R2; 
+            case 3: return R3; 
+            default: return R0; 
+        }
     }
     
 }
