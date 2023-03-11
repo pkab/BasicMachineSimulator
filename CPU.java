@@ -51,6 +51,11 @@ public class CPU extends Converter
       * Insert the Effective Address Value inside the Index Register XI.
       */
     static final short STX = 0x22;
+    
+    static final short AMR = 0x04; // Add Memory To Register
+    static final short SMR = 0x05; // Subtract Memory From Register
+    static final short AIR = 0x06; // Add  Immediate to Register
+    static final short SIR = 0x07; // Subtract Immediate to Register
     /*
      * OpCode Definition by Natalie Jordan
      */
@@ -368,6 +373,18 @@ public class CPU extends Converter
                 break;
             case STX:
                 MemStoreFromIndex(IX, EA, m);
+                break;            
+            case AMR:
+                fAMR(BinaryToDecimal(RX, 2), EA,m);
+                break;
+            case SMR:
+                fSMR(BinaryToDecimal(RX, 2), EA,m);
+                break;
+            case AIR:
+                fAIR(BinaryToDecimal(RX, 2), BinaryToDecimal(Address, 5));
+                break;
+            case SIR:
+                fSIR(BinaryToDecimal(RX, 2), BinaryToDecimal(Address, 5));
                 break;
             case JZ:
                 JumpZero((BinaryToDecimal(RX, 2)),EA);
@@ -575,6 +592,93 @@ public class CPU extends Converter
                 PC, 12);
     }
     /* End Implementation of OpCode Method - AlHassan Halawani */
+    
+    /* Implmentation of Methods For Other OpCode - Dev Shah */
+    public void fAMR(short RVal,short EA, Memory m){
+        short result;
+        switch (RVal) {
+            case 0:
+                result = (short)(BinaryToDecimal(R0, 16) + m.Data[EA]);
+                DecimalToBinary(result, R0, 16);
+                break;
+            case 1:
+                result = (short)(BinaryToDecimal(R1, 16) + m.Data[EA]);
+                DecimalToBinary(result, R1, 16);
+                break;
+            case 2:
+                result = (short)(BinaryToDecimal(R2, 16) + m.Data[EA]);
+                DecimalToBinary(result, R2, 16);
+                break;
+            case 3:
+                result = (short)(BinaryToDecimal(R3, 16) + m.Data[EA]);
+                DecimalToBinary(result, R3, 16);
+                break;
+        }
+    }
+    public void fSMR(short RVal,short EA, Memory m){
+        short result;
+        switch (RVal) {
+            case 0:
+                result = (short)(BinaryToDecimal(R0, 16) - m.Data[EA]);
+                DecimalToBinary(result, R0, 16);
+                break;
+            case 1:
+                result = (short)(BinaryToDecimal(R1, 16) - m.Data[EA]);
+                DecimalToBinary(result, R1, 16);
+                break;
+            case 2:
+                result = (short)(BinaryToDecimal(R2, 16) - m.Data[EA]);
+                DecimalToBinary(result, R2, 16);
+                break;
+            case 3:
+                result = (short)(BinaryToDecimal(R3, 16) - m.Data[EA]);
+                DecimalToBinary(result, R3, 16);
+                break;
+        }
+    }
+    public void fAIR(short RVal,short Addr){
+        short result;
+        switch (RVal) {
+            case 0:
+                result = (short)(BinaryToDecimal(R0, 16) + Addr);
+                DecimalToBinary(result, R0, 16);
+                break;
+            case 1:
+                result = (short)(BinaryToDecimal(R1, 16) + Addr);
+                DecimalToBinary(result, R1, 16);
+                break;
+            case 2:
+                result = (short)(BinaryToDecimal(R2, 16) + Addr);
+                DecimalToBinary(result, R2, 16);
+                break;
+            case 3:
+                result = (short)(BinaryToDecimal(R3, 16) + Addr);
+                DecimalToBinary(result, R3, 16);
+                break;
+        }
+    }
+    public void fSIR(short RVal,short Addr){
+        short result;
+        switch (RVal) {
+            case 0:
+                result = (short)(BinaryToDecimal(R0, 16) - Addr);
+                DecimalToBinary(result, R0, 16);
+                break;
+            case 1:
+                result = (short)(BinaryToDecimal(R1, 16) - Addr);
+                DecimalToBinary(result, R1, 16);
+                break;
+            case 2:
+                result = (short)(BinaryToDecimal(R2, 16) - Addr);
+                DecimalToBinary(result, R2, 16);
+                break;
+            case 3:
+                result = (short)(BinaryToDecimal(R3, 16) - Addr);
+                DecimalToBinary(result, R3, 16);
+                break;
+        }
+    }
+
     /* Implmentation of Methods For Other OpCode - Abhinava Phukan */
     /**
      * Method for the Multiplication OpCode
