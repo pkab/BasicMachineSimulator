@@ -51,11 +51,14 @@ public class CPU extends Converter
       * Insert the Effective Address Value inside the Index Register XI.
       */
     static final short STX = 0x22;
-    
+    /*
+     * OpCode Definition by Dev Shah
+     */
     static final short AMR = 0x04; // Add Memory To Register
     static final short SMR = 0x05; // Subtract Memory From Register
     static final short AIR = 0x06; // Add  Immediate to Register
     static final short SIR = 0x07; // Subtract Immediate to Register
+    /* End of OpCode Definition - Dev Shah */
     /*
      * OpCode Definition by Natalie Jordan
      */
@@ -817,7 +820,7 @@ public class CPU extends Converter
      * @param rx for Which register to use (R0/R1/R2/R3)
      * @param ry for Which register to use (R0/R1/R2/R3)
      */
-    public void fNOT(short rx){
+     public void fNOT(short rx){
         char[] R_x=null;
         switch(rx){
             case 0: R_x = R0; break;
@@ -828,6 +831,68 @@ public class CPU extends Converter
         for(int i=0;i<16;i++){
             if(R_x[i] == 0) R_x[i] = 1;
             else if(R_x[i] == 1) R_x[i] = 0;
+        }
+    }
+    public void fSRC(short rx,short count,byte LR,byte AL){
+        char[] R_x=null;
+        switch(rx){
+            case 0: R_x = R0; break;
+            case 1: R_x = R1; break;
+            case 2: R_x = R2; break;
+            case 3: R_x = R3; break;
+        }
+        short val = BinaryToDecimal(R_x, 16);
+        if(AL==1){    
+            switch(LR){
+                case 0:
+                    val = (short)(val>>count); // Right Shift
+                    DecimalToBinary(val, R_x, 16);
+                    break;
+                case 1:
+                    val = (short)(val<<count); // Left Shift
+                    DecimalToBinary(val, R_x, 16);
+                    break;
+            }
+        }else{
+            // Arithmetic Shift
+            switch(LR){
+                case 0:
+                    val = (short)(val>>count); // Right Shift
+                    DecimalToBinary(val, R_x, 16);
+                    R_x[0] = R_x[1];
+                    break;
+                case 1:
+                    val = (short)(val<<count); // Left Shift
+                    DecimalToBinary(val, R_x, 16);
+                    break;
+            }
+        }
+    }
+    public void fRRC(short rx,short count,byte LR,byte AL){
+        char[] R_x=null;
+        switch(rx){
+            case 0: R_x = R0; break;
+            case 1: R_x = R1; break;
+            case 2: R_x = R2; break;
+            case 3: R_x = R3; break;
+        }
+        //short val = BinaryToDecimal(R_x, 16);
+        if(AL==1){
+            switch(LR){
+                case 0:
+                    for(int i=0;i<16;i++){
+                        char temp = R_x[(i+count)%16];
+                        R_x[(i+count)%16] = R_x[i];
+                        R_x[i] = temp;
+                    }
+                    break;
+                case 1:
+                    for(int i=15;i>=0;i++){
+                        char temp = R_x[(i+count)%16];
+                        R_x[(i+count)%16] = R_x[i];
+                        R_x[i] = temp;
+                    }
+            }
         }
     }
     /* END of Implmentation of Methods For Other OpCode - Abhinava Phukan */
