@@ -381,10 +381,18 @@ public class CPU extends Converter
             case JMA:
                 UncondJump(EA);
                 break;
-            case JSR: break;
-            case RFS: break;
-            case SOB: break;
-            case JGE: break;
+            case JSR: 
+                JumpSubRoutine(EA); 
+                break;
+            case RFS: 
+                RFSImmed(Address); 
+                break;
+            case SOB: 
+                SubandBranch(BinaryToDecimal(RX, 2), EA);
+                break;
+            case JGE: 
+                JumpGE(BinaryToDecimal(RX, 2), EA); 
+                break;
             case MLT:
                 fMLT(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2));
                 break;
@@ -411,8 +419,8 @@ public class CPU extends Converter
      */
     /**
      * Jump if zero
-     * @param rx
-     * @param EA
+     * @param rx Register to check for JMP condition
+     * @param EA Effective Address to PC
      */
     public void JumpZero(short rx,short EA){
         short val,addr;
@@ -440,7 +448,9 @@ public class CPU extends Converter
         }
     }
     /**
-     * Jump if not equal
+     * Jump if Not Equal to if True
+     * @param rx Register to check for JMP condition
+     * @param EA Effective Address to PC
      */
     public void JumpIfNotEqual(short rx,short EA){
         short val,addr;
@@ -469,6 +479,8 @@ public class CPU extends Converter
     }
     /**
      * Jump if condition code
+     * @param cc Which control flag is triggered
+     * @param EA effective Address
      */
     public void JumpIfCond(short cc,short EA){
         if ( CC[cc] == 1){
@@ -479,13 +491,96 @@ public class CPU extends Converter
         }
     }
     /**
-     * Unconditional jump to address
+     * Unconditional Jump to Address
+     * @param EA
      */
     public void UncondJump(short EA){
         DecimalToBinary(EA, PC, 12);
     }
     /* End Implementation of OpCode Method - Natalie Jordan */
+    /* Implementation of OpCode Method - AlHassan Halawani */
+    public void JumpSubRoutine(short EA){
+        DecimalToBinary(
+            (short)(BinaryToDecimal(PC, 12)+1),
+            R3, 16);
+        DecimalToBinary(EA, PC, 12);
+        DecimalToBinary((short)(EA+1), R0, 16);
+
+    }
+    public void RFSImmed(char Addr[]){
+        ReverseCopyArr(Addr, R0, 16, 5);
+        ReverseCopyArr(R3, PC, 12, 16);
+    }
+    public void SubandBranch(short rx,short EA){
+        short val,flag=0;
+        switch(rx){
+            case 0:
+                val = (short)(BinaryToDecimal(R0, 16) - 1);
+                DecimalToBinary(val, R0, 16);
+                if(val>0) flag=1;
+                break;
+            case 1:
+                val = (short)(BinaryToDecimal(R1, 16) - 1);
+                DecimalToBinary(val, R1, 16);
+                if(val>0) flag=1;
+                break;
+            case 2:
+                val = (short)(BinaryToDecimal(R2, 16) - 1);
+                DecimalToBinary(val, R2, 16);
+                if(val>0) flag=1;
+                break;
+            case 3:
+                val = (short)(BinaryToDecimal(R3, 16) - 1);
+                DecimalToBinary(val, R3, 16);
+                if(val>0) flag=1;
+                break;
+            default: 
+                val = BinaryToDecimal(R0, 16); 
+                DecimalToBinary(val, R0, 16);
+                if(val>0) flag=1;
+                break;
+        }
+        if(flag==1) DecimalToBinary(EA, PC, 12);
+        else DecimalToBinary((short)(BinaryToDecimal(PC, 12)+1),
+         PC, 12);
+    }
+    /**
+     * Jump Greater than equal to if True
+     * @param rx Register to check for JMP condition
+     * @param EA Effective Address to PC
+     */
+    public void JumpGE(short rx,short EA){
+        short val;
+        switch(rx){
+            case 0:
+                val = BinaryToDecimal(R0, 16);
+                break;
+            case 1:
+                val = BinaryToDecimal(R1, 16);
+                break;
+            case 2:
+                val = BinaryToDecimal(R2, 16);
+                break;
+            case 3:
+                val = BinaryToDecimal(R3, 16);
+                break;
+            default: 
+                val = BinaryToDecimal(R0, 16); 
+                break;
+        }
+        if(val>=0){
+            DecimalToBinary(EA, PC, 12);
+        }else
+            DecimalToBinary((short)(BinaryToDecimal(PC, 12)+1),
+                PC, 12);
+    }
+    /* End Implementation of OpCode Method - AlHassan Halawani */
     /* Implmentation of Methods For Other OpCode - Abhinava Phukan */
+    /**
+     * Method for the Multiplication OpCode
+     * @param rx for Which register to use (R0/R2)
+     * @param ry for Which register to use (R0/R2)
+     */
     public void fMLT(short rx,short ry){
         /*
          * If 
@@ -503,6 +598,11 @@ public class CPU extends Converter
             DecimalToBinary(result, R3, 16);
         }
     }
+    /**
+     * Method for the Division OpCode
+     * @param rx for Which register to use (R0/R2)
+     * @param ry for Which register to use (R0/R2)
+     */
     public void fDVD(short rx,short ry){
         if( rx%2==1 || ry%2==1) return ;
         if(rx==0){
@@ -541,6 +641,11 @@ public class CPU extends Converter
             }
         }
     }
+    /**
+     * Method for the Equality OpCode
+     * @param rx for Which register to use (R0/R1/R2/R3)
+     * @param ry for Which register to use (R0/R1/R2/R3)
+     */
     public void fTRR(short rx,short ry){
         short R_x=0,R_y=0;
         switch(rx){
@@ -557,6 +662,11 @@ public class CPU extends Converter
         }
         if(R_x == R_y) CC[2]=1;
     }
+    /**
+     * Method for the AND Operator OpCode
+     * @param rx for Which register to use (R0/R1/R2/R3)
+     * @param ry for Which register to use (R0/R1/R2/R3)
+     */
     public void fAND(short rx,short ry){
         char[] R_x=null,R_y=null;
         switch(rx){
@@ -575,6 +685,11 @@ public class CPU extends Converter
             R_x[i] = (char)(R_x[i] & R_y[i]);
         }
     }
+    /**
+     * Method for the OR Operator OpCode
+     * @param rx for Which register to use (R0/R1/R2/R3)
+     * @param ry for Which register to use (R0/R1/R2/R3)
+     */
     public void fORR(short rx,short ry){
         char[] R_x=null,R_y=null;
         switch(rx){
@@ -593,6 +708,11 @@ public class CPU extends Converter
             R_x[i] = (char)(R_x[i] | R_y[i]);
         }
     }
+    /**
+     * Method for the NOT Operator OpCode
+     * @param rx for Which register to use (R0/R1/R2/R3)
+     * @param ry for Which register to use (R0/R1/R2/R3)
+     */
     public void fNOT(short rx){
         char[] R_x=null;
         switch(rx){
