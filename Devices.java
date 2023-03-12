@@ -1,35 +1,55 @@
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.util.ArrayList;
 
 public class Devices extends JFrame{
     private ArrayList<JPanel> panel;
-    private JLabel L_ConsoleOut, L_ConsoleIn;
-    private JTextArea ConsoleOut,ConsoleIn;
+    private JTextArea ConsoleOut,ConsoleIn,CacheOutput;
     public Devices(){
         super("Console");
-        this.setSize(360,480);
+        this.setSize(960,480);
+        this.setLayout(null);
         panel = new ArrayList<JPanel>();
         panel.add(new JPanel());
         panel.add(new JPanel());
-        L_ConsoleIn = new JLabel("Keyboard");
-        L_ConsoleIn.setFont(new Font("Arial", Font.BOLD, 16));
-        L_ConsoleIn.setForeground(Color.BLUE);
+        panel.add(new JPanel());
+        
+        TitledBorder ConsoleOutBorder = new TitledBorder("Console Printer");
+        ConsoleOutBorder.setTitleJustification(TitledBorder.CENTER);
+        ConsoleOutBorder.setTitlePosition(TitledBorder.TOP);
+        TitledBorder ConsoleInBorder = new TitledBorder("Console Keyboard");
+        ConsoleInBorder.setTitleJustification(TitledBorder.CENTER);
+        ConsoleInBorder.setTitlePosition(TitledBorder.TOP);
+        TitledBorder CacheBorder = new TitledBorder("Cache Out");
+        CacheBorder.setTitleJustification(TitledBorder.CENTER);
+        CacheBorder.setTitlePosition(TitledBorder.TOP);
 
-        L_ConsoleOut = new JLabel("Printer");
-        L_ConsoleOut.setFont(new Font("Arial", Font.BOLD, 16));
-        L_ConsoleOut.setForeground(Color.BLUE);
+        ConsoleIn = new JTextArea("", 1, 20);
+        ConsoleOut = new JTextArea(18,40);
+        //ConsoleOut.setBounds(0,0,350,300);
+        ConsoleOut.setEditable(false);
+        ConsoleOut.setBackground(Color.BLACK);
+        ConsoleOut.setForeground(Color.green);
+        
+        CacheOutput = new JTextArea(18,32);
+        CacheOutput.setFont(new Font("Courrier New",Font.PLAIN,16));
 
-        ConsoleIn = new JTextArea("KeyBoard", 1, 30);
-        ConsoleOut = new JTextArea("ConsoleOut", 60 , 30);
-        panel.get(1).add(L_ConsoleIn);
-        panel.get(1).add(ConsoleIn);
-        panel.get(0).add(L_ConsoleOut);        
+        panel.get(0).setBorder(ConsoleOutBorder);       
         panel.get(0).add(ConsoleOut);
-        panel.get(0).setBounds(0, 0, 320, 60);
-        panel.get(1).setBounds(0, 61, 320, 300);
-        this.add(panel.get(0));
-        this.add(panel.get(1));
+
+        panel.get(1).setBorder(ConsoleInBorder);
+        panel.get(1).add(ConsoleIn);
+
+        panel.get(2).setBorder(CacheBorder);
+        panel.get(2).add(CacheOutput);
+        
+        panel.get(0).setBounds(10, 10, 480, 330);
+        panel.get(1).setBounds((480-250)/2+10, 360, 250, 60);
+        panel.get(2).setBounds(500,10,440,420);
+        for(int i=0;i<3;i++)
+            this.add(panel.get(i));
     }
     public void LoadDevices(short devid, String input){  
         switch (devid) {
@@ -51,8 +71,7 @@ public class Devices extends JFrame{
         
     }
     public void Run(){
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLayout(null);
+        //this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
 }

@@ -20,7 +20,7 @@ public class GUI extends JFrame
     private File file;
     private ArrayList<StringStruct> Code;
     private JMenuBar menuBar;
-    private JMenu optMenu;
+    private JMenu optMenu,viewMenu;
     private JLabel GPR[],X[],PC,MAR,MBR,IR,MFR,Priv;
     private Label gpr0_arr[],gpr1_arr[],gpr2_arr[],gpr3_arr[]; // Important Ones that will be Kept Modifying
     private Label XLabel[][],pclab[],marlab[],mbrlab[],mfrlab[], // Important Ones
@@ -200,13 +200,18 @@ public class GUI extends JFrame
         this.add(lrun);
         menuBar = new JMenuBar();
         optMenu = new JMenu("Options");
+        viewMenu = new JMenu("View");
         JMenuItem resethlt = new JMenuItem("Reset Halt");
         JMenuItem resetall = new JMenuItem("Reset All");
+        JMenuItem ccView = new JMenuItem("View Console and Cache");
         resethlt.addActionListener(e->resetHalt(e));
         resetall.addActionListener(e->resetAll(e));
+        ccView.addActionListener(e->viewConsoleCache(e));
         optMenu.add(resethlt);
         optMenu.add(resetall);
+        viewMenu.add(ccView);
         menuBar.add(optMenu);
+        menuBar.add(viewMenu);
         this.setJMenuBar(menuBar);
         /*
         
@@ -225,6 +230,10 @@ public class GUI extends JFrame
         cpu.Reset(mem);
         for(int i=0;i<11;i++)
             RefreshLeds(i);
+    }
+    private void viewConsoleCache(ActionEvent e){
+        if(dev.isActive()==false) dev.Run();
+        else dev.setVisible(false);
     }
     /**
      * Every time internal of the registers are updated,
@@ -457,7 +466,7 @@ public class GUI extends JFrame
         this.getContentPane().setBackground(Color.getHSBColor((float)0.533, (float)0.8, (float)0.75));
         this.setLayout(null);
         this.setVisible(true);
-        dev.Run();
+        //dev.Run();
     }
     
     public void LoadGui(){
