@@ -1,4 +1,8 @@
 import java.awt.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
@@ -93,7 +97,7 @@ public class Devices extends JFrame{
             return;
         }
     }
-    public void printCache(Cache cache){
+    public void printCache(Cache cache)throws IOException{
         for(int i=cache.rear-1;i>=cache.front;i--){
             //System.out.println(cache.lines[i].key + " "+cache.lines[i].val);
             cache.DecimalToBinary(cache.lines[i].key, cacheaddr, 16);
@@ -116,6 +120,10 @@ public class Devices extends JFrame{
             CacheOutput.append(b.toString() + " " + c.toString()+"\n");
         }
         CacheOutput.append("\n");
+        File trace = new File("Trace.txt");
+        FileWriter fw = new FileWriter(trace,true);
+        fw.write(CacheOutput.getText());
+        fw.close();
     }
     public void Run(){
         //this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);

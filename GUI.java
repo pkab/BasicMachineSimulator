@@ -4,6 +4,7 @@ import java.util.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * GUI Class - All the Gui Events Occur Here
@@ -429,7 +430,11 @@ public class GUI extends JFrame
         short EA = cpu.BinaryToDecimal(cpu.PC, 12);
         cpu.DecimalToBinary(mem.Data[EA], cpu.IR, 16);
         cpu.cache.push(EA, mem.Data[EA]);
-        dev.printCache(cpu.cache);
+        try{
+            dev.printCache(cpu.cache);
+        }catch(IOException ioe){
+            
+        }
         for(int i=0;i<11;i++)
             RefreshLeds(i);
         cpu.Execute(mem);
