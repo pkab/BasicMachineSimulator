@@ -873,6 +873,13 @@ public class CPU extends Converter
             else if(R_x[i] == 1) R_x[i] = 0;
         }
     }
+    /**
+     * Shift Register By Count
+     * @param rx
+     * @param count
+     * @param LR
+     * @param AL
+     */
     public void fSRC(short rx,short count,byte LR,byte AL){
         char[] R_x=null;
         switch(rx){
@@ -908,6 +915,13 @@ public class CPU extends Converter
             }
         }
     }
+    /**
+     * Rotate Register by Count
+     * @param rx
+     * @param count
+     * @param LR
+     * @param AL
+     */
     public void fRRC(short rx,short count,byte LR,byte AL){
         char[] R_x=null;
         switch(rx){
