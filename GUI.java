@@ -419,6 +419,7 @@ public class GUI extends JFrame
     private void execCode(ActionEvent e){
         short EA = cpu.BinaryToDecimal(cpu.PC, 12);
         cpu.DecimalToBinary(mem.Data[EA], cpu.IR, 16);
+        cpu.cache.push(EA, mem.Data[EA]);
         for(int i=0;i<11;i++)
             RefreshLeds(i);
         cpu.Execute(mem);

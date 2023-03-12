@@ -26,6 +26,10 @@ public class CPU extends Converter
     public char R0[],R1[],R2[],R3[]; 
     /** Index Registers **/
     public char X1[],X2[],X3[]; 
+    /**
+     * Cache Functionality
+     */
+    public Cache cache;
     /** ------------------- End of Structure Definition -------------------**/
     /**
      * Define OpCode Inst (Abhinava Phukan)
@@ -175,6 +179,7 @@ public class CPU extends Converter
             X1[i] = X2[i] = X3[i] = 0;
             R0[i] = R1[i] = R2[i] = R3[i] = 0;
         }
+        cache = new Cache();
     }
     public void CopyArr(char src[],char des[],int len){
         for(int i=0;i<len;i++)
