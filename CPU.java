@@ -26,6 +26,8 @@ public class CPU extends Converter
     public char R0[],R1[],R2[],R3[]; 
     /** Index Registers **/
     public char X1[],X2[],X3[]; 
+    /** Device Interface **/
+    private Devices dev;
     /**
      * Cache Functionality
      */
@@ -145,13 +147,22 @@ public class CPU extends Converter
      * Rotate Register by Count
      */
     static final short RRC = 0x1A; // Rotate Register by Count
+    /**
+     * Read from Device
+     */
+    static final short IN = 0x31;
+    /**
+     * Write to Device
+     */
+    static final short OUT = 0x32;
     // End Of OpCode Definition By Abhinava Phukan
     /** -------------------End of OpCode Definition --------------------**/
     /**
      * Constructor to Initialize the CPU
      */
-    public CPU()
+    public CPU(Devices dev)
     {
+        this.dev = dev;
         PC = new char[12];
         CC = new char[4];
         IR = new char[16];
@@ -454,6 +465,15 @@ public class CPU extends Converter
                 fRRC(BinaryToDecimal(RX, 2),BinaryToDecimal(Count, 4),
                     (byte)IR[9],(byte)IR[8]);
                 break;
+            case IN:
+                fIN(BinaryToDecimal(RX, 2), (byte)BinaryToDecimal(Address,5)
+                                    , dev);
+                break;
+            case OUT:
+            System.out.println((byte)BinaryToDecimal(Address, 5));
+                fOUT(BinaryToDecimal(RX, 2), (byte)BinaryToDecimal(Address,5)
+                                    , dev);
+                break;
             default: break;
         }
     }
@@ -712,9 +732,6 @@ public class CPU extends Converter
      * @param ry for Which register to use (R0/R2)
      */
     public void fMLT(short rx,short ry){
-        /*
-         * If 
-         */
         if( rx%2==1 || ry%2==1) return ;
         if(rx==0){
             short result=BinaryToDecimal(R0, 16);
@@ -916,6 +933,34 @@ public class CPU extends Converter
                         R_x[i] = temp;
                     }
             }
+        }
+    }
+    /**
+     * Read from Device to Register
+     * @param rx Register to write read data into.
+     * @param devid Device id of the connected Device
+     * @param dev Device interface to use for connection
+     */
+    public void fIN(short rx,byte devid,Devices dev){
+        char Rx[] = getRegister(rx);
+        switch(devid){
+            case 0:
+                dev.keyboard(Rx);
+                break;
+        }
+    }
+    /**
+     * Write from Register to Device
+     * @param rx Register where the write data is stored.
+     * @param devid Device id of the connected Device
+     * @param dev Device interface to use for connection
+     */
+    public void fOUT(short rx,byte devid,Devices dev){
+        char Rx[] = getRegister(rx);
+        switch(devid){
+            case 1:
+                dev.printer(Rx);
+                break;
         }
     }
     /* END of Implmentation of Methods For Other OpCode - Abhinava Phukan */

@@ -36,7 +36,7 @@ public class GUI extends JFrame
          * and "Priviledge" labels to the left of the panels, set the label color to black
          **/
         dev = new Devices();
-        cpu = new CPU(); mem = new Memory();
+        cpu = new CPU(dev); mem = new Memory();
         Code = new ArrayList<StringStruct>();
         this.setTitle("Basic Machine Simulator");
         hlt = new Label();
@@ -429,6 +429,7 @@ public class GUI extends JFrame
         short EA = cpu.BinaryToDecimal(cpu.PC, 12);
         cpu.DecimalToBinary(mem.Data[EA], cpu.IR, 16);
         cpu.cache.push(EA, mem.Data[EA]);
+        dev.printCache(cpu.cache);
         for(int i=0;i<11;i++)
             RefreshLeds(i);
         cpu.Execute(mem);
