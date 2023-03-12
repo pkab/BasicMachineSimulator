@@ -981,5 +981,4 @@ public class CPU extends Converter
             default: return R0; 
         }
     }
-    
 }
