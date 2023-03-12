@@ -486,29 +486,15 @@ public class CPU extends Converter
      * @param EA Effective Address to PC
      */
     public void JumpZero(short rx,short EA){
-        short val,addr;
-        switch(rx){
-            case 0:
-                val = BinaryToDecimal(R0, 16);
-                break;
-            case 1:
-                val = BinaryToDecimal(R1, 16);
-                break;
-            case 2:
-                val = BinaryToDecimal(R2, 16);
-                break;
-            case 3:
-                val = BinaryToDecimal(R3, 16);
-                break;
-            default: val = -1; break;
-        }
+        short val;char[] R_x=getRegister(rx);
+        val = BinaryToDecimal(R_x, 16);
         if(val==0){
-            addr = EA;
-            DecimalToBinary(addr, PC, 12);
+            DecimalToBinary(EA, PC, 12);
         }else {
             DecimalToBinary((short)
             (BinaryToDecimal(PC, 12)+1), PC, 12);
         }
+        
     }
     /**
      * Jump if Not Equal to if True
@@ -516,25 +502,11 @@ public class CPU extends Converter
      * @param EA Effective Address to PC
      */
     public void JumpIfNotEqual(short rx,short EA){
-        short val,addr;
-        switch(rx){
-            case 0:
-                val = BinaryToDecimal(R0, 16);
-                break;
-            case 1:
-                val = BinaryToDecimal(R1, 16);
-                break;
-            case 2:
-                val = BinaryToDecimal(R2, 16);
-                break;
-            case 3:
-                val = BinaryToDecimal(R3, 16);
-                break;
-            default: val = -1; break;
-        }
+        short val;
+        char[] R_x = getRegister(rx);
+        val=BinaryToDecimal(R_x, 16);
         if (val != 0){
-            addr = EA;
-            DecimalToBinary(addr, PC, 12);
+            DecimalToBinary(EA, PC, 12);
         } else {
             DecimalToBinary((short)
             (BinaryToDecimal(PC, 12)+1), PC, 12);
@@ -576,33 +548,9 @@ public class CPU extends Converter
     }
     public void SubandBranch(short rx,short EA){
         short val,flag=0;
-        switch(rx){
-            case 0:
-                val = (short)(BinaryToDecimal(R0, 16) - 1);
-                DecimalToBinary(val, R0, 16);
-                if(val>0) flag=1;
-                break;
-            case 1:
-                val = (short)(BinaryToDecimal(R1, 16) - 1);
-                DecimalToBinary(val, R1, 16);
-                if(val>0) flag=1;
-                break;
-            case 2:
-                val = (short)(BinaryToDecimal(R2, 16) - 1);
-                DecimalToBinary(val, R2, 16);
-                if(val>0) flag=1;
-                break;
-            case 3:
-                val = (short)(BinaryToDecimal(R3, 16) - 1);
-                DecimalToBinary(val, R3, 16);
-                if(val>0) flag=1;
-                break;
-            default: 
-                val = BinaryToDecimal(R0, 16); 
-                DecimalToBinary(val, R0, 16);
-                if(val>0) flag=1;
-                break;
-        }
+        char[] R_x = getRegister(rx);
+        val=BinaryToDecimal(R_x, 16);
+        if(val>0)flag=1;
         if(flag==1) DecimalToBinary(EA, PC, 12);
         else DecimalToBinary((short)(BinaryToDecimal(PC, 12)+1),
          PC, 12);
@@ -613,24 +561,8 @@ public class CPU extends Converter
      * @param EA Effective Address to PC
      */
     public void JumpGE(short rx,short EA){
-        short val;
-        switch(rx){
-            case 0:
-                val = BinaryToDecimal(R0, 16);
-                break;
-            case 1:
-                val = BinaryToDecimal(R1, 16);
-                break;
-            case 2:
-                val = BinaryToDecimal(R2, 16);
-                break;
-            case 3:
-                val = BinaryToDecimal(R3, 16);
-                break;
-            default: 
-                val = BinaryToDecimal(R0, 16); 
-                break;
-        }
+        char[] R_x = getRegister(rx);
+        short val=BinaryToDecimal(R_x, 16);
         if(val>=0){
             DecimalToBinary(EA, PC, 12);
         }else
@@ -641,88 +573,24 @@ public class CPU extends Converter
     
     /* Implmentation of Methods For Other OpCode - Dev Shah */
     public void fAMR(short RVal,short EA, Memory m){
-        short result;
-        switch (RVal) {
-            case 0:
-                result = (short)(BinaryToDecimal(R0, 16) + m.Data[EA]);
-                DecimalToBinary(result, R0, 16);
-                break;
-            case 1:
-                result = (short)(BinaryToDecimal(R1, 16) + m.Data[EA]);
-                DecimalToBinary(result, R1, 16);
-                break;
-            case 2:
-                result = (short)(BinaryToDecimal(R2, 16) + m.Data[EA]);
-                DecimalToBinary(result, R2, 16);
-                break;
-            case 3:
-                result = (short)(BinaryToDecimal(R3, 16) + m.Data[EA]);
-                DecimalToBinary(result, R3, 16);
-                break;
-        }
+        char[] R_x = getRegister(RVal);
+        short result = (short)(BinaryToDecimal(R_x, 16) + m.Data[EA]);
+        DecimalToBinary(result, R_x, 16);
     }
     public void fSMR(short RVal,short EA, Memory m){
-        short result;
-        switch (RVal) {
-            case 0:
-                result = (short)(BinaryToDecimal(R0, 16) - m.Data[EA]);
-                DecimalToBinary(result, R0, 16);
-                break;
-            case 1:
-                result = (short)(BinaryToDecimal(R1, 16) - m.Data[EA]);
-                DecimalToBinary(result, R1, 16);
-                break;
-            case 2:
-                result = (short)(BinaryToDecimal(R2, 16) - m.Data[EA]);
-                DecimalToBinary(result, R2, 16);
-                break;
-            case 3:
-                result = (short)(BinaryToDecimal(R3, 16) - m.Data[EA]);
-                DecimalToBinary(result, R3, 16);
-                break;
-        }
+        char[] R_x = getRegister(RVal);
+        short result = (short)(BinaryToDecimal(R_x, 16) - m.Data[EA]);
+        DecimalToBinary(result, R_x, 16);
     }
     public void fAIR(short RVal,short Addr){
-        short result;
-        switch (RVal) {
-            case 0:
-                result = (short)(BinaryToDecimal(R0, 16) + Addr);
-                DecimalToBinary(result, R0, 16);
-                break;
-            case 1:
-                result = (short)(BinaryToDecimal(R1, 16) + Addr);
-                DecimalToBinary(result, R1, 16);
-                break;
-            case 2:
-                result = (short)(BinaryToDecimal(R2, 16) + Addr);
-                DecimalToBinary(result, R2, 16);
-                break;
-            case 3:
-                result = (short)(BinaryToDecimal(R3, 16) + Addr);
-                DecimalToBinary(result, R3, 16);
-                break;
-        }
+        char[] R_x = getRegister(RVal);
+        short result = (short)(BinaryToDecimal(R_x, 16) + Addr);
+        DecimalToBinary(result, R_x, 16);
     }
     public void fSIR(short RVal,short Addr){
-        short result;
-        switch (RVal) {
-            case 0:
-                result = (short)(BinaryToDecimal(R0, 16) - Addr);
-                DecimalToBinary(result, R0, 16);
-                break;
-            case 1:
-                result = (short)(BinaryToDecimal(R1, 16) - Addr);
-                DecimalToBinary(result, R1, 16);
-                break;
-            case 2:
-                result = (short)(BinaryToDecimal(R2, 16) - Addr);
-                DecimalToBinary(result, R2, 16);
-                break;
-            case 3:
-                result = (short)(BinaryToDecimal(R3, 16) - Addr);
-                DecimalToBinary(result, R3, 16);
-                break;
-        }
+        char[] R_x = getRegister(RVal);
+        short result = (short)(BinaryToDecimal(R_x, 16) - Addr);
+        DecimalToBinary(result, R_x, 16);
     }
 
     /* Implmentation of Methods For Other OpCode - Abhinava Phukan */
@@ -794,19 +662,8 @@ public class CPU extends Converter
      * @param ry for Which register to use (R0/R1/R2/R3)
      */
     public void fTRR(short rx,short ry){
-        short R_x=0,R_y=0;
-        switch(rx){
-            case 0: R_x = BinaryToDecimal(R0, 16); break;
-            case 1: R_x = BinaryToDecimal(R1, 16); break;
-            case 2: R_x = BinaryToDecimal(R2, 16); break;
-            case 3: R_x = BinaryToDecimal(R3, 16); break;
-        }
-        switch(ry){
-            case 0: R_y = BinaryToDecimal(R0, 16); break;
-            case 1: R_y = BinaryToDecimal(R1, 16); break;
-            case 2: R_y = BinaryToDecimal(R2, 16); break;
-            case 3: R_y = BinaryToDecimal(R3, 16); break;
-        }
+        char[] R_x=getRegister(rx),
+        R_y=getRegister(ry);
         if(R_x == R_y) CC[2]=1;
     }
     /**
@@ -815,19 +672,8 @@ public class CPU extends Converter
      * @param ry for Which register to use (R0/R1/R2/R3)
      */
     public void fAND(short rx,short ry){
-        char[] R_x=null,R_y=null;
-        switch(rx){
-            case 0: R_x = R0; break;
-            case 1: R_x = R1; break;
-            case 2: R_x = R2; break;
-            case 3: R_x = R3; break;
-        }
-        switch(ry){
-            case 0: R_y = R0; break;
-            case 1: R_y = R1; break;
-            case 2: R_y = R2; break;
-            case 3: R_y = R3; break;
-        }
+        char[] R_x=getRegister(rx),
+        R_y=getRegister(ry);
         for(int i=0;i<16;i++){
             R_x[i] = (char)(R_x[i] & R_y[i]);
         }
@@ -838,19 +684,8 @@ public class CPU extends Converter
      * @param ry for Which register to use (R0/R1/R2/R3)
      */
     public void fORR(short rx,short ry){
-        char[] R_x=null,R_y=null;
-        switch(rx){
-            case 0: R_x = R0; break;
-            case 1: R_x = R1; break;
-            case 2: R_x = R2; break;
-            case 3: R_x = R3; break;
-        }
-        switch(ry){
-            case 0: R_y = R0; break;
-            case 1: R_y = R1; break;
-            case 2: R_y = R2; break;
-            case 3: R_y = R3; break;
-        }
+        char[] R_x=getRegister(rx),
+        R_y=getRegister(ry);
         for(int i=0;i<16;i++){
             R_x[i] = (char)(R_x[i] | R_y[i]);
         }
@@ -858,16 +693,9 @@ public class CPU extends Converter
     /**
      * Method for the NOT Operator OpCode
      * @param rx for Which register to use (R0/R1/R2/R3)
-     * @param ry for Which register to use (R0/R1/R2/R3)
      */
      public void fNOT(short rx){
-        char[] R_x=null;
-        switch(rx){
-            case 0: R_x = R0; break;
-            case 1: R_x = R1; break;
-            case 2: R_x = R2; break;
-            case 3: R_x = R3; break;
-        }
+        char[] R_x=getRegister(rx);
         for(int i=0;i<16;i++){
             if(R_x[i] == 0) R_x[i] = 1;
             else if(R_x[i] == 1) R_x[i] = 0;
@@ -881,13 +709,7 @@ public class CPU extends Converter
      * @param AL
      */
     public void fSRC(short rx,short count,byte LR,byte AL){
-        char[] R_x=null;
-        switch(rx){
-            case 0: R_x = R0; break;
-            case 1: R_x = R1; break;
-            case 2: R_x = R2; break;
-            case 3: R_x = R3; break;
-        }
+        char[] R_x=getRegister(rx);
         short val = BinaryToDecimal(R_x, 16);
         if(AL==1){    
             switch(LR){
@@ -923,13 +745,7 @@ public class CPU extends Converter
      * @param AL
      */
     public void fRRC(short rx,short count,byte LR,byte AL){
-        char[] R_x=null;
-        switch(rx){
-            case 0: R_x = R0; break;
-            case 1: R_x = R1; break;
-            case 2: R_x = R2; break;
-            case 3: R_x = R3; break;
-        }
+        char[] R_x=getRegister(rx);
         //short val = BinaryToDecimal(R_x, 16);
         if(AL==1){
             switch(LR){

@@ -436,9 +436,9 @@ public class GUI extends JFrame
         for(int i=0;i<11;i++)
             RefreshLeds(i);
         short val = cpu.BinaryToDecimal(cpu.IR, 6);
-        if(val < 0x08 || val> 0x0F){
-            EA++;
-        }
+        if(val >= 0x08 && val <= 0x0F){
+            EA = cpu.BinaryToDecimal(cpu.PC, 12);
+        }else EA++;
         cpu.DecimalToBinary(EA, cpu.PC, 12);
         //else EA = cpu.BinaryToDecimal(cpu.PC, 12);
         RefreshLeds(7);
