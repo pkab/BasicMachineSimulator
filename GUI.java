@@ -28,12 +28,14 @@ public class GUI extends JFrame
     private JButton LDarr[],store,st_plus,load,init,ss,run; // Load Button Array and other Imp Buttons
     private ArrayList<JButton> switches;
     private JPanel Pan[];
+    private Devices dev;
     char swarr[]; // Array for the switches pressed
     public GUI()throws NullPointerException{
         super();
         /**This sets the location and creates the "PC", "MAR", "MBR", "IR", "MFR", 
          * and "Priviledge" labels to the left of the panels, set the label color to black
          **/
+        dev = new Devices();
         cpu = new CPU(); mem = new Memory();
         Code = new ArrayList<StringStruct>();
         this.setTitle("Basic Machine Simulator");
@@ -454,6 +456,7 @@ public class GUI extends JFrame
         this.getContentPane().setBackground(Color.getHSBColor((float)0.533, (float)0.8, (float)0.75));
         this.setLayout(null);
         this.setVisible(true);
+        dev.Run();
     }
     
     public void LoadGui(){
