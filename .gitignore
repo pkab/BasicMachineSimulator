@@ -3,3 +3,4 @@
 *.ctxt
 .vscode/*
 *.bluej
+build/*

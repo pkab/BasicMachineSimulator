@@ -395,7 +395,7 @@ public class GUI extends JFrame
     private void loadFile(ActionEvent e){
         /**This will prompt the user to search for and load a file into the simulator*/
         JFileChooser fCh = new JFileChooser();
-        fCh.setCurrentDirectory(new File(System.getProperty("user.home")));
+        fCh.setCurrentDirectory(new File(System.getProperty("user.dir")));
         int res = fCh.showOpenDialog(this);
         if(res == JFileChooser.APPROVE_OPTION){
             file = new File(fCh.getSelectedFile().getAbsolutePath());
