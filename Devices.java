@@ -80,8 +80,13 @@ public class Devices extends JFrame{
         try{
             short c = (short)ConsoleIn.getText().charAt(0);
             conv.DecimalToBinary(c, Reg, 16);
+            if(ConsoleIn.getText().length()>1){
+                ConsoleIn.setText(ConsoleIn.getText().substring(1));
+            }else if(ConsoleIn.getText().length()==1)
+                ConsoleIn.setText(null);
         }catch(Exception e){
             conv.DecimalToBinary((short)0, Reg, 16);
+            System.out.println("No Input Found");
         }
     }
     
