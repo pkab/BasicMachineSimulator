@@ -8,13 +8,21 @@ We are currently at a primitive phase - I of the project
 
 PROJECT TITLE: Basic Machine Simulator
 PURPOSE OF PROJECT: Understanding Computer Architecture 
-VERSION: 1.0
+VERSION: 2.0
 HOW TO START THIS PROJECT: Start the main Function
+TO RUN THE PROJECT ON WINDOWS IF JDK17 AND ABOVE:
+- If you have java verion set as a system environment variable
+- run the ProgramFile.bat file to execute the batch script.
 AUTHORS: Abhinava Phukan, Natalie Jordan, Dev Shah, Halawani AlHassan
 USER INSTRUCTIONS:
 - Click init button
 - Opens file explorer
-- Click ipl.txt file
-- Select address location 7 in the instruction selecter buttons
+- Open the Program Folder
+- Select the program you want to experiment with
+- prog1 starts at location 10 so set the PC to 10
+- prog2 starts at location 6 so set the PC to 6
+- experiment with prog1 with ss
+- experiment with prog2 by pressing the run key
+- for ipl.txt address location 7 
+- Set it using the switches provided
 - Click SS which runs single step instructions
-- The program ends at address 10
