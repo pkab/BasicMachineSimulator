@@ -386,8 +386,44 @@ The default main components added to the Simulator is the Console keyboard and t
   \caption{Console Printer and Console Keyboard}
   \label{fig:ConsolePrinterKeyboard}
 \end{figure}
-\subsection{Implementing MFR}
-To be filled.
+\subsection{Implementing MFR and Trap Code Phase III}
+\subsubsection{Reserved Memory}
+The Following are the memory locations that are reserved for this project:
+\begin{enumerate}
+  \item 0 Reserved for TRAP instruction
+  \item 1 Reserved for Machine Fault
+  \item 2 Store PC for TRAP
+  \item 3 Not used
+  \item 4 Store PC for Machine Fault
+  \item 5 Not used
+  \item 6 Reserved for temporarily storing indirect address
+  \item 7 Store R0 when JSR invoked
+  \item 8 Store R3 for return value
+  \item 9 Additional Storage Feature
+\end{enumerate}
+\subsubsection{MFR and TRAP implementation}
+The memory locations are reserved for certain functions, such as trap instruction and 
+machine faults. The trap instruction is reserved at location 0, while location 
+1 is reserved for machine faults, which can cause an erroneous condition in the machine. 
+The simulator will trap to memory address 1 when a machine fault occurs, and the MFR 
+(Machine Fault Register) will be set to a binary value corresponding to the type of fault that 
+occurred. There are no interrupts or complex I/O devices in this machine, and the simulator must 
+check for faults. Predefined machine faults include illegal memory address to reserved locations, 
+illegal trap code, illegal operation code, and illegal memory address beyond 2048. When a trap 
+instruction or machine fault occurs, the current PC and MSR (Machine Status Register) contents are 
+saved to reserved locations, and the address from location 0 or 1 is fetched into the PC to execute 
+the first instruction of a routine that handles the trap or machine fault.
+
+The reserved memory locations and machine faults are crucial components that ensure proper operation 
+of the machine. These features provide a way to handle errors and unexpected events that may occur 
+during simulation. The use of ASCII representation for characters is a widely used standard that allows 
+for easy interchangeability between different systems.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.65\textwidth]{Pics/Fig16.png}
+  \caption{MFR showing illegal out of bounds access}
+  \label{fig:MFRDemo}
+\end{figure}
 % Source Code
 \section{Source Code}
 Here is the list of Source Code applied in this project.

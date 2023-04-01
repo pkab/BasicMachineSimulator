@@ -36,9 +36,9 @@ public class CPU extends Converter
     /**
      * Define OpCode Inst (Abhinava Phukan)
      */
-    final short HLT = 0x00; /** Stops the Machine **/
+    static final short HLT = 0x00; /** Stops the Machine **/
     /** Trap Code */
-    final short TRAP = 0x18;
+    static final short TRAP = 0x18;
     /** Load Register From Memory **/
     /** RX <- Value(Effective Address) **/
     static final short LDR = 0x01; 
@@ -223,7 +223,10 @@ public class CPU extends Converter
             default:
                 break;
         }
-        if(I==1) return m.Data[EA];
+        if(I==1) {
+            m.Data[6] = EA;
+            return m.Data[EA];
+        }
         return EA;
     }
     /** End Of FetchEA **/
@@ -280,21 +283,14 @@ public class CPU extends Converter
      */
     private void MemStore(char rx[],short EA,Memory m){
         byte RVal = (byte)BinaryToDecimal(rx,2);
+        char[] R_x = getRegister((short)RVal);
         DecimalToBinary(EA,MAR,12);
-        switch(RVal){
-            case 0:
-                CopyArr(R0, MBR, 16);
-                break;
-            case 1:
-                CopyArr(R1, MBR, 16);
-                break;
-            case 2:
-                CopyArr(R2, MBR, 16);
-                break;
-            case 3:
-                CopyArr(R3, MBR, 16);
-                break;
-        }
+        CopyArr(R_x, MBR, 16);
+        if(EA>=0 && EA<=9) { 
+            MFR[3]=1;
+            m.Data[4] = BinaryToDecimal(PC, 12);
+            return;
+        } 
         m.Data[EA] = BinaryToDecimal(MBR,16);
     }
     /** End of MemStore **/
@@ -303,9 +299,9 @@ public class CPU extends Converter
      * Data[EA] = Value(IXVal)
      */
     private void MemStoreFromIndex(char ix[],short EA,Memory m){
-        byte RVal = (byte)BinaryToDecimal(ix,2);
+        byte XVal = (byte)BinaryToDecimal(ix,2);
         DecimalToBinary(EA,MAR,12);
-        switch(RVal){
+        switch(XVal){
             case 0:
                 break;
             case 1:
@@ -318,6 +314,11 @@ public class CPU extends Converter
                 CopyArr(X3, MBR, 16);
                 break;
         }
+        if(EA>=0 && EA<=9) { 
+            MFR[3]=1;
+            m.Data[4] = BinaryToDecimal(PC, 12);
+            return;
+        } 
         m.Data[EA] = BinaryToDecimal(MBR,16);
     }
     /** End of MemStoreToIndex **/
@@ -326,21 +327,23 @@ public class CPU extends Converter
      */
     private void StoreRegisterEA(char rx[],short EA){
         byte RVal= (byte)BinaryToDecimal(rx,2);
+        char[] R_x = getRegister((short)RVal);
         DecimalToBinary(EA,MAR,12);
-        switch(RVal){
-            case 0:
-                ReverseCopyArr(MAR, R0, 16, 12);
-                break;
-            case 1:
-                ReverseCopyArr(MAR, R1, 16, 12);
-                break;
-            case 2:
-                ReverseCopyArr(MAR, R2, 16, 12);
-                break;
-            case 3:
-                ReverseCopyArr(MAR, R3, 16, 12);
-                break;
-        }
+        ReverseCopyArr(MAR, R_x, 16, 12);
+        // switch(RVal){
+        //     case 0:
+        //         ReverseCopyArr(MAR, R0, 16, 12);
+        //         break;
+        //     case 1:
+        //         ReverseCopyArr(MAR, R1, 16, 12);
+        //         break;
+        //     case 2:
+        //         ReverseCopyArr(MAR, R2, 16, 12);
+        //         break;
+        //     case 3:
+        //         ReverseCopyArr(MAR, R3, 16, 12);
+        //         break;
+        // }
     }
     /** End of StoreRegisterEA **/
     public void ReverseCopyArr(char src[],char des[],int length,int srclen){
@@ -391,97 +394,121 @@ public class CPU extends Converter
          * CPU Decision making for executing opcode here
          */
         short EA=FetchEA(IX,Address,m,I);
-        switch(OpCode){
-            case HLT:
-                break;
-            case LDR:
-                StoreRegister(RX,EA,m);
-                break;
-            case STR:
-                MemStore(RX,EA,m);
-                break;
-            case LDA:
-                StoreRegisterEA(RX,EA);
-                break;
-            case LDX:
-                StoreIndexRegister(IX, EA, m);
-                break;
-            case STX:
-                MemStoreFromIndex(IX, EA, m);
-                break;            
-            case AMR:
-                fAMR(BinaryToDecimal(RX, 2), EA,m);
-                break;
-            case SMR:
-                fSMR(BinaryToDecimal(RX, 2), EA,m);
-                break;
-            case AIR:
-                fAIR(BinaryToDecimal(RX, 2), BinaryToDecimal(Address, 5));
-                break;
-            case SIR:
-                fSIR(BinaryToDecimal(RX, 2), BinaryToDecimal(Address, 5));
-                break;
-            case JZ:
-                JumpZero((BinaryToDecimal(RX, 2)),EA);
-                break;
-            case JNE:
-                JumpIfNotEqual((BinaryToDecimal(RX, 2)),EA);
-                break;    
-            case JCC:
-                JumpIfCond(BinaryToDecimal(RX, 2),EA);
-                break;
-            case JMA:
-                UncondJump(EA);
-                break;
-            case JSR: 
-                JumpSubRoutine(EA); 
-                break;
-            case RFS: 
-                RFSImmed(Address); 
-                break;
-            case SOB: 
-                SubandBranch(BinaryToDecimal(RX, 2), EA);
-                break;
-            case JGE: 
-                JumpGE(BinaryToDecimal(RX, 2), EA); 
-                break;
-            case MLT:
-                fMLT(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2));
-                break;
-            case DVD:
-                fDVD(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2));
-                break;
-            case TRR:
-                fTRR(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2));
-                break;
-            case AND:
-                fAND(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2));
-                break;
-            case ORR:
-                fORR(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2)); 
-                break;
-            case NOT:
-                fNOT(BinaryToDecimal(RX, 2));
-                break;
-            case SRC:
-                fSRC(BinaryToDecimal(RX, 2),BinaryToDecimal(Count, 4),
-                    (byte)IR[9],(byte)IR[8]);
-                break;
-            case RRC:
-                fRRC(BinaryToDecimal(RX, 2),BinaryToDecimal(Count, 4),
-                    (byte)IR[9],(byte)IR[8]);
-                break;
-            case IN:
-                fIN(BinaryToDecimal(RX, 2), (byte)BinaryToDecimal(Address,5)
-                                    , dev);
-                break;
-            case OUT:
-            System.out.println((byte)BinaryToDecimal(Address, 5));
-                fOUT(BinaryToDecimal(RX, 2), (byte)BinaryToDecimal(Address,5)
-                                    , dev);
-                break;
-            default: break;
+        try{
+            switch(OpCode){
+                case HLT:
+                    break;
+                case LDR:
+                    StoreRegister(RX,EA,m);
+                    break;
+                case STR:
+                    MemStore(RX,EA,m);
+                    break;
+                case LDA:
+                    StoreRegisterEA(RX,EA);
+                    break;
+                case LDX:
+                    StoreIndexRegister(IX, EA, m);
+                    break;
+                case STX:
+                    MemStoreFromIndex(IX, EA, m);
+                    break;            
+                case AMR:
+                    fAMR(BinaryToDecimal(RX, 2), EA,m);
+                    break;
+                case SMR:
+                    fSMR(BinaryToDecimal(RX, 2), EA,m);
+                    break;
+                case AIR:
+                    fAIR(BinaryToDecimal(RX, 2), BinaryToDecimal(Address, 5));
+                    break;
+                case SIR:
+                    fSIR(BinaryToDecimal(RX, 2), BinaryToDecimal(Address, 5));
+                    break;
+                case JZ:
+                    JumpZero((BinaryToDecimal(RX, 2)),EA);
+                    break;
+                case JNE:
+                    JumpIfNotEqual((BinaryToDecimal(RX, 2)),EA);
+                    break;    
+                case JCC:
+                    JumpIfCond(BinaryToDecimal(RX, 2),EA);
+                    break;
+                case JMA:
+                    UncondJump(EA);
+                    break;
+                case JSR: 
+                    JumpSubRoutine(EA); 
+                    break;
+                case RFS: 
+                    RFSImmed(Address); 
+                    break;
+                case SOB: 
+                    SubandBranch(BinaryToDecimal(RX, 2), EA);
+                    break;
+                case JGE: 
+                    JumpGE(BinaryToDecimal(RX, 2), EA); 
+                    break;
+                case MLT:
+                    fMLT(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2));
+                    break;
+                case DVD:
+                    fDVD(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2));
+                    break;
+                case TRR:
+                    fTRR(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2));
+                    break;
+                case AND:
+                    fAND(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2));
+                    break;
+                case ORR:
+                    fORR(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2)); 
+                    break;
+                case NOT:
+                    fNOT(BinaryToDecimal(RX, 2));
+                    break;
+                case TRAP:
+                    fTrap(BinaryToDecimal(Count,4),m);
+                    break;
+                case SRC:
+                    fSRC(BinaryToDecimal(RX, 2),BinaryToDecimal(Count, 4),
+                        (byte)IR[9],(byte)IR[8]);
+                    break;
+                case RRC:
+                    fRRC(BinaryToDecimal(RX, 2),BinaryToDecimal(Count, 4),
+                        (byte)IR[9],(byte)IR[8]);
+                    break;
+                case IN:
+                    fIN(BinaryToDecimal(RX, 2), (byte)BinaryToDecimal(Address,5)
+                                        , dev);
+                    break;
+                case OUT:
+                System.out.println((byte)BinaryToDecimal(Address, 5));
+                    fOUT(BinaryToDecimal(RX, 2), (byte)BinaryToDecimal(Address,5)
+                                        , dev);
+                    break;
+                case CHK:
+                    fCHK(BinaryToDecimal(RX, 2), (byte)BinaryToDecimal(Address, 5)
+                    , dev);
+                    break;
+                default: 
+                    MFR[1]=1;
+                    m.Data[4] = BinaryToDecimal(PC, 12);
+                    break;
+            }
+        }catch(IndexOutOfBoundsException ioobe){
+            MFR[0]=1;
+            m.Data[4] = BinaryToDecimal(PC, 12);
         }
+        m.Data[1] = BinaryToDecimal(MFR, 4);
+    }
+    /**
+     * Handle Machine Fault
+     * @param m Memory fault to handle.
+     */
+    public void MFHandle(Memory m){
+        MFR[0] = MFR[1] = MFR[2] = MFR[3] = 0;
+        m.Data[4] = BinaryToDecimal(PC, 12);
     }
     /**
      * OPCode Implementation Natatlie Jordan
@@ -708,6 +735,19 @@ public class CPU extends Converter
         }
     }
     /**
+     * Trap Code Instruction
+     * @param trapCode Input the Trap Code
+     */
+    public void fTrap(short trapCode,Memory m){
+        m.Data[0]=trapCode;
+        short Value = (short)(BinaryToDecimal(PC, 12)+1);
+        m.Data[2] = Value;
+        //DecimalToBinary(m.Data[2], PC, 12);
+        switch(trapCode){
+            // Handle Trap Code here
+        }
+    }
+    /**
      * Shift Register By Count
      * @param rx
      * @param count
@@ -797,6 +837,12 @@ public class CPU extends Converter
             case 1:
                 dev.printer(Rx);
                 break;
+        }
+    }
+    public void fCHK(short rx,byte devid,Devices dev){
+        char Rx[] = getRegister(rx);
+        switch(devid){
+
         }
     }
     /* END of Implmentation of Methods For Other OpCode - Abhinava Phukan */

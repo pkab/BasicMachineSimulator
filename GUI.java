@@ -242,7 +242,7 @@ public class GUI extends JFrame
      * The LEDs will be updated as well.
      */
     private void RefreshLeds(int buttonpress){
-        if( buttonpress != 7 && buttonpress != 8)
+        if( buttonpress != 7 && buttonpress != 8 && buttonpress!=11)
             for(int i=0;i<16;i++){
                 switch(buttonpress){
                     case 0:
@@ -292,7 +292,7 @@ public class GUI extends JFrame
                     default: break;
                 }
             }
-        else
+        else if(buttonpress==7 || buttonpress == 8)
             for(int i=0;i<12;i++){
                 /**If the corresponding buttons are pressed, the light on the panel will turn yellow or orange. 
                  * If not, the light will stay black*/
@@ -303,6 +303,11 @@ public class GUI extends JFrame
                 else{ if(cpu.MAR[i]==1) marlab[i].setBackground(Color.orange);
                     else marlab[i].setBackground(Color.black);
                 }
+            }
+        else
+            for(int i=0;i<4;i++){
+                if(cpu.MFR[i]==1) mfrlab[i].setBackground(Color.red);
+                else mfrlab[i].setBackground(Color.black);
             }
     }
     private void LoadButtonAction(ActionEvent e){
@@ -366,21 +371,36 @@ public class GUI extends JFrame
     }
     private void Store(ActionEvent e){
         /**This will store the memory and print to the screen that the store was successful*/
-        System.out.println("Store Invoked");
-        short EA = cpu.BinaryToDecimal(cpu.MAR, 12);
-        short value = cpu.BinaryToDecimal(cpu.MBR,16);
-        mem.Data[EA] = value;
+        try{
+            System.out.println("Store Invoked");
+            short EA = cpu.BinaryToDecimal(cpu.MAR, 12);
+            short value = cpu.BinaryToDecimal(cpu.MBR,16);
+            mem.Data[EA] = value;
+        }catch(Exception ee){
+            cpu.MFR[0] = 1;
+            RefreshLeds(11);
+        }
     }
     private void StorePlus(ActionEvent e){
         /**This will store the memory and print to the screen that the store was successful*/
         //MAR is incremented here after storing
         System.out.println("Store+ Invoked");
         short EA = cpu.BinaryToDecimal(cpu.MAR, 12);
+        if((EA>=0 && EA<=9)){
+            cpu.MFR[3] = 1;
+        }else if(EA > 2047){
+
+        }
         short value = cpu.BinaryToDecimal(cpu.MBR,16);
-        mem.Data[EA] = value;
-        EA++;
-        cpu.DecimalToBinary(EA, cpu.MAR, 12);
-        RefreshLeds(8);
+        try{
+            mem.Data[EA] = value;
+            EA++;
+            cpu.DecimalToBinary(EA, cpu.MAR, 12);
+            RefreshLeds(8);
+        }catch(IndexOutOfBoundsException ioobe){
+            cpu.MFR[0]=1;
+            RefreshLeds(11);
+        }
     }
     private void LoadValue(ActionEvent e){
         /**This will load the memory and print to the screen for the user that the load was successful in the MBR.
@@ -392,6 +412,8 @@ public class GUI extends JFrame
             RefreshLeds(9);
         }catch(IndexOutOfBoundsException i){
             JOptionPane.showMessageDialog(this, "Illegal Operation with memory Access","Error",JOptionPane.ERROR_MESSAGE);
+            cpu.MFR[0]=1;
+            RefreshLeds(11);
         }
     }
     private void loadFile(ActionEvent e){
@@ -428,7 +450,18 @@ public class GUI extends JFrame
         s.close();
     }
     private void execCode(ActionEvent e){
+        for(int i=0;i<12;i++)
+            RefreshLeds(i);
         short EA = cpu.BinaryToDecimal(cpu.PC, 12);
+        if(EA>2047){
+            cpu.MFR[0]=1;
+            RefreshLeds(11);
+            cpu.MFHandle(mem);
+            mem.Data[4]++;
+            cpu.DecimalToBinary(mem.Data[4], cpu.PC, 12);
+            RefreshLeds(7);
+            return ;
+        }
         cpu.DecimalToBinary(mem.Data[EA], cpu.IR, 16);
         cpu.cache.push(EA, mem.Data[EA]);
         try{
@@ -436,15 +469,20 @@ public class GUI extends JFrame
         }catch(IOException ioe){
             
         }
-        for(int i=0;i<11;i++)
-            RefreshLeds(i);
         cpu.Execute(mem);
-        for(int i=0;i<11;i++)
+        for(int i=0;i<12;i++)
             RefreshLeds(i);
         short val = cpu.BinaryToDecimal(cpu.IR, 6);
         if(val >= 0x08 && val <= 0x0F){
             EA = cpu.BinaryToDecimal(cpu.PC, 12);
-        }else EA++;
+        }else if(cpu.BinaryToDecimal(cpu.MFR, 4)>0){
+            cpu.MFHandle(mem);
+            EA = mem.Data[4];
+            EA++;
+        }else if(val == CPU.TRAP){
+            EA = mem.Data[2];
+        }
+        else EA++;
         cpu.DecimalToBinary(EA, cpu.PC, 12);
         //else EA = cpu.BinaryToDecimal(cpu.PC, 12);
         RefreshLeds(7);
@@ -462,7 +500,7 @@ public class GUI extends JFrame
             hlt.setBackground(Color.black);
             Run.setBackground(Color.green);
             OpCode = cpu.BinaryToDecimal(cpu.IR, 6);
-        }while(OpCode != cpu.HLT);
+        }while(OpCode != CPU.HLT);
         Run.setBackground(Color.black);
         hlt.setBackground(Color.red);
     }
