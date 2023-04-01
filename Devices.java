@@ -63,6 +63,10 @@ public class Devices extends JFrame{
         for(int i=0;i<3;i++)
             this.add(panel.get(i));
     }
+    public void emptyConsole(){
+        ConsoleOut.setText(null);
+        ConsoleIn.setText(null);
+    }
     public void LoadDevices(short devid, String input){  
         switch (devid) {
             case 1:
