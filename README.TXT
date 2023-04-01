@@ -3,12 +3,12 @@ Basic Machine Simulator Project:
 This is a project to obtain a deeper understanding of designing,
 structure and operations of a computer system and how execution works.
 
-We are currently at a primitive phase - I of the project
+We are currently at a phase - III of the project
 ------------------------------------------------------------------------
 
 PROJECT TITLE: Basic Machine Simulator
 PURPOSE OF PROJECT: Understanding Computer Architecture 
-VERSION: 2.0
+VERSION: 3.0
 HOW TO START THIS PROJECT: Start the main Function
 TO RUN THE PROJECT ON WINDOWS IF JDK17 AND ABOVE:
 - If you have java verion set as a system environment variable
@@ -19,10 +19,5 @@ USER INSTRUCTIONS:
 - Opens file explorer
 - Open the Program Folder
 - Select the program you want to experiment with
-- prog1 starts at location 10 so set the PC to 10
-- prog2 starts at location 6 so set the PC to 6
-- experiment with prog1 with ss
-- experiment with prog2 by pressing the run key
-- for ipl.txt address location 7 
-- Set it using the switches provided
-- Click SS which runs single step instructions
+- Set the value of the address of the program entry point to the PC.
+- Either do Single Step or Run to run the program.
