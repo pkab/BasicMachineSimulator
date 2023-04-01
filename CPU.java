@@ -155,6 +155,10 @@ public class CPU extends Converter
      * Write to Device
      */
     static final short OUT = 0x32;
+    /**
+     * Check Device Status
+     */
+    static final short CHK = 0x33;
     // End Of OpCode Definition By Abhinava Phukan
     /** -------------------End of OpCode Definition --------------------**/
     /**
