@@ -229,6 +229,7 @@ public class GUI extends JFrame
     }
     private void resetAll(ActionEvent e){
         cpu.Reset(mem);
+        dev.emptyConsole();
         for(int i=0;i<11;i++)
             RefreshLeds(i);
     }
