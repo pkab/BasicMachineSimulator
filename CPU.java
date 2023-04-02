@@ -563,6 +563,7 @@ public class CPU extends Converter
     public void JumpIfCond(short cc,short EA){
         if ( CC[cc] == 1){
             DecimalToBinary(EA, PC, 12);
+            CC[cc]=0;
         } else {
             DecimalToBinary((short)
             (BinaryToDecimal(PC, 12)+1), PC, 12);
