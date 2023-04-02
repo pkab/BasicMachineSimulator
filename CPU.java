@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 /**
  * CPU - Section for Simulation
  * Designing the CPU structure here
@@ -373,7 +375,7 @@ public class CPU extends Converter
     /**
      * Execute the Instructions According in the Memory
      */
-    public void Execute(Memory m){
+    public void Execute(Memory m,Devices d){
         /**
          * Segregating the Data
          */
@@ -390,6 +392,11 @@ public class CPU extends Converter
         for(int i=12;i<16;i++) Count[i-12] = IR[i];
         short OpCode = BinaryToDecimal(InstOp,6); // Fetch OpCode Value
         System.out.printf("OpCode: 0x%-2x\n",OpCode);
+        try {
+            dev.printCache(cache);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         /**
          * CPU Decision making for executing opcode here
          */
@@ -507,6 +514,9 @@ public class CPU extends Converter
      * @param m Memory fault to handle.
      */
     public void MFHandle(Memory m){
+        if(MFR[0]==1){
+            DecimalToBinary((short)10, PC, 12);
+        }
         MFR[0] = MFR[1] = MFR[2] = MFR[3] = 0;
         m.Data[4] = BinaryToDecimal(PC, 12);
     }
@@ -697,7 +707,7 @@ public class CPU extends Converter
     public void fTRR(short rx,short ry){
         char[] R_x=getRegister(rx),
         R_y=getRegister(ry);
-        if(R_x == R_y) CC[2]=1;
+        if(R_x == R_y) CC[3]=1;
     }
     /**
      * Method for the AND Operator OpCode

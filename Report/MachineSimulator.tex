@@ -404,11 +404,10 @@ The Following are the memory locations that are reserved for this project:
 \subsubsection{MFR and TRAP implementation}
 The memory locations are reserved for certain functions, such as trap instruction and 
 machine faults. The trap instruction is reserved at location 0, while location 
-1 is reserved for machine faults, which can cause an erroneous condition in the machine. 
+1 is reserved for machine faults, which is caused by an erroneous condition in the machine. 
 The simulator will trap to memory address 1 when a machine fault occurs, and the MFR 
 (Machine Fault Register) will be set to a binary value corresponding to the type of fault that 
-occurred. There are no interrupts or complex I/O devices in this machine, and the simulator must 
-check for faults. Predefined machine faults include illegal memory address to reserved locations, 
+occurred. Predefined machine faults include illegal memory address to reserved locations, 
 illegal trap code, illegal operation code, and illegal memory address beyond 2048. When a trap 
 instruction or machine fault occurs, the current PC and MSR (Machine Status Register) contents are 
 saved to reserved locations, and the address from location 0 or 1 is fetched into the PC to execute 
@@ -416,8 +415,8 @@ the first instruction of a routine that handles the trap or machine fault.
 
 The reserved memory locations and machine faults are crucial components that ensure proper operation 
 of the machine. These features provide a way to handle errors and unexpected events that may occur 
-during simulation. The use of ASCII representation for characters is a widely used standard that allows 
-for easy interchangeability between different systems.
+during simulation. 
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.65\textwidth]{Pics/Fig16.png}
@@ -425,25 +424,134 @@ for easy interchangeability between different systems.
   \label{fig:MFRDemo}
 \end{figure}
 % Source Code
-\section{Source Code}
-Here is the list of Source Code applied in this project.
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.5\textwidth]{Pics/ipl.jpg}
-  \caption{IPL Source Code}
-  \label{fig:IPLCode}
-\end{figure}
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.4\textwidth]{Pics/prog1.jpg}
-  \caption{Program 1 Source Code}
-  \label{fig:Program 1 Code}
-\end{figure}
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.5\textwidth]{Pics/prog2.jpg}
-  \caption{Program 2 Source Code}
-  \label{fig:Program 2 Code}
-\end{figure}
+\section{Running Program 2}
+In order to Run the Program 2 certain steps have to be setup before running the program:
+\begin{enumerate}
+  \item Load the GUI. You should see a new Menu option called File.
+  \item Manually Set the Switches to the value 1000. Load that value into the MAR.
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{Pics/Fig17.png}
+    \caption{MAR set to 1000 with switches and LD Button.}
+    \label{fig:MAR Set}
+  \end{figure}
+  \item Go to File -> Open File. This triggers a file opening dialouge box.
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{Pics/Fig18.png}
+    \caption{Open File.}
+    \label{fig:OpenFile}
+  \end{figure}
+  \item Locate the paragraph.txt file.
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{Pics/Fig20.png}
+    \caption{Paragraph.txt File}
+    \label{fig:ParaFile}
+  \end{figure}
+  \item Once loaded, It will successfully load the file. The contents of the file will be stored at
+  location 1000 pointing to the head of the file in memory.
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{Pics/Fig21.png}
+    \caption{Head of Paragraph.txt in memory}
+    \label{fig:BaseAddrPara}
+  \end{figure}
+  \item Click the init button to trigger the file dialog.
+  \item Locate Program2.txt file and Open it. It will load the Program2.txt file on the memory.
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{Pics/Fig19.png}
+    \caption{Program2.txt Location}
+    \label{fig:Program2}
+  \end{figure}
+  \item Note that the Entry Point of the Program Booting is at memory location 12.
+  \item Set the switch value to 12 and load that value in the PC using the LD button.
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{Pics/Fig22.png}
+    \caption{Setting Program Boot at Location 12 in PC}
+    \label{fig:PCLoc12}
+  \end{figure}
+  \item Then go to the menu bar and look for View.
+  \item Go to View -> View Console and Cache.
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{Pics/Fig23.png}
+    \caption{View Console and Cache}
+    \label{fig:View Console Cache}
+  \end{figure}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{Pics/Fig24.png}
+    \caption{Opening Console and Cache GUI}
+    \label{fig:CCGui}
+  \end{figure}
+  \item Go to the Console Keyboard and Enter the string you want to search.
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{Pics/Fig25.png}
+    \caption{Enter Input in Console Keyboard}
+    \label{fig:EnterInput}
+  \end{figure}
+  \item Now you can either press Run to run the Program or do a single step to test the program 
+  step by step.
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{Pics/Fig26.png}
+    \caption{Single Step running the Program}
+    \label{fig:SStep}
+  \end{figure}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{Pics/Fig27.png}
+    \caption{Output generated from console and cache.}
+    \label{fig:Console and Cache Output}
+  \end{figure}
+\end{enumerate}
+\subsection{Running the Program Test}
+---
+\subsection{Program 2 Source Code}
 
+\section{Conclusion}
+Through this project, we learned about the macro and microstructures of CPUs, various 
+components of memory, and the execution of instructions. We were able to apply our understanding 
+of Java programming to develop a functional simulator that emulated the behavior of a classical 
+CISC computer. By simulating machine faults, traps, and memory addressing, we gained a deeper 
+understanding of the importance of error handling and fault tolerance in real-world computer systems.
+
+Contributions:
+\begin{itemize}
+  \item Abhinava Phukan:
+  \begin{itemize}[label=--]
+    \item Implemented OpCode 0x0-0x3,0x18,0x21,0x22,0x10-0x15,0x19,0x1A,0x31-0x33
+    \item Device and Cache imeplementation and GUI
+    \item Program 2 and other Bug Fixes
+    \item Gui Development
+    \item MFR and TRAP Code Implementation
+    \item Report
+    \item Structure Design and implementation
+  \end{itemize}
+  \item Dev Shah:
+  \begin{itemize}[label=--]
+    \item OpCode Implemented: AMR,SMR,AIR,SIR
+    \item Console UI Design
+    \item Main Gui Design
+    \item Bug Fixes
+    \item Program 2 Development Collaborator
+  \end{itemize}
+  \item Natalie Jordan:
+  \begin{itemize}[label=--]
+    \item OpCode Implemented: JZ,JNE,JCC,JMA
+    \item Program for Testing (prog1.txt)
+    \item Report Writing
+    \item GUI Develpoment
+  \end{itemize}
+  \item AlHassan Halawani:
+  \begin{itemize}[]
+    \item OpCode Implemented: JSR, RFS, SOB, JGE
+    \item Report Writing
+    \item Structure Implementation
+  \end{itemize}
+\end{itemize}
 \end{document}

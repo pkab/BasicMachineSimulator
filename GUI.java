@@ -4,6 +4,7 @@ import java.util.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 
 /**
@@ -21,7 +22,7 @@ public class GUI extends JFrame
     private File file;
     private ArrayList<StringStruct> Code;
     private JMenuBar menuBar;
-    private JMenu optMenu,viewMenu;
+    private JMenu fileMenu,optMenu,viewMenu;
     private JLabel GPR[],X[],PC,MAR,MBR,IR,MFR,Priv;
     private Label gpr0_arr[],gpr1_arr[],gpr2_arr[],gpr3_arr[]; // Important Ones that will be Kept Modifying
     private Label XLabel[][],pclab[],marlab[],mbrlab[],mfrlab[], // Important Ones
@@ -200,17 +201,29 @@ public class GUI extends JFrame
         this.add(lhlt);
         this.add(lrun);
         menuBar = new JMenuBar();
+        fileMenu = new JMenu("File");
         optMenu = new JMenu("Options");
         viewMenu = new JMenu("View");
+        JMenuItem openFile = new JMenuItem("Open File");
         JMenuItem resethlt = new JMenuItem("Reset Halt");
         JMenuItem resetall = new JMenuItem("Reset All");
         JMenuItem ccView = new JMenuItem("View Console and Cache");
+        openFile.addActionListener(e->{
+            try {
+                LoadFileIntoMemory(e);
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        });
         resethlt.addActionListener(e->resetHalt(e));
         resetall.addActionListener(e->resetAll(e));
         ccView.addActionListener(e->viewConsoleCache(e));
+        fileMenu.add(openFile);
         optMenu.add(resethlt);
         optMenu.add(resetall);
         viewMenu.add(ccView);
+        menuBar.add(fileMenu);
         menuBar.add(optMenu);
         menuBar.add(viewMenu);
         this.setJMenuBar(menuBar);
@@ -374,6 +387,12 @@ public class GUI extends JFrame
         try{
             System.out.println("Store Invoked");
             short EA = cpu.BinaryToDecimal(cpu.MAR, 12);
+            if((EA>=0 && EA<=9)){
+                cpu.MFR[3] = 1;
+                RefreshLeds(11);
+                cpu.MFHandle(mem);
+                return ;
+            }
             short value = cpu.BinaryToDecimal(cpu.MBR,16);
             mem.Data[EA] = value;
         }catch(Exception ee){
@@ -388,8 +407,9 @@ public class GUI extends JFrame
         short EA = cpu.BinaryToDecimal(cpu.MAR, 12);
         if((EA>=0 && EA<=9)){
             cpu.MFR[3] = 1;
-        }else if(EA > 2047){
-
+            RefreshLeds(11);
+            cpu.MFHandle(mem);
+            return ;
         }
         short value = cpu.BinaryToDecimal(cpu.MBR,16);
         try{
@@ -414,6 +434,28 @@ public class GUI extends JFrame
             JOptionPane.showMessageDialog(this, "Illegal Operation with memory Access","Error",JOptionPane.ERROR_MESSAGE);
             cpu.MFR[0]=1;
             RefreshLeds(11);
+        }
+    }
+    private void LoadFileIntoMemory(ActionEvent e) throws IOException{
+        JFileChooser fCh = new JFileChooser();
+        fCh.setCurrentDirectory(new File(System.getProperty("user.dir")));
+        int res = fCh.showOpenDialog(this);
+        if(res == JFileChooser.APPROVE_OPTION){
+            file = new File(fCh.getSelectedFile().getAbsolutePath());
+            String filename = file.getAbsolutePath();
+            JOptionPane.showMessageDialog(this, filename,"File Load Successful",JOptionPane.PLAIN_MESSAGE);
+            try (FileReader reader = new FileReader(filename)){
+                short EA = cpu.BinaryToDecimal(cpu.MAR, 12);
+                int i = EA;
+                int c;
+                while ((c = reader.read()) != -1) {
+                    mem.Data[i++] = (short)c;
+                }
+            }
+            catch (FileNotFoundException fnfe)
+            {
+                fnfe.printStackTrace();
+            }
         }
     }
     private void loadFile(ActionEvent e){
@@ -449,6 +491,11 @@ public class GUI extends JFrame
         }
         s.close();
     }
+    /**
+     * Main Handler for updating LEDs and execution of CPU code
+     * Can be used independently as single step and part of Run Button
+     * @param e
+     */
     private void execCode(ActionEvent e){
         for(int i=0;i<12;i++)
             RefreshLeds(i);
@@ -464,12 +511,9 @@ public class GUI extends JFrame
         }
         cpu.DecimalToBinary(mem.Data[EA], cpu.IR, 16);
         cpu.cache.push(EA, mem.Data[EA]);
-        try{
-            dev.printCache(cpu.cache);
-        }catch(IOException ioe){
-            
-        }
-        cpu.Execute(mem);
+        cpu.Execute(mem,dev);
+        //dev.printCache(cpu.cache);
+        
         for(int i=0;i<12;i++)
             RefreshLeds(i);
         short val = cpu.BinaryToDecimal(cpu.IR, 6);
@@ -495,7 +539,7 @@ public class GUI extends JFrame
         }
         short OpCode;
         do{
-            Thread.sleep(500);
+            Thread.sleep(1);
             execCode(e);
             hlt.setBackground(Color.black);
             Run.setBackground(Color.green);
