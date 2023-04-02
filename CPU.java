@@ -490,7 +490,7 @@ public class CPU extends Converter
                                         , dev);
                     break;
                 case OUT:
-                System.out.println((byte)BinaryToDecimal(Address, 5));
+                //System.out.println((byte)BinaryToDecimal(Address, 5));
                     fOUT(BinaryToDecimal(RX, 2), (byte)BinaryToDecimal(Address,5)
                                         , dev);
                     break;
@@ -708,7 +708,9 @@ public class CPU extends Converter
     public void fTRR(short rx,short ry){
         char[] R_x=getRegister(rx),
         R_y=getRegister(ry);
-        if(R_x == R_y) CC[3]=1;
+        short rxval = BinaryToDecimal(R_x,16);
+        short ryval = BinaryToDecimal(R_y,16);
+        if(rxval==ryval) CC[3]=1;
     }
     /**
      * Method for the AND Operator OpCode
