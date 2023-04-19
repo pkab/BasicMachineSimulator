@@ -589,15 +589,15 @@ public class GUI extends JFrame
         run = new JButton("Run");
         run.setBounds(1027,460,65,80);
         run.addActionListener(e->
-        {
-            try
-            {
-                RunProg(e);
-            }
-            catch (InterruptedException ie)
-            {
-                ie.printStackTrace();
-            }
+        {     
+            SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+                @Override
+                protected Void doInBackground() throws Exception {
+                    RunProg(e);
+                    return null;
+                }
+            };
+            worker.execute();
         });
         run.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
         this.add(ss);
