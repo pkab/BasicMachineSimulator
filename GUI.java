@@ -23,7 +23,7 @@ public class GUI extends JFrame
     private ArrayList<StringStruct> Code;
     private JMenuBar menuBar;
     private JMenu fileMenu,optMenu,viewMenu;
-    private JLabel GPR[],X[],PC,MAR,MBR,IR,MFR,Priv;
+    private JLabel GPR[],X[],PC,MAR,MBR,IR,MFR,Priv,FR0[],FR1[];
     private Label gpr0_arr[],gpr1_arr[],gpr2_arr[],gpr3_arr[]; // Important Ones that will be Kept Modifying
     private Label XLabel[][],pclab[],marlab[],mbrlab[],mfrlab[], // Important Ones
     irlab[],privlab,hlt,Run;
@@ -322,6 +322,25 @@ public class GUI extends JFrame
                 if(cpu.MFR[i]==1) mfrlab[i].setBackground(Color.red);
                 else mfrlab[i].setBackground(Color.black);
             }
+    }
+    private void floatFR(int buttonpress){
+        if (load != 1){
+            for (int i = 0; i < 4; i++){
+                switch(load){
+                    case 0:
+                        if (FR0[i]==1)
+                            FR0[i].setBackground(Color.white);
+                        else FR0[i].setBackground(Color.white);
+                    break;
+                    case 1:
+                        if (FR1[i]==1)
+                            FR1[i].setBackground(Color.white);
+                        else FR1[i].setBackground(Color.white);
+                    break;
+                    default: break;
+                }
+            }
+        }       
     }
     private void LoadButtonAction(ActionEvent e){
         JButton j = (JButton)e.getSource();
