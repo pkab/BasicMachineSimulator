@@ -70,6 +70,8 @@ public class CPU extends Converter
     static final short SMR = 0x05; // Subtract Memory From Register
     static final short AIR = 0x06; // Add  Immediate to Register
     static final short SIR = 0x07; // Subtract Immediate to Register
+    static final short VADD = 0x1D; // Vector Addtion
+    static final short VSUB = 0x1E; // Vector Subtraction
     /* End of OpCode Definition - Dev Shah */
     /*
      * OpCode Definition by Natalie Jordan
@@ -400,101 +402,45 @@ public class CPU extends Converter
         short EA=FetchEA(IX,Address,m,I);
         try{
             switch(OpCode){
-                case HLT:
-                    break;
-                case LDR:
-                    StoreRegister(RX,EA,m);
-                    break;
-                case STR:
-                    MemStore(RX,EA,m);
-                    break;
-                case LDA:
-                    StoreRegisterEA(RX,EA);
-                    break;
-                case LDX:
-                    StoreIndexRegister(IX, EA, m);
-                    break;
-                case STX:
-                    MemStoreFromIndex(IX, EA, m);
-                    break;            
-                case AMR:
-                    fAMR(BinaryToDecimal(RX, 2), EA,m);
-                    break;
-                case SMR:
-                    fSMR(BinaryToDecimal(RX, 2), EA,m);
-                    break;
-                case AIR:
-                    fAIR(BinaryToDecimal(RX, 2), BinaryToDecimal(Address, 5));
-                    break;
-                case SIR:
-                    fSIR(BinaryToDecimal(RX, 2), BinaryToDecimal(Address, 5));
-                    break;
-                case JZ:
-                    JumpZero((BinaryToDecimal(RX, 2)),EA);
-                    break;
-                case JNE:
-                    JumpIfNotEqual((BinaryToDecimal(RX, 2)),EA);
-                    break;    
-                case JCC:
-                    JumpIfCond(BinaryToDecimal(RX, 2),EA);
-                    break;
-                case JMA:
-                    UncondJump(EA);
-                    break;
-                case JSR: 
-                    JumpSubRoutine(EA); 
-                    break;
-                case RFS: 
-                    RFSImmed(Address); 
-                    break;
-                case SOB: 
-                    SubandBranch(BinaryToDecimal(RX, 2), EA);
-                    break;
-                case JGE: 
-                    JumpGE(BinaryToDecimal(RX, 2), EA); 
-                    break;
-                case MLT:
-                    fMLT(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2));
-                    break;
-                case DVD:
-                    fDVD(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2));
-                    break;
-                case TRR:
-                    fTRR(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2));
-                    break;
-                case AND:
-                    fAND(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2));
-                    break;
-                case ORR:
-                    fORR(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2)); 
-                    break;
-                case NOT:
-                    fNOT(BinaryToDecimal(RX, 2));
-                    break;
-                case TRAP:
-                    fTrap(BinaryToDecimal(Count,4),m);
-                    break;
-                case SRC:
-                    fSRC(BinaryToDecimal(RX, 2),BinaryToDecimal(Count, 4),
-                        (byte)IR[9],(byte)IR[8]);
-                    break;
-                case RRC:
-                    fRRC(BinaryToDecimal(RX, 2),BinaryToDecimal(Count, 4),
-                        (byte)IR[9],(byte)IR[8]);
-                    break;
-                case IN:
-                    fIN(BinaryToDecimal(RX, 2), (byte)BinaryToDecimal(Address,5)
-                                        , dev);
-                    break;
+                case HLT: break;
+                case LDR: StoreRegister(RX,EA,m); break;
+                case STR: MemStore(RX,EA,m); break;
+                case LDA: StoreRegisterEA(RX,EA); break;
+                case LDX: StoreIndexRegister(IX, EA, m); break;
+                case STX: MemStoreFromIndex(IX, EA, m); break;            
+                case AMR: fAMR(BinaryToDecimal(RX, 2), EA,m); break;
+                case SMR: fSMR(BinaryToDecimal(RX, 2), EA,m); break;
+                case AIR: fAIR(BinaryToDecimal(RX, 2), BinaryToDecimal(Address, 5)); break;
+                case SIR: fSIR(BinaryToDecimal(RX, 2), BinaryToDecimal(Address, 5)); break;
+                case JZ: JumpZero((BinaryToDecimal(RX, 2)),EA); break;
+                case JNE: JumpIfNotEqual((BinaryToDecimal(RX, 2)),EA); break;    
+                case JCC: JumpIfCond(BinaryToDecimal(RX, 2),EA); break;
+                case JMA: UncondJump(EA); break;
+                case JSR: JumpSubRoutine(EA); break;
+                case RFS: RFSImmed(Address); break;
+                case SOB: SubandBranch(BinaryToDecimal(RX, 2), EA); break;
+                case JGE: JumpGE(BinaryToDecimal(RX, 2), EA); break;
+                case MLT: fMLT(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2)); break;
+                case DVD: fDVD(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2)); break;
+                case TRR: fTRR(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2)); break;
+                case AND: fAND(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2)); break;
+                case ORR: fORR(BinaryToDecimal(RX, 2), BinaryToDecimal(IX, 2)); break;
+                case NOT: fNOT(BinaryToDecimal(RX, 2)); break;
+                case TRAP: fTrap(BinaryToDecimal(Count,4),m); break;
+                case SRC: fSRC(BinaryToDecimal(RX, 2),BinaryToDecimal(Count, 4),(byte)IR[9],(byte)IR[8]); break;
+                case RRC: fRRC(BinaryToDecimal(RX, 2),BinaryToDecimal(Count, 4),(byte)IR[9],(byte)IR[8]); break;
+                case IN: fIN(BinaryToDecimal(RX, 2), (byte)BinaryToDecimal(Address,5), dev); break;
                 case OUT:
-                //System.out.println((byte)BinaryToDecimal(Address, 5));
-                    fOUT(BinaryToDecimal(RX, 2), (byte)BinaryToDecimal(Address,5)
-                                        , dev);
-                    break;
+                    fOUT(BinaryToDecimal(RX, 2), (byte)BinaryToDecimal(Address,5), dev); break;
                 case CHK:
-                    fCHK(BinaryToDecimal(RX, 2), (byte)BinaryToDecimal(Address, 5)
-                    , dev);
-                    break;
+                    fCHK(BinaryToDecimal(RX, 2), (byte)BinaryToDecimal(Address, 5), dev); break;
+                case FADD: FloatAdd(BinaryToDecimal(RX, 2), EA, m); break;
+                case FSUB: FloatSub(BinaryToDecimal(RX, 2), EA, m); break;
+                case VADD: VectorAdd(BinaryToDecimal(RX, 2), EA, m); break;
+                case VSUB: VectorSub(BinaryToDecimal(RX, 2), EA, m); break;
+                case CNVRT: ConvertFloatFixed(BinaryToDecimal(RX, 2), EA, m); break;
+                case LDFR: LoadFloatRegister(BinaryToDecimal(RX, 2), EA, m); break;
+                case STFR: StoreFloatRegister(BinaryToDecimal(RX, 2), EA, m); break;
                 default: 
                     MFR[1]=1;
                     m.Data[4] = BinaryToDecimal(PC, 12);
