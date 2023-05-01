@@ -957,6 +957,23 @@ public class CPU extends Converter
                 break;
         }
     }
+
+    public void VectorAdd(short fx, short EA, Memory m){
+        short v1addr = m.Data[EA];
+        short v2addr = m.Data[EA+1];
+        float frVal = FloatingPointRegisters.shortToFloat(GetFloatingRegister(fx));
+        for(int i=0; i<frVal; i++)
+            m.Data[v1addr+i] += m.Data[v2addr+i];
+    }
+    
+    public void VectorSub(short fx, short EA, Memory m){
+        short v1addr = m.Data[EA];
+        short v2addr = m.Data[EA+1];
+        float frVal = FloatingPointRegisters.shortToFloat(GetFloatingRegister(fx));
+        for(int i=0; i<frVal; i++)
+            m.Data[v1addr+i] -= m.Data[v2addr+i];
+    }
+
     /* END of Implmentation of Methods For Other OpCode - Abhinava Phukan */
     /** Getter and Setter Functions for Debugging and future development only **/
     public char[] getIR() {
