@@ -863,6 +863,7 @@ public class CPU extends Converter
                 break;
             case 1:
                 DecimalToBinary((short)dev.keyboardStatus(), Rx, devid);
+                break;
         }
     }
     /**
