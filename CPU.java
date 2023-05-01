@@ -957,7 +957,12 @@ public class CPU extends Converter
                 break;
         }
     }
-
+    /**
+     * Vector Addition
+     * @param fx Specify the Vector Size
+     * @param EA Effective address to check for both vector locations
+     * @param m access from Memory
+     */
     public void VectorAdd(short fx, short EA, Memory m){
         short v1addr = m.Data[EA];
         short v2addr = m.Data[EA+1];
@@ -965,7 +970,12 @@ public class CPU extends Converter
         for(int i=0; i<frVal; i++)
             m.Data[v1addr+i] += m.Data[v2addr+i];
     }
-    
+    /**
+     * Vector Subtraction
+     * @param fx Specify the Vector Size
+     * @param EA Effective address to check for both vector locations
+     * @param m access from Memory
+     */
     public void VectorSub(short fx, short EA, Memory m){
         short v1addr = m.Data[EA];
         short v2addr = m.Data[EA+1];

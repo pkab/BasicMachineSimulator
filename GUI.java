@@ -106,7 +106,7 @@ public class GUI extends JFrame
             else if(i>=7 && i <10)
                 LDarr[i].setBounds(1080,80+((i-7)*30), 50, 20);
             else 
-                LDarr[i].setBounds(480, 320 + ((i-10)*30), 50, 20);
+                LDarr[i].setBounds(480, 330 + ((i-10)*30), 50, 20);
             LDarr[i].addActionListener(e -> LoadButtonAction(e));
             this.add(LDarr[i]);
         }
@@ -127,7 +127,7 @@ public class GUI extends JFrame
         }
         for(int i=0;i<2;i++){
             FR[i] = new JLabel("FR"+i);
-            FR[i].setBounds(50, 320+(i*30), 30, 20);
+            FR[i].setBounds(50, 330+(i*30), 30, 20);
             this.add(FR[i]);
         }
         for(int i=0;i<16;i++){
@@ -160,10 +160,10 @@ public class GUI extends JFrame
             irlab[i].setBounds(680+(i*25),170,20,20);
             irlab[i].setBackground(Color.black);
             FR0[i] = new Label();
-            FR0[i].setBounds(80+(i*25),320,20,20);
+            FR0[i].setBounds(80+(i*25),330,20,20);
             FR0[i].setBackground(Color.black);
             FR1[i] = new Label();
-            FR1[i].setBounds(80+(i*25),350,20,20);
+            FR1[i].setBounds(80+(i*25),360,20,20);
             FR1[i].setBackground(Color.black);
             switches.add(new JButton());
             switches.get(i).setText(""+(15-i));
