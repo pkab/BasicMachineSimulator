@@ -12,6 +12,7 @@ public class Devices extends JFrame{
     private ArrayList<JPanel> panel;
     private JTextArea ConsoleOut,ConsoleIn,CacheOutput;
     char cacheaddr[],cacheval[];
+    public int printerStatus=0; // check for console printer : 0 if unused, 1 if used
     public Devices(){
         super("Console");
         this.setSize(960,480);
@@ -78,7 +79,12 @@ public class Devices extends JFrame{
         }
     
     }
-    
+    public int boardstatus=0;
+    public int keyboardStatus(){
+        if(ConsoleIn.getText().length()>0) boardstatus=1; //Text in Keyboard
+        else boardstatus=0; // Empty to Use.
+        return boardstatus;
+    }
     public void keyboard(char []Reg){
         Converter conv = new Converter();
         try{
@@ -95,6 +101,7 @@ public class Devices extends JFrame{
     }
     
     public void printer(char[] Reg){
+        printerStatus=1;
         Converter conv = new Converter();
         Character dec = (char)conv.BinaryToDecimal(Reg, 16);
         StringBuilder build = new StringBuilder();

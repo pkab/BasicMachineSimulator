@@ -218,7 +218,6 @@ public class GUI extends JFrame
             try {
                 LoadFileIntoMemory(e);
             } catch (IOException e1) {
-                // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
         });
@@ -565,7 +564,8 @@ public class GUI extends JFrame
         
         for(int i=0;i<12;i++)
             RefreshLeds(i);
-        short val = cpu.BinaryToDecimal(cpu.IR, 6);
+        for(int i=0;i<2;i++) RefreshFloatLED(i); // Refresh LEDs for Floating Values
+        short val = cpu.BinaryToDecimal(cpu.IR, 6); // Get The IR Values to check for Conditions for Jumping
         if(val >= 0x08 && val <= 0x0F){
             EA = cpu.BinaryToDecimal(cpu.PC, 12);
         }else if(cpu.BinaryToDecimal(cpu.MFR, 4)>0){

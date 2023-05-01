@@ -1,8 +1,4 @@
 public class FloatingPointRegisters {
-    private static final int EXPONENT_BIAS = 63;
-    private static final int MANTISSA_MASK = 0xFF;
-    private static final int EXPONENT_MASK = 0x7F80;
-    private static final int SIGN_MASK = 0x8000;
 
     public short FR0;
     public short FR1;

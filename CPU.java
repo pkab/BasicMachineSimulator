@@ -858,7 +858,11 @@ public class CPU extends Converter
     public void fCHK(short rx,byte devid,Devices dev){
         char Rx[] = getRegister(rx);
         switch(devid){
-
+            case 0:
+                DecimalToBinary((short)dev.printerStatus, Rx, 16);
+                break;
+            case 1:
+                DecimalToBinary((short)dev.keyboardStatus(), Rx, devid);
         }
     }
     /**
@@ -896,6 +900,59 @@ public class CPU extends Converter
             case 1:
                 float fr1 = FR.getFR1() - value;
                 FR.setFR0(fr1);
+                break;
+        }
+    }
+    /**
+     * Convert to Fixed/FloatingPoint
+     * @param rx Register Value to check for value of F
+     * @param EA check for effective address
+     * @param m Access Value stored inside memory m
+     */
+    public void ConvertFloatFixed(short rx,short EA,Memory m){
+        char R_x[] = getRegister(rx);
+        int F = BinaryToDecimal(R_x, 16);
+        switch(F){
+            case 0:
+                DecimalToBinary(m.Data[EA], R_x, 16);
+                break;
+            case 1:
+                FR.setFR0(FloatingPointRegisters.shortToFloat(m.Data[EA]));
+        }
+    }
+    /**
+     * Load Floating Register From Memory, fr = 0..1 
+     * @param fx fr <- c(EA), c(EA+1), fr <- c(c(EA), c(EA)+1), if I bit set
+     * @param EA Effective Address
+     * @param m Access from Memory.
+     */
+    public void LoadFloatRegister(short fx,short EA,Memory m){
+        switch(fx){
+            case 0:
+                FR.setFR0(FloatingPointRegisters.shortToFloat(m.Data[EA]));
+                FR.setFR1(FloatingPointRegisters.shortToFloat(m.Data[EA+1]));
+                break;
+            case 1:
+                FR.setFR0(FloatingPointRegisters.shortToFloat(m.Data[EA+1]));
+                FR.setFR1(FloatingPointRegisters.shortToFloat(m.Data[EA]));
+                break;
+        }
+    }
+    /**
+     * Store Floating Register To Memory, fr = 0..1 
+     * @param fx fr -> c(EA), c(EA+1), fr -> c(c(EA), c(EA)+1), if I bit set
+     * @param EA Effective Address
+     * @param m Access from Memory.
+     */
+    public void StoreFloatRegister(short fx,short EA,Memory m){
+        switch(fx){
+            case 0:
+                m.Data[EA]=FR.FR0;
+                m.Data[EA+1]=FR.FR1;
+                break;
+            case 1:
+                m.Data[EA+1]=FR.FR0;
+                m.Data[EA]=FR.FR1;
                 break;
         }
     }
