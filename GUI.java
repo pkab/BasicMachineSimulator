@@ -23,8 +23,8 @@ public class GUI extends JFrame
     private ArrayList<StringStruct> Code;
     private JMenuBar menuBar;
     private JMenu fileMenu,optMenu,viewMenu;
-    private JLabel GPR[],X[],PC,MAR,MBR,IR,MFR,Priv;
-    private Label gpr0_arr[],gpr1_arr[],gpr2_arr[],gpr3_arr[]; // Important Ones that will be Kept Modifying
+    private JLabel GPR[],X[],PC,MAR,MBR,IR,MFR,Priv,FR[];
+    private Label gpr0_arr[],gpr1_arr[],gpr2_arr[],gpr3_arr[],FR0[],FR1[]; // Important Ones that will be Kept Modifying
     private Label XLabel[][],pclab[],marlab[],mbrlab[],mfrlab[], // Important Ones
     irlab[],privlab,hlt,Run;
     private JButton LDarr[],store,st_plus,load,init,ss,run; // Load Button Array and other Imp Buttons
@@ -39,16 +39,14 @@ public class GUI extends JFrame
          **/
         dev = new Devices();
         cpu = new CPU(dev); mem = new Memory();
+        FR = new JLabel[2];
         Code = new ArrayList<StringStruct>();
-        this.setTitle("Basic Machine Simulator");
         hlt = new Label();
         hlt.setBounds(1150,460,20,20);
         hlt.setBackground(Color.BLACK);
-        this.add(hlt);
         Run = new Label();
         Run.setBounds(1150,490,20,20);
         Run.setBackground(Color.BLACK);
-        this.add(Run);
         swarr = new char[16];
         for(int i=0;i<16;i++) swarr[i] = 0;
         Pan = new JPanel[5]; GPR = new JLabel[4]; X = new JLabel[3];
@@ -62,13 +60,13 @@ public class GUI extends JFrame
         MFR.setBounds(930, 200, 40, 20);
         Priv = new JLabel("Privilege");
         Priv.setBounds(980, 230, 60, 20);
-        this.add(PC); this.add(MAR); this.add(MBR);
-        this.add(IR); this.add(MFR); this.add(Priv);
-        LDarr = new JButton[10]; switches = new ArrayList<JButton>();
+        LDarr = new JButton[12]; switches = new ArrayList<JButton>();
         gpr0_arr = new Label[16]; gpr1_arr = new Label[16]; 
         gpr2_arr = new Label[16]; gpr3_arr = new Label[16];
         mbrlab = new Label[16]; irlab = new Label[16]; XLabel = new Label[3][];
         pclab = new Label[12]; marlab = new Label[12]; mfrlab = new Label[4];
+        FR0 = new Label[16];
+        FR1 = new Label[16];
         privlab = new Label();
         privlab.setBounds(1055, 230, 20, 20);
         privlab.setBackground(Color.black);
@@ -98,17 +96,17 @@ public class GUI extends JFrame
         Pan[4].setBounds(610,465,270,70);
         JLabel addLabel = new JLabel("Address");
         addLabel.setBounds(695,535,100,20);
-        this.add(OpCode); this.add(gprLabel); this.add(ixrLabel);
-        this.add(indLabel); this.add(addLabel);
-        for(int i=0;i<10;i++){
+        for(int i=0;i<12;i++){
             /**A loop to create the LD button next to each panel*/
             LDarr[i] = new JButton("LD");
             if(i>=0 && i<4)
                 LDarr[i].setBounds(480, 80+(i*30), 50, 20);
             else if(i>=4 && i <7)
                 LDarr[i].setBounds(480, 220+((i-4)*30), 50, 20);
-            else
+            else if(i>=7 && i <10)
                 LDarr[i].setBounds(1080,80+((i-7)*30), 50, 20);
+            else 
+                LDarr[i].setBounds(480, 320 + ((i-10)*30), 50, 20);
             LDarr[i].addActionListener(e -> LoadButtonAction(e));
             this.add(LDarr[i]);
         }
@@ -126,6 +124,11 @@ public class GUI extends JFrame
             X[i-1]=new JLabel("X"+i);
             X[i-1].setBounds(50, 220+((i-1)*30), 20, 20);
             this.add(X[i-1]);
+        }
+        for(int i=0;i<2;i++){
+            FR[i] = new JLabel("FR"+i);
+            FR[i].setBounds(50, 320+(i*30), 30, 20);
+            this.add(FR[i]);
         }
         for(int i=0;i<16;i++){
             /**Creating the 16 switch buttons at the bottom of the GUI, setting the location, and color to black*/
@@ -156,6 +159,12 @@ public class GUI extends JFrame
             irlab[i]=new Label();
             irlab[i].setBounds(680+(i*25),170,20,20);
             irlab[i].setBackground(Color.black);
+            FR0[i] = new Label();
+            FR0[i].setBounds(80+(i*25),320,20,20);
+            FR0[i].setBackground(Color.black);
+            FR1[i] = new Label();
+            FR1[i].setBounds(80+(i*25),350,20,20);
+            FR1[i].setBackground(Color.black);
             switches.add(new JButton());
             switches.get(i).setText(""+(15-i));
             switches.get(i).addActionListener(e -> switchAction(e));
@@ -178,7 +187,7 @@ public class GUI extends JFrame
             }
             //switches.get(i).setBounds(30+(i*50),485,46,55);
             this.add(gpr0_arr[i]); this.add(gpr1_arr[i]); this.add(gpr2_arr[i]);
-            this.add(gpr3_arr[i]);
+            this.add(gpr3_arr[i]); this.add(FR0[i]); this.add(FR1[i]);
             this.add(XLabel[0][i]); this.add(XLabel[1][i]); this.add(XLabel[2][i]);
             this.add(mbrlab[i]); this.add(irlab[i]);
         }
@@ -193,13 +202,10 @@ public class GUI extends JFrame
             this.add(pclab[i]); this.add(marlab[i]);
         }
         // Halt and Run Indicator
-       
         JLabel lhlt =new JLabel("Halt");
         JLabel lrun =new JLabel("Run");
         lhlt.setBounds(1110,460,40,20);
         lrun.setBounds(1110,490,40,20);
-        this.add(lhlt);
-        this.add(lrun);
         menuBar = new JMenuBar();
         fileMenu = new JMenu("File");
         optMenu = new JMenu("Options");
@@ -227,6 +233,15 @@ public class GUI extends JFrame
         menuBar.add(optMenu);
         menuBar.add(viewMenu);
         this.setJMenuBar(menuBar);
+        this.setTitle("Basic Machine Simulator");
+        this.add(hlt);
+        this.add(Run);
+        this.add(lhlt);
+        this.add(lrun);
+        this.add(OpCode); this.add(gprLabel); this.add(ixrLabel);
+        this.add(indLabel); this.add(addLabel);
+        this.add(PC); this.add(MAR); this.add(MBR);
+        this.add(IR); this.add(MFR); this.add(Priv);
         /*
         
         editMenu = new JMenu("Edit");
@@ -323,12 +338,36 @@ public class GUI extends JFrame
                 else mfrlab[i].setBackground(Color.black);
             }
     }
+    public void RefreshFloatLED(int led){
+        for(int i=0;i<16;i++){
+            if(swarr[i]==1){
+                switch(led){
+                    case 0:
+                        FR0[i].setBackground(Color.green);
+                        break;
+                    case 1:
+                        FR1[i].setBackground(Color.green);
+                }
+            }
+            else{
+                switch(led){
+                    case 0:
+                        FR0[i].setBackground(Color.black);
+                        break;
+                    case 1:
+                        FR1[i].setBackground(Color.black);
+                }
+            }
+        }
+    }
     private void LoadButtonAction(ActionEvent e){
         JButton j = (JButton)e.getSource();
         int buttonpress = 0;
         /**This loops uses a switch case to be activated once the LD button is pressed for the corresponding panel*/
-        for(int i=0;i<10;i++)
+        for(int i=0;i<12;i++){
             if(j==LDarr[i]) buttonpress = i;
+        }
+        // System.out.println(cpu.BinaryToDecimal(swarr, 16));
         switch(buttonpress){
             case 0:
                 cpu.setR0(cpu.BinaryToDecimal(swarr,16));
@@ -359,6 +398,16 @@ public class GUI extends JFrame
                 break;
             case 9:
                 cpu.setMBR(swarr,16);
+                break;
+            case 10:
+                cpu.FR.setFR0(FloatingPointRegisters.shortToFloat(cpu.BinaryToDecimal(swarr, 16)));
+                RefreshFloatLED(0);
+                System.out.println(cpu.FR.getFR0());
+                break;
+            case 11:
+                cpu.FR.setFR1(FloatingPointRegisters.shortToFloat(cpu.BinaryToDecimal(swarr, 16)));
+                RefreshFloatLED(1);
+                System.out.println(cpu.FR.getFR1());
                 break;
             default:
                 break;

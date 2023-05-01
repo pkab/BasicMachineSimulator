@@ -30,6 +30,8 @@ public class CPU extends Converter
     public char X1[],X2[],X3[]; 
     /** Device Interface **/
     private Devices dev;
+    /** Floating Point Registers */
+    public FloatingPointRegisters FR;
     /**
      * Cache Functionality
      */
@@ -163,6 +165,14 @@ public class CPU extends Converter
      * Check Device Status
      */
     static final short CHK = 0x33;
+    /**
+     * OpCode for Floating Point Register Handling
+     */
+    static final short FADD = 0x1B;
+    static final short FSUB = 0x1C;
+    static final short CNVRT = 0x1F;
+    static final short LDFR = 0x28;
+    static final short STFR = 0x29;
     // End Of OpCode Definition By Abhinava Phukan
     /** -------------------End of OpCode Definition --------------------**/
     /**
@@ -171,6 +181,7 @@ public class CPU extends Converter
     public CPU(Devices dev)
     {
         this.dev = dev;
+        FR = new FloatingPointRegisters();
         PC = new char[12];
         CC = new char[4];
         IR = new char[16];
@@ -332,20 +343,6 @@ public class CPU extends Converter
         char[] R_x = getRegister((short)RVal);
         DecimalToBinary(EA,MAR,12);
         ReverseCopyArr(MAR, R_x, 16, 12);
-        // switch(RVal){
-        //     case 0:
-        //         ReverseCopyArr(MAR, R0, 16, 12);
-        //         break;
-        //     case 1:
-        //         ReverseCopyArr(MAR, R1, 16, 12);
-        //         break;
-        //     case 2:
-        //         ReverseCopyArr(MAR, R2, 16, 12);
-        //         break;
-        //     case 3:
-        //         ReverseCopyArr(MAR, R3, 16, 12);
-        //         break;
-        // }
     }
     /** End of StoreRegisterEA **/
     public void ReverseCopyArr(char src[],char des[],int length,int srclen){
@@ -852,10 +849,54 @@ public class CPU extends Converter
                 break;
         }
     }
+    /**
+     * CHECK for Device ID Status
+     * @param rx
+     * @param devid
+     * @param dev
+     */
     public void fCHK(short rx,byte devid,Devices dev){
         char Rx[] = getRegister(rx);
         switch(devid){
 
+        }
+    }
+    /**
+     * Floating Point Addition
+     * @param fx for floating point register to choose
+     * @param EA The Effective Address (With/Out indirect)
+     * @param m Memory Location to be accessed from for addition
+     */
+    public void FloatAdd(short fx,short EA,Memory m){
+        float value = FloatingPointRegisters.shortToFloat(m.Data[EA]);
+        switch(fx){
+            case 0:
+                float fr0 = FR.getFR0() + value;
+                FR.setFR0(fr0);
+                break;
+            case 1:
+                float fr1 = FR.getFR1() + value;
+                FR.setFR0(fr1);
+                break;
+        }
+    }
+    /**
+     * Floating Point Subtraction
+     * @param fx for floating point register to choose
+     * @param EA The Effective Address (With/Out indirect)
+     * @param m Memory Location to be accessed from for addition
+     */
+    public void FloatSub(short fx,short EA,Memory m){
+        float value = FloatingPointRegisters.shortToFloat(m.Data[EA]);
+        switch(fx){
+            case 0:
+                float fr0 = FR.getFR0() - value;
+                FR.setFR0(fr0);
+                break;
+            case 1:
+                float fr1 = FR.getFR1() - value;
+                FR.setFR0(fr1);
+                break;
         }
     }
     /* END of Implmentation of Methods For Other OpCode - Abhinava Phukan */
@@ -924,6 +965,13 @@ public class CPU extends Converter
             case 2: return R2; 
             case 3: return R3; 
             default: return R0; 
+        }
+    }
+    public short GetFloatingRegister(short fx){
+        switch(fx){
+            case 0: return FR.FR0;
+            case 1: return FR.FR1;
+            default: return FR.FR0;
         }
     }
 }
