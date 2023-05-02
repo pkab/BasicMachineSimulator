@@ -3,12 +3,12 @@ Basic Machine Simulator Project:
 This is a project to obtain a deeper understanding of designing,
 structure and operations of a computer system and how execution works.
 
-We are currently at a phase - III of the project
+We are currently at a phase - IVa of the project (Completed) Read the Report For more info
 ------------------------------------------------------------------------
 
 PROJECT TITLE: Basic Machine Simulator
 PURPOSE OF PROJECT: Understanding Computer Architecture 
-VERSION: 3.0
+VERSION: 4.0
 HOW TO START THIS PROJECT: Start the main Function
 TO RUN THE PROJECT ON WINDOWS IF JDK17 AND ABOVE:
 - If you have java verion set as a system environment variable
