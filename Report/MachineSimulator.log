@@ -1,0 +1,832 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.5.1)  1 MAY 2023 23:31
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**c:/Users/UniWork/Documents/BasicMachineSimulator/Report/MachineSimulator.tex
+(c:/Users/UniWork/Documents/BasicMachineSimulator/Report/MachineSimulator.tex
+LaTeX2e <2022-11-01> patch level 1
+L3 programming layer <2023-04-20> (c:/texlive/2023/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2022/07/02 v1.4n Standard LaTeX document class
+(c:/texlive/2023/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2022/07/02 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count185
+\c@section=\count186
+\c@subsection=\count187
+\c@subsubsection=\count188
+\c@paragraph=\count189
+\c@subparagraph=\count190
+\c@figure=\count191
+\c@table=\count192
+\abovecaptionskip=\skip48
+\belowcaptionskip=\skip49
+\bibindent=\dimen140
+) (c:/texlive/2023/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+ (c:/texlive/2023/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks16
+) (c:/texlive/2023/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
+ (c:/texlive/2023/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+) (c:/texlive/2023/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+ (c:/texlive/2023/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen141
+\Gin@req@width=\dimen142
+) (c:/texlive/2023/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2023/02/19 v1.6 Sub-captions (AR)
+ (c:/texlive/2023/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2023/03/12 v3.6j Customizing captions (AR)
+ (c:/texlive/2023/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2023/03/12 v2.4 caption3 kernel (AR)
+\caption@tempdima=\dimen143
+\captionmargin=\dimen144
+\caption@leftmargin=\dimen145
+\caption@rightmargin=\dimen146
+\caption@width=\dimen147
+\caption@indent=\dimen148
+\caption@parindent=\dimen149
+\caption@hangindent=\dimen150
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count193
+\c@continuedfloat=\count194
+)
+Package caption Info: New subtype `subfigure' on input line 239.
+\c@subfigure=\count195
+Package caption Info: New subtype `subtable' on input line 239.
+\c@subtable=\count196
+) (c:/texlive/2023/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+Package: fancyhdr 2022/11/09 v4.1 Extensive control of page headers and footers
+\f@nch@headwidth=\skip50
+\f@nch@O@elh=\skip51
+\f@nch@O@erh=\skip52
+\f@nch@O@olh=\skip53
+\f@nch@O@orh=\skip54
+\f@nch@O@elf=\skip55
+\f@nch@O@erf=\skip56
+\f@nch@O@olf=\skip57
+\f@nch@O@orf=\skip58
+) (c:/texlive/2023/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+ (c:/texlive/2023/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+ (c:/texlive/2023/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+))
+\Gm@cnth=\count197
+\Gm@cntv=\count198
+\c@Gm@tempcnt=\count199
+\Gm@bindingoffset=\dimen151
+\Gm@wd@mp=\dimen152
+\Gm@odd@mp=\dimen153
+\Gm@even@mp=\dimen154
+\Gm@layoutwidth=\dimen155
+\Gm@layoutheight=\dimen156
+\Gm@layouthoffset=\dimen157
+\Gm@layoutvoffset=\dimen158
+\Gm@dimlist=\toks17
+) (c:/texlive/2023/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2023-04-22 v7.00x Hypertext links for LaTeX
+ (c:/texlive/2023/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
+) (c:/texlive/2023/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
+ (c:/texlive/2023/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+) (c:/texlive/2023/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+) (c:/texlive/2023/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+) (c:/texlive/2023/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+) (c:/texlive/2023/texmf-dist/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+) (c:/texlive/2023/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+) (c:/texlive/2023/texmf-dist/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+) (c:/texlive/2023/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2022-05-17 v2.50 Cross-referencing by name of section
+ (c:/texlive/2023/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+) (c:/texlive/2023/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+ (c:/texlive/2023/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+))
+\c@section@level=\count266
+) (c:/texlive/2023/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count267
+)
+\@linkdim=\dimen159
+\Hy@linkcounter=\count268
+\Hy@pagecounter=\count269
+ (c:/texlive/2023/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2023-04-22 v7.00x Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+) (c:/texlive/2023/texmf-dist/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+\Hy@SavedSpaceFactor=\count270
+ (c:/texlive/2023/texmf-dist/tex/latex/hyperref/puenc.def
+File: puenc.def 2023-04-22 v7.00x Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
+)
+Package hyperref Info: Hyper figures OFF on input line 4182.
+Package hyperref Info: Link nesting OFF on input line 4187.
+Package hyperref Info: Hyper index ON on input line 4190.
+Package hyperref Info: Plain pages OFF on input line 4197.
+Package hyperref Info: Backreferencing OFF on input line 4202.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4449.
+\c@Hy@tempcnt=\count271
+ (c:/texlive/2023/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip16
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4787.
+\XeTeXLinkMargin=\dimen160
+ (c:/texlive/2023/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+ (c:/texlive/2023/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
+))
+\Fld@menulength=\count272
+\Field@Width=\dimen161
+\Fld@charsize=\dimen162
+Package hyperref Info: Hyper figures OFF on input line 6066.
+Package hyperref Info: Link nesting OFF on input line 6071.
+Package hyperref Info: Hyper index ON on input line 6074.
+Package hyperref Info: backreferencing OFF on input line 6081.
+Package hyperref Info: Link coloring OFF on input line 6086.
+Package hyperref Info: Link coloring with OCG OFF on input line 6091.
+Package hyperref Info: PDF/A mode OFF on input line 6096.
+ (c:/texlive/2023/texmf-dist/tex/latex/base/atbegshi-ltx.sty
+Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
+package with kernel methods
+)
+\Hy@abspage=\count273
+\c@Item=\count274
+\c@Hfootnote=\count275
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+ (c:/texlive/2023/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2023-04-22 v7.00x Hyperref driver for pdfTeX
+ (c:/texlive/2023/texmf-dist/tex/latex/base/atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend package
+with kernel methods
+)
+\Fld@listcount=\count276
+\c@bookmark@seq@number=\count277
+ (c:/texlive/2023/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
+ (c:/texlive/2023/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
+)
+\Hy@SectionHShift=\skip59
+) (c:/texlive/2023/texmf-dist/tex/latex/titlesec/titlesec.sty
+Package: titlesec 2021/07/05 v2.14 Sectioning titles
+\ttl@box=\box51
+\beforetitleunit=\skip60
+\aftertitleunit=\skip61
+\ttl@plus=\dimen163
+\ttl@minus=\dimen164
+\ttl@toksa=\toks18
+\titlewidth=\dimen165
+\titlewidthlast=\dimen166
+\titlewidthfirst=\dimen167
+) (c:/texlive/2023/texmf-dist/tex/latex/lipsum/lipsum.sty (c:/texlive/2023/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty (c:/texlive/2023/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2023-04-20 L3 programming layer (loader) 
+ (c:/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2023-04-19 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count278
+\l__pdf_internal_box=\box52
+))
+Package: l3keys2e 2023-02-02 LaTeX2e option processing using LaTeX3 keys
+)
+Package: lipsum 2021-09-20 v2.7 150 paragraphs of Lorem Ipsum dummy text
+\g__lipsum_par_int=\count279
+\l__lipsum_a_int=\count280
+\l__lipsum_b_int=\count281
+ (c:/texlive/2023/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex)) (c:/texlive/2023/texmf-dist/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2019/06/20 v3.9 Customized lists
+\labelindent=\skip62
+\enit@outerparindent=\dimen168
+\enit@toks=\toks19
+\enit@inbox=\box53
+\enit@count@id=\count282
+\enitdp@description=\count283
+) (c:/texlive/2023/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count284
+\float@exts=\toks20
+\float@box=\box54
+\@float@everytoks=\toks21
+\@floatcapt=\box55
+) (c:/texlive/2023/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count285
+\lst@gtempboxa=\box56
+\lst@token=\toks22
+\lst@length=\count286
+\lst@currlwidth=\dimen169
+\lst@column=\count287
+\lst@pos=\count288
+\lst@lostspace=\dimen170
+\lst@width=\dimen171
+\lst@newlines=\count289
+\lst@lineno=\count290
+\lst@maxwidth=\dimen172
+ (c:/texlive/2023/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
+\c@lstnumber=\count291
+\lst@skipnumbers=\count292
+\lst@framebox=\box57
+) (c:/texlive/2023/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2023/02/27 1.9 listings configuration
+))
+Package: listings 2023/02/27 1.9 (Carsten Heinz)
+ (c:/texlive/2023/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2022/06/12 v2.14 LaTeX color extensions (UK)
+ (c:/texlive/2023/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 227.
+ (c:/texlive/2023/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1353.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1357.
+Package xcolor Info: Model `RGB' extended on input line 1369.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1371.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1372.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1373.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1374.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1375.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1376.
+) (c:/texlive/2023/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2023/02/27 1.9 listings language file
+) (./MachineSimulator.aux)
+\openout1 = `MachineSimulator.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+ (c:/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count293
+\scratchdimen=\dimen173
+\scratchbox=\box58
+\nofMPsegments=\count294
+\nofMParguments=\count295
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count296
+\MPscratchDim=\dimen174
+\MPnumerator=\count297
+\makeMPintoPDFobject=\count298
+\everyMPtoPDFconversion=\toks24
+) (c:/texlive/2023/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+ (c:/texlive/2023/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+))
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+Package caption Info: listings package is loaded.
+Package caption Info: End \AtBeginDocument code.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(56.9055pt, 500.484pt, 56.9055pt)
+* v-part:(T,H,B)=(56.9055pt, 681.15898pt, 56.9055pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=500.484pt
+* \textheight=681.15898pt
+* \oddsidemargin=-15.36449pt
+* \evensidemargin=-15.36449pt
+* \topmargin=-52.36449pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+Package hyperref Info: Link coloring OFF on input line 56.
+(./MachineSimulator.out) (./MachineSimulator.out)
+\@outlinefile=\write3
+\openout3 = `MachineSimulator.out'.
+
+\c@lstlisting=\count299
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 60.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 60.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 60.
+<Pics/Fig0.jpg, id=120, 892.83563pt x 461.47406pt>
+File: Pics/Fig0.jpg Graphic file (type jpg)
+<use Pics/Fig0.jpg>
+Package pdftex.def Info: Pics/Fig0.jpg  used on input line 91.
+(pdftex.def)             Requested size: 500.484pt x 258.68423pt.
+ [1
+
+{c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+<Pics/Fig1.jpg, id=130, 670.75594pt x 72.27pt>
+File: Pics/Fig1.jpg Graphic file (type jpg)
+<use Pics/Fig1.jpg>
+Package pdftex.def Info: Pics/Fig1.jpg  used on input line 108.
+(pdftex.def)             Requested size: 500.484pt x 53.92445pt.
+<Pics/Fig2.jpg, id=131, 890.5772pt x 459.21562pt>
+File: Pics/Fig2.jpg Graphic file (type jpg)
+<use Pics/Fig2.jpg>
+Package pdftex.def Info: Pics/Fig2.jpg  used on input line 126.
+(pdftex.def)             Requested size: 375.36299pt x 193.54892pt.
+<gw_monogram_2c.png, id=132, 602.25pt x 449.68pt>
+File: gw_monogram_2c.png Graphic file (type png)
+<use gw_monogram_2c.png>
+Package pdftex.def Info: gw_monogram_2c.png  used on input line 130.
+(pdftex.def)             Requested size: 42.67912pt x 31.86505pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 35.46509pt, for example:
+(fancyhdr)                \setlength{\headheight}{35.46509pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-23.46509pt}.
+
+[2 <./gw_monogram_2c.png> <./Pics/Fig0.jpg> <./Pics/Fig1.jpg>]
+<Pics/Fig3.png, id=142, 237.13594pt x 107.65219pt>
+File: Pics/Fig3.png Graphic file (type png)
+<use Pics/Fig3.png>
+Package pdftex.def Info: Pics/Fig3.png  used on input line 146.
+(pdftex.def)             Requested size: 250.24199pt x 113.60648pt.
+File: gw_monogram_2c.png Graphic file (type png)
+<use gw_monogram_2c.png>
+Package pdftex.def Info: gw_monogram_2c.png  used on input line 165.
+(pdftex.def)             Requested size: 42.67912pt x 31.86505pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 35.46509pt, for example:
+(fancyhdr)                \setlength{\headheight}{35.46509pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-23.46509pt}.
+
+[3 <./Pics/Fig2.jpg> <./Pics/Fig3.png>]
+<Pics/Fig4.png, id=152, 377.91188pt x 269.50688pt>
+File: Pics/Fig4.png Graphic file (type png)
+<use Pics/Fig4.png>
+Package pdftex.def Info: Pics/Fig4.png  used on input line 171.
+(pdftex.def)             Requested size: 250.24199pt x 178.45903pt.
+<Pics/class_diagram.png, id=153, 322.95656pt x 325.96782pt>
+File: Pics/class_diagram.png Graphic file (type png)
+<use Pics/class_diagram.png>
+Package pdftex.def Info: Pics/class_diagram.png  used on input line 202.
+(pdftex.def)             Requested size: 250.24199pt x 252.5727pt.
+File: gw_monogram_2c.png Graphic file (type png)
+<use gw_monogram_2c.png>
+Package pdftex.def Info: gw_monogram_2c.png  used on input line 207.
+(pdftex.def)             Requested size: 42.67912pt x 31.86505pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 35.46509pt, for example:
+(fancyhdr)                \setlength{\headheight}{35.46509pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-23.46509pt}.
+
+[4 <./Pics/Fig4.png>]
+File: gw_monogram_2c.png Graphic file (type png)
+<use gw_monogram_2c.png>
+Package pdftex.def Info: gw_monogram_2c.png  used on input line 234.
+(pdftex.def)             Requested size: 42.67912pt x 31.86505pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 35.46509pt, for example:
+(fancyhdr)                \setlength{\headheight}{35.46509pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-23.46509pt}.
+
+[5{c:/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc} <./Pics/class_diagram.png>]
+File: Pics/Fig4.png Graphic file (type png)
+<use Pics/Fig4.png>
+Package pdftex.def Info: Pics/Fig4.png  used on input line 239.
+(pdftex.def)             Requested size: 250.24199pt x 178.45903pt.
+<Pics/Fig5.png, id=172, 377.91188pt x 269.50688pt>
+File: Pics/Fig5.png Graphic file (type png)
+<use Pics/Fig5.png>
+Package pdftex.def Info: Pics/Fig5.png  used on input line 246.
+(pdftex.def)             Requested size: 250.24199pt x 178.45903pt.
+<Pics/Fig6.png, id=173, 184.43906pt x 77.53969pt>
+File: Pics/Fig6.png Graphic file (type png)
+<use Pics/Fig6.png>
+Package pdftex.def Info: Pics/Fig6.png  used on input line 254.
+(pdftex.def)             Requested size: 250.24199pt x 105.20407pt.
+File: gw_monogram_2c.png Graphic file (type png)
+<use gw_monogram_2c.png>
+Package pdftex.def Info: gw_monogram_2c.png  used on input line 258.
+(pdftex.def)             Requested size: 42.67912pt x 31.86505pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 35.46509pt, for example:
+(fancyhdr)                \setlength{\headheight}{35.46509pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-23.46509pt}.
+
+[6 <./Pics/Fig5.png>]
+<Pics/Fig7.png, id=188, 892.83563pt x 461.47406pt>
+File: Pics/Fig7.png Graphic file (type png)
+<use Pics/Fig7.png>
+Package pdftex.def Info: Pics/Fig7.png  used on input line 261.
+(pdftex.def)             Requested size: 250.24199pt x 129.3386pt.
+<Pics/Fig8.png, id=189, 408.02437pt x 157.33781pt>
+File: Pics/Fig8.png Graphic file (type png)
+<use Pics/Fig8.png>
+Package pdftex.def Info: Pics/Fig8.png  used on input line 269.
+(pdftex.def)             Requested size: 250.24199pt x 96.49689pt.
+<Pics/Fig9.png, id=190, 892.83563pt x 461.47406pt>
+File: Pics/Fig9.png Graphic file (type png)
+<use Pics/Fig9.png>
+Package pdftex.def Info: Pics/Fig9.png  used on input line 279.
+(pdftex.def)             Requested size: 250.24199pt x 129.3386pt.
+File: gw_monogram_2c.png Graphic file (type png)
+<use gw_monogram_2c.png>
+Package pdftex.def Info: gw_monogram_2c.png  used on input line 283.
+(pdftex.def)             Requested size: 42.67912pt x 31.86505pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 35.46509pt, for example:
+(fancyhdr)                \setlength{\headheight}{35.46509pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-23.46509pt}.
+
+[7 <./Pics/Fig6.png> <./Pics/Fig7.png> <./Pics/Fig8.png>]
+<Pics/Fig10.png, id=206, 889.82437pt x 457.71pt>
+File: Pics/Fig10.png Graphic file (type png)
+<use Pics/Fig10.png>
+Package pdftex.def Info: Pics/Fig10.png  used on input line 290.
+(pdftex.def)             Requested size: 240.23016pt x 123.56938pt.
+<Pics/Fig11.png, id=207, 889.82437pt x 458.46281pt>
+File: Pics/Fig11.png Graphic file (type png)
+<use Pics/Fig11.png>
+Package pdftex.def Info: Pics/Fig11.png  used on input line 296.
+(pdftex.def)             Requested size: 240.23016pt x 123.77261pt.
+<Pics/Fig12.png, id=210, 891.33pt x 459.21562pt>
+File: Pics/Fig12.png Graphic file (type png)
+<use Pics/Fig12.png>
+Package pdftex.def Info: Pics/Fig12.png  used on input line 319.
+(pdftex.def)             Requested size: 240.23016pt x 123.76564pt.
+<Pics/Fig13.png, id=211, 710.655pt x 355.3275pt>
+File: Pics/Fig13.png Graphic file (type png)
+<use Pics/Fig13.png>
+Package pdftex.def Info: Pics/Fig13.png  used on input line 325.
+(pdftex.def)             Requested size: 240.23016pt x 120.11574pt.
+File: gw_monogram_2c.png Graphic file (type png)
+<use gw_monogram_2c.png>
+Package pdftex.def Info: gw_monogram_2c.png  used on input line 336.
+(pdftex.def)             Requested size: 42.67912pt x 31.86505pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 35.46509pt, for example:
+(fancyhdr)                \setlength{\headheight}{35.46509pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-23.46509pt}.
+
+[8 <./Pics/Fig9.png> <./Pics/Fig10.png> <./Pics/Fig11.png> <./Pics/Fig12.png> <./Pics/Fig13.png>]
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 368.
+<Pics/Fig14.png, id=229, 341.77687pt x 327.47343pt>
+File: Pics/Fig14.png Graphic file (type png)
+<use Pics/Fig14.png>
+Package pdftex.def Info: Pics/Fig14.png  used on input line 378.
+(pdftex.def)             Requested size: 325.31154pt x 311.7176pt.
+File: gw_monogram_2c.png Graphic file (type png)
+<use gw_monogram_2c.png>
+Package pdftex.def Info: gw_monogram_2c.png  used on input line 382.
+(pdftex.def)             Requested size: 42.67912pt x 31.86505pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 35.46509pt, for example:
+(fancyhdr)                \setlength{\headheight}{35.46509pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-23.46509pt}.
+
+[9]
+<Pics/Fig15.png, id=241, 371.88937pt x 352.31625pt>
+File: Pics/Fig15.png Graphic file (type png)
+<use Pics/Fig15.png>
+Package pdftex.def Info: Pics/Fig15.png  used on input line 386.
+(pdftex.def)             Requested size: 200.19054pt x 189.65659pt.
+File: gw_monogram_2c.png Graphic file (type png)
+<use gw_monogram_2c.png>
+Package pdftex.def Info: gw_monogram_2c.png  used on input line 394.
+(pdftex.def)             Requested size: 42.67912pt x 31.86505pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 35.46509pt, for example:
+(fancyhdr)                \setlength{\headheight}{35.46509pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-23.46509pt}.
+
+[10 <./Pics/Fig14.png> <./Pics/Fig15.png>]
+<Pics/Fig16.png, id=250, 889.82437pt x 457.71pt>
+File: Pics/Fig16.png Graphic file (type png)
+<use Pics/Fig16.png>
+Package pdftex.def Info: Pics/Fig16.png  used on input line 423.
+(pdftex.def)             Requested size: 325.31154pt x 167.33165pt.
+<Pics/Fig17.png, id=251, 889.82437pt x 457.71pt>
+File: Pics/Fig17.png Graphic file (type png)
+<use Pics/Fig17.png>
+Package pdftex.def Info: Pics/Fig17.png  used on input line 435.
+(pdftex.def)             Requested size: 325.31154pt x 167.33165pt.
+File: gw_monogram_2c.png Graphic file (type png)
+<use gw_monogram_2c.png>
+Package pdftex.def Info: gw_monogram_2c.png  used on input line 439.
+(pdftex.def)             Requested size: 42.67912pt x 31.86505pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 35.46509pt, for example:
+(fancyhdr)                \setlength{\headheight}{35.46509pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-23.46509pt}.
+
+[11 <./Pics/Fig16.png>]
+<Pics/Fig18.png, id=269, 890.5772pt x 459.21562pt>
+File: Pics/Fig18.png Graphic file (type png)
+<use Pics/Fig18.png>
+Package pdftex.def Info: Pics/Fig18.png  used on input line 442.
+(pdftex.def)             Requested size: 325.31154pt x 167.74193pt.
+<Pics/Fig20.png, id=270, 377.91188pt x 269.50688pt>
+File: Pics/Fig20.png Graphic file (type png)
+<use Pics/Fig20.png>
+Package pdftex.def Info: Pics/Fig20.png  used on input line 449.
+(pdftex.def)             Requested size: 325.31154pt x 231.99756pt.
+File: gw_monogram_2c.png Graphic file (type png)
+<use gw_monogram_2c.png>
+Package pdftex.def Info: gw_monogram_2c.png  used on input line 453.
+(pdftex.def)             Requested size: 42.67912pt x 31.86505pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 35.46509pt, for example:
+(fancyhdr)                \setlength{\headheight}{35.46509pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-23.46509pt}.
+
+[12 <./Pics/Fig17.png> <./Pics/Fig18.png>]
+<Pics/Fig21.png, id=282, 892.83563pt x 461.47406pt>
+File: Pics/Fig21.png Graphic file (type png)
+<use Pics/Fig21.png>
+Package pdftex.def Info: Pics/Fig21.png  used on input line 457.
+(pdftex.def)             Requested size: 325.31154pt x 168.1444pt.
+<Pics/Fig19.png, id=283, 377.91188pt x 269.50688pt>
+File: Pics/Fig19.png Graphic file (type png)
+<use Pics/Fig19.png>
+Package pdftex.def Info: Pics/Fig19.png  used on input line 465.
+(pdftex.def)             Requested size: 325.31154pt x 231.99756pt.
+File: gw_monogram_2c.png Graphic file (type png)
+<use gw_monogram_2c.png>
+Package pdftex.def Info: gw_monogram_2c.png  used on input line 469.
+(pdftex.def)             Requested size: 42.67912pt x 31.86505pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 35.46509pt, for example:
+(fancyhdr)                \setlength{\headheight}{35.46509pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-23.46509pt}.
+
+[13 <./Pics/Fig20.png> <./Pics/Fig21.png>]
+<Pics/Fig22.png, id=296, 892.83563pt x 461.47406pt>
+File: Pics/Fig22.png Graphic file (type png)
+<use Pics/Fig22.png>
+Package pdftex.def Info: Pics/Fig22.png  used on input line 473.
+(pdftex.def)             Requested size: 325.31154pt x 168.1444pt.
+<Pics/Fig23.png, id=297, 892.83563pt x 461.47406pt>
+File: Pics/Fig23.png Graphic file (type png)
+<use Pics/Fig23.png>
+Package pdftex.def Info: Pics/Fig23.png  used on input line 481.
+(pdftex.def)             Requested size: 325.31154pt x 168.1444pt.
+<Pics/Fig24.png, id=298, 712.16063pt x 356.0803pt>
+File: Pics/Fig24.png Graphic file (type png)
+<use Pics/Fig24.png>
+Package pdftex.def Info: Pics/Fig24.png  used on input line 487.
+(pdftex.def)             Requested size: 325.31154pt x 162.6525pt.
+File: gw_monogram_2c.png Graphic file (type png)
+<use gw_monogram_2c.png>
+Package pdftex.def Info: gw_monogram_2c.png  used on input line 490.
+(pdftex.def)             Requested size: 42.67912pt x 31.86505pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 35.46509pt, for example:
+(fancyhdr)                \setlength{\headheight}{35.46509pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-23.46509pt}.
+
+[14 <./Pics/Fig19.png> <./Pics/Fig22.png>]
+<Pics/Fig25.png, id=311, 227.34938pt x 59.47218pt>
+File: Pics/Fig25.png Graphic file (type png)
+<use Pics/Fig25.png>
+Package pdftex.def Info: Pics/Fig25.png  used on input line 494.
+(pdftex.def)             Requested size: 325.31154pt x 85.09991pt.
+<Pics/Fig26.png, id=312, 890.5772pt x 457.71pt>
+File: Pics/Fig26.png Graphic file (type png)
+<use Pics/Fig26.png>
+Package pdftex.def Info: Pics/Fig26.png  used on input line 502.
+(pdftex.def)             Requested size: 325.31154pt x 167.19197pt.
+<Pics/Fig27.png, id=313, 712.16063pt x 356.0803pt>
+File: Pics/Fig27.png Graphic file (type png)
+<use Pics/Fig27.png>
+Package pdftex.def Info: Pics/Fig27.png  used on input line 508.
+(pdftex.def)             Requested size: 325.31154pt x 162.6525pt.
+File: gw_monogram_2c.png Graphic file (type png)
+<use gw_monogram_2c.png>
+Package pdftex.def Info: gw_monogram_2c.png  used on input line 511.
+(pdftex.def)             Requested size: 42.67912pt x 31.86505pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 35.46509pt, for example:
+(fancyhdr)                \setlength{\headheight}{35.46509pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-23.46509pt}.
+
+[15 <./Pics/Fig23.png> <./Pics/Fig24.png> <./Pics/Fig25.png>]
+<Pics/MatchFound1.png, id=327, 712.16063pt x 356.0803pt>
+File: Pics/MatchFound1.png Graphic file (type png)
+<use Pics/MatchFound1.png>
+Package pdftex.def Info: Pics/MatchFound1.png  used on input line 518.
+(pdftex.def)             Requested size: 325.31154pt x 162.6525pt.
+<Pics/MatchFail1.png, id=328, 712.16063pt x 356.0803pt>
+File: Pics/MatchFail1.png Graphic file (type png)
+<use Pics/MatchFail1.png>
+Package pdftex.def Info: Pics/MatchFail1.png  used on input line 525.
+(pdftex.def)             Requested size: 325.31154pt x 162.6525pt.
+File: gw_monogram_2c.png Graphic file (type png)
+<use gw_monogram_2c.png>
+Package pdftex.def Info: gw_monogram_2c.png  used on input line 529.
+(pdftex.def)             Requested size: 42.67912pt x 31.86505pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 35.46509pt, for example:
+(fancyhdr)                \setlength{\headheight}{35.46509pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-23.46509pt}.
+
+[16 <./Pics/Fig26.png> <./Pics/Fig27.png> <./Pics/MatchFound1.png>]
+File: gw_monogram_2c.png Graphic file (type png)
+<use gw_monogram_2c.png>
+Package pdftex.def Info: gw_monogram_2c.png  used on input line 569.
+(pdftex.def)             Requested size: 42.67912pt x 31.86505pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 35.46509pt, for example:
+(fancyhdr)                \setlength{\headheight}{35.46509pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-23.46509pt}.
+
+[17 <./Pics/MatchFail1.png>]
+File: gw_monogram_2c.png Graphic file (type png)
+<use gw_monogram_2c.png>
+Package pdftex.def Info: gw_monogram_2c.png  used on input line 621.
+(pdftex.def)             Requested size: 42.67912pt x 31.86505pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 35.46509pt, for example:
+(fancyhdr)                \setlength{\headheight}{35.46509pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-23.46509pt}.
+
+[18]
+<Pics/V1.png, id=424, 892.83563pt x 461.47406pt>
+File: Pics/V1.png Graphic file (type png)
+<use Pics/V1.png>
+Package pdftex.def Info: Pics/V1.png  used on input line 625.
+(pdftex.def)             Requested size: 325.31154pt x 168.1444pt.
+<Pics/V1_after.png, id=425, 892.83563pt x 461.47406pt>
+File: Pics/V1_after.png Graphic file (type png)
+<use Pics/V1_after.png>
+Package pdftex.def Info: Pics/V1_after.png  used on input line 631.
+(pdftex.def)             Requested size: 325.31154pt x 168.1444pt.
+File: gw_monogram_2c.png Graphic file (type png)
+<use gw_monogram_2c.png>
+Package pdftex.def Info: gw_monogram_2c.png  used on input line 651.
+(pdftex.def)             Requested size: 42.67912pt x 31.86505pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 35.46509pt, for example:
+(fancyhdr)                \setlength{\headheight}{35.46509pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-23.46509pt}.
+
+[19 <./Pics/V1.png> <./Pics/V1_after.png>]
+<Pics/FADDSTFR.png, id=452, 892.83563pt x 461.47406pt>
+File: Pics/FADDSTFR.png Graphic file (type png)
+<use Pics/FADDSTFR.png>
+Package pdftex.def Info: Pics/FADDSTFR.png  used on input line 672.
+(pdftex.def)             Requested size: 325.31154pt x 168.1444pt.
+File: gw_monogram_2c.png Graphic file (type png)
+<use gw_monogram_2c.png>
+Package pdftex.def Info: gw_monogram_2c.png  used on input line 692.
+(pdftex.def)             Requested size: 42.67912pt x 31.86505pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 35.46509pt, for example:
+(fancyhdr)                \setlength{\headheight}{35.46509pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-23.46509pt}.
+
+[20 <./Pics/FADDSTFR.png>]
+File: gw_monogram_2c.png Graphic file (type png)
+<use gw_monogram_2c.png>
+Package pdftex.def Info: gw_monogram_2c.png  used on input line 733.
+(pdftex.def)             Requested size: 42.67912pt x 31.86505pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 35.46509pt, for example:
+(fancyhdr)                \setlength{\headheight}{35.46509pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-23.46509pt}.
+
+[21] (./MachineSimulator.aux)
+Package rerunfilecheck Info: File `MachineSimulator.out' has not changed.
+(rerunfilecheck)             Checksum: 5FF97B6376A8F301B2461F2812CC817C;4969.
+ ) 
+Here is how much of TeX's memory you used:
+ 14426 strings out of 476001
+ 229254 string characters out of 5793198
+ 1940068 words of memory out of 5000000
+ 34469 multiletter control sequences out of 15000+600000
+ 518127 words of font info for 52 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 75i,16n,77p,541b,1932s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on MachineSimulator.pdf (21 pages, 981769 bytes).
+PDF statistics:
+ 580 PDF objects out of 1000 (max. 8388607)
+ 469 compressed objects within 5 object streams
+ 250 named destinations out of 1000 (max. 500000)
+ 408 words of extra memory for PDF output out of 10000 (max. 10000000)
+

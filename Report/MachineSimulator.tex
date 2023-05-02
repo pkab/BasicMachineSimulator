@@ -26,7 +26,7 @@
 
 \pagestyle{fancy}
 \fancyhf{}
-\lhead{\includegraphics[width=1.5cm]{gw_pos_monogram.png}}
+\lhead{\includegraphics[width=1.5cm]{gw_monogram_2c.png}}
 \rhead{CSCI 6461 Computer Systems and Architecture}
 % Title page information
 \title{%
@@ -350,7 +350,8 @@ features will be discussed in the next section.
   \item JZ  (0x08), JNE (0x09), JCC (0x0A), JMA (0x0B).
   \item JSR (0x0C), RFS (0x0D), SOB (0x0E), JGE (0x0F).
   \item MLT (0x10), DVD (0x11), TRR (0x12), AND (0x13), ORR (0x14), NOT (0x15).
-  \item TRAP(0x18), SRC (0x19), RRC (0x1A), IN  (0x31), OUT (0x32), CHK (0x33).
+  \item TRAP(0x18), SRC (0x19), RRC (0x1A), FADD(0x1B), FSUB(0x1C), VADD(0x1D).
+  \item VSUB(0x1E), CNVRT(0x1F), LDFR(0x28), STFR(0x29), FIN  (0x31), OUT (0x32), CHK (0x33).
 \end{itemize}
 
 \subsection{Cache Implementation}
@@ -596,6 +597,92 @@ In order to Run the Program 2 certain steps have to be setup before running the 
 0220 1F0A
 0221 CB01
 \end{lstlisting}
+\section{Vector Operations and Floating Point Operations Part IVa}
+Two Floating Point Registers has been added where for a 16bit format we have followed a format where 1 bit is used as the sign bit,
+7 bits for the exponents between the range(-63 to 64) and remaining bits for the mantissa.
+
+Floating Operations/Vector OpCodes are implemented and demonstrated in program 3 and program 4 respectively.
+For this part we have implemented the Vector Operations like this below:
+\begin{itemize}
+  \item Memory to Memory Operations performed.
+  \item Either FR0 or FR1 is used to obtain the size of the vector operations to be taken.
+\end{itemize}
+\subsection{Demonstration of Vector Operations/Floating Operations using Program 3}
+\begin{enumerate}
+  \item Run the Script to launch the Simulator.
+  \item Click on the Init Button.
+  \item Locate Program3.txt
+  \item Insert 100 into the MAR and press the load button to see the original button
+  \item Load the File.
+  \item Load the Value to 15 using the switches to the PC section.
+  \item Do single steps running. 
+  \item After Encountering the OpCode VADD.
+  \item Load the Value 100 into the MAR.
+  \item Press the Load Button to see the addition.
+  \item After doing single step operation again check the value stored in address 100 with VSUB.
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{Pics/V1.png}
+    \caption{V1 value before VADD.}
+    \label{fig:V1BVADD}
+  \end{figure}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{Pics/V1_after.png}
+    \caption{V1 value after VADD.}
+    \label{fig:V1BVADD2}
+  \end{figure}
+\end{enumerate}
+\subsection{Program 3 Source Code}
+\begin{lstlisting}[caption={Program 3 Source Code}]
+000B 0064
+000C 00C8
+000D 4200
+000E 4200
+000F A00D
+0064 000A
+0065 0015
+0066 0020
+0067 002B
+0068 0036
+0069 0041
+006A 004C
+006B 0057
+00C8 0009
+00C9 0012
+00CA 001B
+00CB 0024
+00CC 002D
+00CD 0036
+00CE 003F
+00CF 0048
+0010 740B
+0011 780B
+0012 0000
+\end{lstlisting}
+\subsection{Program 4 for ConvertOpCode}
+\begin{enumerate}
+  \item Follow the same steps provided for Program3.txt
+  \item Do the Single Step Operation from PC counter Location 
+  \item observe the values stored.
+  \item After the STFR Operation, check the value stored in The memory location  inside the MAR by Loading the Value at location 20.
+  \item We would obtain the resultant value stored in memory location.
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{Pics/FADDSTFR.png}
+    \caption{Floating Point Addition of Numbers and Then Storing it in memory location 20}
+    \label{fig:FADDSTFR}
+  \end{figure}
+\end{enumerate}
+\begin{lstlisting}[caption={Program 4 Source Code}]
+000B 42B8
+000C 3F40
+000D 0001
+000E 040D
+000F 7C0B
+0010 6C0C
+0011 A414
+\end{lstlisting}
 \section{Conclusion}
 Through this project, we learned about the macro and microstructures of CPUs, various 
 components of memory, and the execution of instructions. We were able to apply our understanding 
@@ -613,7 +700,9 @@ Contributions:
     \item Gui Development
     \item MFR and TRAP Code Implementation
     \item Report
-    \item Structure Design and implementation
+    \item Structure Design and implementation.
+    \item Implmented Floating Point Operations.
+    \item Bug Fixing for Program 3 and 4.
   \end{itemize}
   \item Dev Shah:
   \begin{itemize}[label=--]
@@ -622,6 +711,8 @@ Contributions:
     \item Main Gui Design
     \item Bug Fixes
     \item Program 2 Development Collaborator
+    \item Program 3 Developer.
+    \item Program 4 Developer.
   \end{itemize}
   \item Natalie Jordan:
   \begin{itemize}[label=--]
@@ -629,12 +720,14 @@ Contributions:
     \item Program for Testing (prog1.txt)
     \item Report Writing
     \item GUI Develpoment
+    \item GUI Developement for Floating Point Registers
   \end{itemize}
   \item AlHassan Halawani:
   \begin{itemize}[]
     \item OpCode Implemented: JSR, RFS, SOB, JGE
     \item Report Writing
-    \item Structure Implementation
+    \item Structure Implementation.
+    \item Floating Point Registers
   \end{itemize}
 \end{itemize}
 \end{document}

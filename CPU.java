@@ -588,9 +588,12 @@ public class CPU extends Converter
     public void VectorAdd(short fx, short EA, Memory m){
         short v1addr = m.Data[EA];
         short v2addr = m.Data[EA+1];
+        System.out.println(v1addr+" "+v2addr);
         float frVal = FloatingPointRegisters.shortToFloat(GetFloatingRegister(fx));
-        for(int i=0; i<frVal; i++)
+        for(int i=0; i<(int)frVal; i++){
             m.Data[v1addr+i] += m.Data[v2addr+i];
+            //System.out.println(m.Data[v1addr+i]);
+        }
     }
     /**
      * Vector Subtraction

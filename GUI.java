@@ -338,8 +338,13 @@ public class GUI extends JFrame
             }
     }
     public void RefreshFloatLED(int led){
+        char Rx[] = new char[16];
+        if(led==0)
+            cpu.DecimalToBinary(cpu.FR.FR0, Rx, 16);
+        else 
+            cpu.DecimalToBinary(cpu.FR.FR1, Rx, 16);
         for(int i=0;i<16;i++){
-            if(swarr[i]==1){
+            if(Rx[i]==1){
                 switch(led){
                     case 0:
                         FR0[i].setBackground(Color.green);
